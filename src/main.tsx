@@ -7,6 +7,7 @@ import NotFound from './pages/test/NotFound.tsx';
 import Home from './pages/Home/Home.tsx';
 import Login from './pages/Login/Login.tsx';
 import Min from './pages/min.tsx'
+import Sol from './pages/sol.tsx'
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,8 @@ const router = createBrowserRouter([
     children:[
       {index: true, path: "/", element: <Home/>},
       {path:"/login", element: <Login/>},
-      {path:"/min", element: <Min/>}
+      {path:"/min", element: <Min/>},
+      {path:"/sol", element: <Sol/>}
     ],
   }
 ])
