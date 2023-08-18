@@ -1,15 +1,16 @@
-import React from 'react';
-import './Title.module.scss';
+import React from "react";
+import styles from "./Title.module.scss";
 
 interface TitleProps {
-  size: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p';
+  size: "h1" | "h2" | "h3" | "h4" | "h5" | "p";
   children: React.ReactNode;
 }
 
-function Title ({size, children: TitleProps}) {
-    const TitleTag = size;
-
-    return <TitleTag className="title">{children}</TitleTag>
-    
+export default function Title({ size, children }: TitleProps) {
+  const TitleTag = size;
+  return (
+    <TitleTag className={`${styles.title} ${styles[size]}`}>
+      {children}
+    </TitleTag>
+  );
 }
-
