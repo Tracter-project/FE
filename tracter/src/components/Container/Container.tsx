@@ -1,7 +1,13 @@
-export default function Container() {
-  return(
-    <section>
-      1400px
-    </section>
-  );
+import {ReactNode} from 'react';
+
+interface ContainerProps {
+    children: ReactNode;
+}
+
+export default function Container({children}: ContainerProps) {
+    return (
+        <section>
+            {children}
+        </section>
+    );
 }
