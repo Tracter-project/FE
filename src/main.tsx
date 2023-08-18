@@ -4,8 +4,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from './App.tsx'
 import '../src/assets/styles/global.scss';
 import NotFound from './pages/test/NotFound.tsx';
-import Home from './pages/test/Home/Home.tsx';
-import Login from './pages/test/Login/Login.tsx';
+import Home from './pages/Home/Home.tsx';
+import Login from './pages/Login/Login.tsx';
+import Min from './pages/min.tsx'
 
 const router = createBrowserRouter([
   {
@@ -14,7 +15,8 @@ const router = createBrowserRouter([
     errorElement:<NotFound/>,
     children:[
       {index: true, path: "/", element: <Home/>},
-      {path:"/login", element: <Login/>}
+      {path:"/login", element: <Login/>},
+      {path:"/min", element: <Min/>}
     ],
   }
 ])
