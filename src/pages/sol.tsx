@@ -6,6 +6,7 @@ import ModifyButton from "../components/ModifyButton/ModifyButton";
 import LikeButton from "../components/LikeButton/LikeButton";
 import PostTitleInput from "../components/PostTitleInput/PostTitleInput";
 import PostContentInput from "../components/PostContentInput/PostContentInput";
+import SerachPlace from "../components/SerachPlace/SerachPlace";
 
 export default function Sol() {
   return (
@@ -20,6 +21,7 @@ export default function Sol() {
       <Comment>댓글 작성</Comment>
       <PostTitleInput></PostTitleInput>
       <PostContentInput></PostContentInput>
+      <SerachPlace></SerachPlace>
     </>
   );
 }
