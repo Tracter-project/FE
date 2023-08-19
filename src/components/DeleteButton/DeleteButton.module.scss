@@ -1,0 +1,12 @@
+.deleteButton {
+  border: none;
+  background: none;
+  outline: none;
+  margin: 10px;
+
+  .trashIcon {
+    width: 40px;
+    height: 40px;
+    scale: (0.8);
+  }
+}
