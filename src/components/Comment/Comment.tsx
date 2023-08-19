@@ -4,16 +4,16 @@ import Title from "../Title/Title";
 
 interface CommentProps {
   children: React.ReactNode;
-  commentInput: string;
+  // commentInput: string;
 }
 
-// commentInput
-export default function Comment({ children, commentInput }: CommentProps) {
+// value={commentInput}
+export default function Comment({ children }: CommentProps) {
   return (
     <>
-      <div className={styles.CommentBox}>
-        <input className={styles.CommentInput} value={commentInput}></input>
-        <button className={styles.CommentButton}>
+      <div className={styles.commentBox}>
+        <input className={styles.commentInput}></input>
+        <button className={styles.commentButton}>
           <Title size="p">{children}</Title>
         </button>
       </div>
