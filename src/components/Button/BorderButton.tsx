@@ -2,14 +2,14 @@ import React from "react";
 import styles from "./Button.module.scss";
 import Title from "../Title/Title";
 
-interface ButtonProps {
+interface BorderButtonProps {
     children: React.ReactNode;
 }
 
-export default function Button({ children }: ButtonProps) {
+export default function BorderButton({ children }: BorderButtonProps) {
     return (
         <>
-            <button className={styles.button}>
+            <button className={styles.borderbutton}>
                 <Title size="p">{children}</Title>
             </button>
         </>
