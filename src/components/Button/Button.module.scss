@@ -38,3 +38,17 @@
   background-color: #4477CE;
   border: 1px solid #4477CE;
 }
+
+.borderbutton {
+  width: 100%;
+  height: 48px;
+  border: 1px solid #A5A5A5;
+  background-color: inherit;
+  transition: .5s;
+}
+
+.borderbutton:hover {
+  background-color: #4477CE;
+  border: 1px solid #4477CE;
+  color: #fff;
+}
