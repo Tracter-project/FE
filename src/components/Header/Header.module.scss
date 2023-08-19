@@ -2,17 +2,35 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  z-index: 99;
 
   .logo {
     width: 33.3%;
+
+    &:hover a {
+      color: #4477CE;
+    }
   }
 
   .center {
-    width: 33.3%;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 30px;
+
+    .dropdown {
+      padding: 0 10px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+
+
+    p:hover>a {
+      color: #4477CE;
+
+    }
   }
 
   .right {
@@ -21,6 +39,11 @@
     justify-content: center;
     align-items: center;
     gap: 30px;
+
+    p:hover a {
+      color: #4477CE;
+
+    }
 
     .search {
       display: flex;
