@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Title.module.scss";
 
 interface TitleProps {
-    size: "h1" | "h2" | "h3" | "h4" | "h5" | "p";
+    size: "h1" | "h2" | "h3" | "h4" | "h5" | "b" | "p" | "sub";
     children: React.ReactNode;
 }
 

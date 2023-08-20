@@ -19,7 +19,16 @@
     font-size: 20px;
   }
 
+  &.b {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
   &.p {
     font-size: 16px;
+  }
+
+  &.sub {
+    font-size: 12px
   }
 }
