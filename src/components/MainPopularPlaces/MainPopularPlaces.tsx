@@ -1,11 +1,14 @@
 import Title from "../Title/Title";
+import styles from "./MainPopularPlaces.module.scss";
+
 interface PopularItem {
     id: number;
-    imageURl: string;
+    imageUrl: string;
     title: string;
-    desciption: string;
+    description: string;
     popularity: number;
 }
+
 interface MainPopularPlacesProps {
     popularList: PopularItem[];
 }
@@ -19,10 +22,13 @@ export default function MainPopularPlaces(props: MainPopularPlacesProps) {
     return (
         <>
             {sortedPopularList.map((item) => (
-                <div key={item.id}>
-                    <img src={item.imageURl} alt={item.title} />
-                    <Title size="h5">{item.title}</Title>
-                    <Title size="p">{item.desciption}</Title>
+                <div key={item.id} className={styles.popularPlaces}>
+                    <img src={item.imageUrl} alt={item.title} />
+                    <div className={styles.titleWrap}>
+                        <Title size="h5">{item.title}</Title>
+                        <Title size="p">{item.description}</Title>
+                    </div>
+                    {/* 좋아요 버튼 추가해야합니다 */}
                 </div>
             ))}
         </>

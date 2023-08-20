@@ -1,0 +1,27 @@
+.popularPlaces {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: inherit;
+
+
+  img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+
+  .titleWrap {
+    position: absolute;
+    bottom: -30px;
+    background-color: #fff;
+    width: 15rem;
+    height: 15rem;
+
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+  }
+}
