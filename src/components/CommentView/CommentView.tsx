@@ -26,7 +26,7 @@ export default function CommentView(props: CommentViewProps) {
             <Title size="p">{comment.comment}</Title>
           </div>
           <div className={styles.commentDate}>
-            <Title size="p">{comment.date}</Title>
+            <Title size="sub">{comment.date}</Title>
           </div>
         </div>
       ))}

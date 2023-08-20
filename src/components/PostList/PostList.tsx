@@ -30,10 +30,10 @@ export default function PostsList(props: PostListProps) {
           <section className={styles.left}>
             <div className={styles.lefttop}>
               <div className={styles.nickname}>
-                <Title size="h5">{post.nickname}</Title>
+                <Title size="b">{post.nickname}</Title>
               </div>
               <div className={styles.date}>
-                <Title size="p">{post.date}</Title>
+                <Title size="sub">{post.date}</Title>
               </div>
             </div>
 
