@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Title from "../components/Title/Title";
 import Button from "../components/Button/Button";
 import MainLargeButton from "../components/Button/MainLargeButton";
@@ -5,13 +6,107 @@ import MainButton from "../components/Button/MainButton";
 import BorderButton from "../components/Button/BorderButton";
 import Input from "../components/Input/Input";
 import CheckBox from "../components/CheckBox/CheckBox";
+import MainPopularPlaces from "../components/MainPopularPlaces/MainPopularPlaces";
+import MainNewPlaces from "../components/MainNewPlaces/MainNewPlaces";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { MdEmail } from "react-icons/md";
-import { useState } from "react";
+
+//인기숙소리스트 타입
+interface PopularItem {
+    id: number;
+    imageUrl: string;
+    title: string;
+    description: string;
+    popularity: number;
+}
+
+//신규숙소리스트 타입
+interface NewItem {
+    id: number;
+    imageUrl: string;
+    title: string;
+    description: string;
+    date: Date;
+}
 
 export default function Min() {
+    //checkbox 상태관리
     const [checkBoxChecked, setCheckBoxChecked] = useState(false);
+
+    //인기숙소 리스트
+    // const [popularList setPopularList] = useState<PopularItem[]/>([])
+
+    // useEffect(()=> {
+    //   //DB에서 데이터를 불러오는 코드
+    //   //불러온 데이터를 setPopularList로 설정
+
+    //   //예시로 임시 데이터를 사용한 예시
+    //   const fetchedPopularList: PopularItem[] = [
+
+    //     {
+    //       id: 1,
+    //       imageUrl: 'https://yaimg.yanolja.com/v5/2022/10/31/12/640/635fc0f6abccc1.66460254.jpg',
+    //       title: '서울 호캉스',
+    //       description: '호캉스 상세정보',
+    //       popularity: 5,
+    //     },
+    //     {
+    //       id: 2,
+    //       imageUrl: 'URL_2',
+    //       title: '제주도 여행',
+    //       description: '제주도 여행 상세정보',
+    //       popularity: 8,
+    //     },
+
+    //   ];
+
+    //   setPopularList(fetchedPopularList)
+    // },[])
+
+    //인기숙소
+    const dummyPopularList: PopularItem[] = [
+        {
+            id: 1,
+            imageUrl:
+                "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
+            title: "서울 호캉스",
+            description: "호캉스 상세정보",
+            popularity: 5,
+        },
+        {
+            id: 2,
+            imageUrl:
+                "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
+            title: "제주도 여행",
+            description: "제주도 여행 상세정보",
+            popularity: 8,
+        },
+    ];
+
+    //신규숙소
+    const dummyNewList: NewItem[] = [
+        {
+            id: 1,
+            imageUrl:
+                "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
+            title: "서울 호캉스",
+            description: "호캉스 상세정보",
+            date: new Date("2023-08-20T12:30:00"),
+        },
+        {
+            id: 2,
+            imageUrl:
+                "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
+            title: "제주도 여행",
+            description: "제주도 여행 상세정보",
+            date: new Date("2023-08-19T15:45:00"),
+        },
+    ];
+
+    // 시간 정렬
+    dummyNewList.sort((a, b) => b.date.getTime() - a.date.getTime());
+
     return (
         <>
             <Title size="h1">
@@ -27,6 +122,8 @@ export default function Min() {
                 checked={checkBoxChecked}
                 onChange={() => setCheckBoxChecked(!checkBoxChecked)}
             ></CheckBox>
+            <MainPopularPlaces popularList={dummyPopularList} />
+            <MainNewPlaces newList={dummyNewList} />
         </>
     );
 }
