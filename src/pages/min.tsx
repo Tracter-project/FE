@@ -7,6 +7,7 @@ import BorderButton from "../components/Button/BorderButton";
 import Input from "../components/Input/Input";
 import CheckBox from "../components/CheckBox/CheckBox";
 import MainPopularPlaces from "../components/MainPopularPlaces/MainPopularPlaces";
+import MainNewPlaces from "../components/MainNewPlaces/MainNewPlaces";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { MdEmail } from "react-icons/md";
@@ -18,6 +19,15 @@ interface PopularItem {
     title: string;
     description: string;
     popularity: number;
+}
+
+//신규숙소리스트 타입
+interface NewItem {
+    id: number;
+    imageUrl: string;
+    title: string;
+    description: string;
+    date: Date;
 }
 
 export default function Min() {
@@ -54,6 +64,7 @@ export default function Min() {
     //   setPopularList(fetchedPopularList)
     // },[])
 
+    //인기숙소
     const dummyPopularList: PopularItem[] = [
         {
             id: 1,
@@ -71,8 +82,30 @@ export default function Min() {
             description: "제주도 여행 상세정보",
             popularity: 8,
         },
-        // 추가적인 인기순위 항목들
     ];
+
+    //신규숙소
+    const dummyNewList: NewItem[] = [
+        {
+            id: 1,
+            imageUrl:
+                "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
+            title: "서울 호캉스",
+            description: "호캉스 상세정보",
+            date: new Date("2023-08-20T12:30:00"),
+        },
+        {
+            id: 2,
+            imageUrl:
+                "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
+            title: "제주도 여행",
+            description: "제주도 여행 상세정보",
+            date: new Date("2023-08-19T15:45:00"),
+        },
+    ];
+
+    // 시간 정렬
+    dummyNewList.sort((a, b) => b.date.getTime() - a.date.getTime());
 
     return (
         <>
@@ -89,9 +122,8 @@ export default function Min() {
                 checked={checkBoxChecked}
                 onChange={() => setCheckBoxChecked(!checkBoxChecked)}
             ></CheckBox>
-            <div>
-                <MainPopularPlaces popularList={dummyPopularList} />
-            </div>
+            <MainPopularPlaces popularList={dummyPopularList} />
+            <MainNewPlaces newList={dummyNewList} />
         </>
     );
 }

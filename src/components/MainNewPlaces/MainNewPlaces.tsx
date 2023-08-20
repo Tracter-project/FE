@@ -1,28 +1,25 @@
 import Title from "../Title/Title";
-import styles from "./MainPopularPlaces.module.scss";
+import styles from "./MainNewPlaces.module.scss";
 
-interface PopularItem {
+interface NewItem {
     id: number;
     imageUrl: string;
     title: string;
     description: string;
-    popularity: number; //인기순
+    date: Date; //최신 날짜 순서
 }
 
-interface MainPopularPlacesProps {
-    popularList: PopularItem[];
+interface MainNewPlacesProps {
+    newList: NewItem[];
 }
 
-export default function MainPopularPlaces(props: MainPopularPlacesProps) {
-    const { popularList } = props;
+export default function MainNewPlaces(props: MainNewPlacesProps) {
+    const { newList } = props;
 
-    const sortedPopularList = popularList.sort(
-        (a, b) => b.popularity - a.popularity
-    );
     return (
         <>
-            {sortedPopularList.map((item) => (
-                <div key={item.id} className={styles.popularPlaces}>
+            {newList.map((item) => (
+                <div key={item.id} className={styles.newPlaces}>
                     <img src={item.imageUrl} alt={item.title} />
                     <div className={styles.titleWrap}>
                         <Title size="h5">{item.title}</Title>
