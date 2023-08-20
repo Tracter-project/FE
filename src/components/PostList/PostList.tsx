@@ -18,8 +18,10 @@ interface PostListProps {
   postList: NewPost[];
 }
 
+// post Link 걸기
 export default function PostsList(props: PostListProps) {
   const { postList } = props;
+  const maxLength: number = 15;
 
   return (
     <>
@@ -40,7 +42,11 @@ export default function PostsList(props: PostListProps) {
             </div>
 
             <div className={styles.postContent}>
-              <Title size="p">{post.contents}</Title>
+              <Title size="p">
+                {post.contents.length > maxLength
+                  ? post.contents.substring(0, maxLength) + "..."
+                  : post.contents}
+              </Title>
             </div>
 
             <div className={styles.leftbottom}>
