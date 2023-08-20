@@ -21,6 +21,12 @@ interface IPost {
   placeImage: string;
 }
 
+interface IComment {
+  nickname: string;
+  comment: string;
+  date: string;
+}
+
 export default function Sol() {
   const dummyPostList: IPost[] = [
     {
@@ -48,15 +54,26 @@ export default function Sol() {
     },
   ];
 
+  const dummyCommentList: IComment[] = [
+    {
+      nickname: "이뽀리",
+      comment: "댓글ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ",
+      date: new Date("2023-08-19T15:45:00").toLocaleString(),
+    },
+    {
+      nickname: "이뽀리",
+      comment: "댓글ㄹㄹㄹㄹㄹㄹㄹㄹdfasdfsdfasdㅁㅇㄴㄹㅇㄴㅁㄱㄴㄹㅁㄴㅇㄱㄴㄹㅁㄴㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄱㄴㅇㄹㅊㅁㄴㅇㄱㄴㅇㄱㄹㄹㄹ",
+      date: new Date("2023-08-19T15:45:00").toLocaleString(),
+    },
+  ];
+
   return (
     <>
       <LikeButton></LikeButton>
       <AddButton></AddButton>
       <ModifyButton></ModifyButton>
       <DeleteButton></DeleteButton>
-      <CommentView></CommentView>
-      <CommentView></CommentView>
-      <CommentView></CommentView>
+      <CommentView commentList={dummyCommentList}></CommentView>
       <Comment>댓글 작성</Comment>
       <PostTitleInput></PostTitleInput>
       <PostContentInput></PostContentInput>
