@@ -2,29 +2,34 @@
 import styles from "./CommentView.module.scss";
 import Title from "../Title/Title";
 
-// interface CommentViewProps {
-//   children: React.ReactNode;
-// }
-// { children }: CommentViewProps
-// // commentInput
+interface NewComment {
+  nickname: string;
+  comment: string;
+  date: string;
+}
 
-export default function Comment() {
-  // const {nickname, content, date} = children;
-  // 체크박스
+interface CommentViewProps {
+  commentList: NewComment[];
+}
+
+export default function CommentView(props: CommentViewProps) {
+  const { commentList } = props;
 
   return (
     <>
-      <div className={styles.commentView}>
-        <div className={styles.commentNickname}>
-          <Title size="h3">닉네임</Title>
+      {commentList.map((comment) => (
+        <div className={styles.commentView}>
+          <div className={styles.commentNickname}>
+            <Title size="h5">{comment.nickname}</Title>
+          </div>
+          <div className={styles.commentContent}>
+            <Title size="p">{comment.comment}</Title>
+          </div>
+          <div className={styles.commentDate}>
+            <Title size="p">{comment.date}</Title>
+          </div>
         </div>
-        <div className={styles.commentContent}>
-          <Title size="p">댓글 내용 입니다.</Title>
-        </div>
-        <div className={styles.commentDate}>
-          <Title size="p">날짜</Title>
-        </div>
-      </div>
+      ))}
     </>
   );
 }
