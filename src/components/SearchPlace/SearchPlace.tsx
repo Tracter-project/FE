@@ -18,6 +18,7 @@ export default function SearchPlace({
         <input
           type="text"
           className="searchInput"
+          placeholder="숙소 찾기"
           value={searchInput}
           onChange={onChange}
         />

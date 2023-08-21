@@ -23,6 +23,10 @@ export default function PostsList(props: PostListProps) {
   const { postList } = props;
   const maxLength: number = 15;
 
+  const handleLikeBtn = (postId: number) => {
+    alert(`ID ${postId} 게시글 좋아요`);
+  };
+
   return (
     <>
       <div className={styles.postList}>
@@ -61,7 +65,9 @@ export default function PostsList(props: PostListProps) {
                   <Title size="h5">{post.subject}</Title>
                 </div>
                 <div className={styles.likeButton}>
-                  <LikeButton></LikeButton>
+                  <LikeButton
+                    onClick={() => handleLikeBtn(post.id)}
+                  ></LikeButton>
                 </div>
               </div>
               <div className={styles.thumbnail}>
