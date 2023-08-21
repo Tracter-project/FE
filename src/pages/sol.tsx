@@ -45,7 +45,7 @@ export default function Sol() {
         "https://yaimg.yanolja.com/v5/2023/07/11/16/640/64ad86a29096a7.09459065.jpg",
     },
     {
-      id: 1,
+      id: 100,
       subject: "기타",
       nickname: "이뽀리",
       title: "글 제목",
@@ -111,7 +111,7 @@ export default function Sol() {
   return (
     <>
       {/* <LikeButton onClick={handleModifyButton}></LikeButton> */}
-      <AddButton onClick={handleAddButton}></AddButton>
+      {/* <AddButton onClick={handleAddButton}></AddButton> */}
       {/* <ModifyButton onClick={handleModifyButton}></ModifyButton> */}
       {/* <DeleteButton onClick={handleDeleteButton}></DeleteButton> */}
       <CommentView commentList={dummyCommentList}></CommentView>
