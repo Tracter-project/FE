@@ -183,7 +183,6 @@ export default function Min() {
                 onAdd={handleAdd}
                 setData={setData}
             ></AdminTable>
-            <sup>fds</sup>
         </>
     );
 }
