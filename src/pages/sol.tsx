@@ -8,6 +8,8 @@ import PostTitleInput from "../components/PostTitleInput/PostTitleInput";
 import PostContentInput from "../components/PostContentInput/PostContentInput";
 import SerachPlace from "../components/SerachPlace/SerachPlace";
 import PostList from "../components/PostList/PostList";
+import React, { useState, ChangeEvent } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface IPost {
   id: number;
@@ -62,21 +64,53 @@ export default function Sol() {
     },
     {
       nickname: "이뽀리",
-      comment: "댓글ㄹㄹㄹㄹㄹㄹㄹㄹdfasdfsdfasdㅁㅇㄴㄹㅇㄴㅁㄱㄴㄹㅁㄴㅇㄱㄴㄹㅁㄴㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄱㄴㅇㄹㅊㅁㄴㅇㄱㄴㅇㄱㄹㄹㄹ",
+      comment:
+        "댓글ㄹㄹㄹㄹㄹㄹㄹㄹdfasdfsdfasdㅁㅇㄴㄹㅇㄴㅁㄱㄴㄹㅁㄴㅇㄱㄴㄹㅁㄴㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄱㄴㅇㄹㅊㅁㄴㅇㄱㄴㅇㄱㄹㄹㄹ",
       date: new Date("2023-08-19T15:45:00").toLocaleString(),
     },
   ];
 
+  //CommentSubmit
+  const [commentInput, setCommentInput] = useState("");
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setCommentInput(event.target.value);
+  };
+
+  const handleCommentSubmit = () => {
+    alert(commentInput); // api
+  };
+
+  // AddButton - (1) 글 작성 페이지로 이동
+  const navigate = useNavigate();
+  const handleAddButton = () => {
+    navigate("/community/addpost");
+  };
+
+  // postContentInput
+  const [contentInput, setContentInput] = useState("");
+  const handleContentInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setContentInput(event.target.value);
+  };
   return (
     <>
-      <LikeButton></LikeButton>
-      <AddButton></AddButton>
-      <ModifyButton></ModifyButton>
-      <DeleteButton></DeleteButton>
+      {/* <LikeButton onClick={handleModifyButton}></LikeButton>
+      <AddButton onClick={handleAddButton}></AddButton>
+      <ModifyButton onClick={handleModifyButton}></ModifyButton>
+      <DeleteButton onClick={handleDeleteButton}></DeleteButton> */}
       <CommentView commentList={dummyCommentList}></CommentView>
-      <Comment>댓글 작성</Comment>
+      <Comment
+        commentInput={commentInput}
+        onChange={handleInputChange}
+        onClick={handleCommentSubmit}
+      >
+        댓글 작성
+      </Comment>
       <PostTitleInput></PostTitleInput>
-      <PostContentInput></PostContentInput>
+      <PostContentInput
+        onChange={handleContentInput}
+        contentInput={contentInput}
+      ></PostContentInput>
       <SerachPlace></SerachPlace>
       <PostList postList={dummyPostList}></PostList>
     </>

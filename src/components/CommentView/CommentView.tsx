@@ -1,4 +1,3 @@
-// import React from "react";
 import styles from "./CommentView.module.scss";
 import Title from "../Title/Title";
 

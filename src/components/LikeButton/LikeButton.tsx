@@ -2,11 +2,14 @@
 import styles from "./LikeButton.module.scss";
 import { FaHeart } from "react-icons/fa";
 
-// onClick={}
-export default function LikeButton() {
+interface LikeButtonProps {
+  onClick: () => void;
+}
+
+export default function LikeButton({ onClick }: LikeButtonProps) {
   return (
     <>
-      <button type="button" className={styles.likeButton}>
+      <button type="button" className={styles.likeButton} onClick={onClick}>
         <FaHeart className={styles.heartIcon} />
       </button>
     </>
