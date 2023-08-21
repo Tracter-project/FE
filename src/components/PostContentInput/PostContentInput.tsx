@@ -1,6 +1,5 @@
-import React, { ChangeEvent } from "react";
+import { ChangeEvent } from "react";
 import styles from "./PostContentInput.module.scss";
-import Title from "../Title/Title";
 
 interface PostContentProps {
   contentInput: string;

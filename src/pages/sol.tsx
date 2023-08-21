@@ -6,7 +6,7 @@ import ModifyButton from "../components/ModifyButton/ModifyButton";
 import LikeButton from "../components/LikeButton/LikeButton";
 import PostTitleInput from "../components/PostTitleInput/PostTitleInput";
 import PostContentInput from "../components/PostContentInput/PostContentInput";
-import SerachPlace from "../components/SerachPlace/SerachPlace";
+import SearchPlace from "../components/SearchPlace/SearchPlace";
 import PostList from "../components/PostList/PostList";
 import React, { useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
@@ -24,6 +24,7 @@ interface IPost {
 }
 
 interface IComment {
+  id: number;
   nickname: string;
   comment: string;
   date: string;
@@ -58,11 +59,13 @@ export default function Sol() {
 
   const dummyCommentList: IComment[] = [
     {
+      id: 1,
       nickname: "이뽀리",
       comment: "댓글ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ",
       date: new Date("2023-08-19T15:45:00").toLocaleString(),
     },
     {
+      id: 2,
       nickname: "이뽀리",
       comment:
         "댓글ㄹㄹㄹㄹㄹㄹㄹㄹdfasdfsdfasdㅁㅇㄴㄹㅇㄴㅁㄱㄴㄹㅁㄴㅇㄱㄴㄹㅁㄴㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄱㄴㅇㄹㅊㅁㄴㅇㄱㄴㅇㄱㄹㄹㄹ",
@@ -87,17 +90,30 @@ export default function Sol() {
     navigate("/community/addpost");
   };
 
+  // postTitleInput
+  const [titleInput, setTitleInput] = useState("");
+  const handleTitleInput = (event: ChangeEvent<HTMLInputElement>) => {
+    setTitleInput(event.target.value);
+  };
+
   // postContentInput
   const [contentInput, setContentInput] = useState("");
   const handleContentInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContentInput(event.target.value);
   };
+
+  // serachPlace
+  const [searchInput, setSearchInput] = useState("");
+  const handleSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(event.target.value);
+  };
+
   return (
     <>
-      {/* <LikeButton onClick={handleModifyButton}></LikeButton>
+      {/* <LikeButton onClick={handleModifyButton}></LikeButton> */}
       <AddButton onClick={handleAddButton}></AddButton>
-      <ModifyButton onClick={handleModifyButton}></ModifyButton>
-      <DeleteButton onClick={handleDeleteButton}></DeleteButton> */}
+      {/* <ModifyButton onClick={handleModifyButton}></ModifyButton> */}
+      {/* <DeleteButton onClick={handleDeleteButton}></DeleteButton> */}
       <CommentView commentList={dummyCommentList}></CommentView>
       <Comment
         commentInput={commentInput}
@@ -106,12 +122,18 @@ export default function Sol() {
       >
         댓글 작성
       </Comment>
-      <PostTitleInput></PostTitleInput>
+      <PostTitleInput
+        onChange={handleTitleInput}
+        titleInput={titleInput}
+      ></PostTitleInput>
       <PostContentInput
         onChange={handleContentInput}
         contentInput={contentInput}
       ></PostContentInput>
-      <SerachPlace></SerachPlace>
+      <SearchPlace
+        searchInput={searchInput}
+        onChange={handleSearchInput}
+      ></SearchPlace>
       <PostList postList={dummyPostList}></PostList>
     </>
   );
