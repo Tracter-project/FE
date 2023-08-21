@@ -8,7 +8,13 @@
   margin: 10px 0;
   gap: 20px;
 
+  .checkbox {
+    margin-right: -50px;
+    margin-top: 10px;
+  }
+
   .commentNickname {
+    margin-left: -20px;
     color: black;
   }
   .commentContent {

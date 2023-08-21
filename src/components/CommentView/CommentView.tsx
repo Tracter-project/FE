@@ -1,8 +1,10 @@
-// import React from "react";
 import styles from "./CommentView.module.scss";
 import Title from "../Title/Title";
+import CheckBox from "../CheckBox/CheckBox";
+// import { useState } from "react";
 
 interface NewComment {
+  id: number;
   nickname: string;
   comment: string;
   date: string;
@@ -18,7 +20,10 @@ export default function CommentView(props: CommentViewProps) {
   return (
     <>
       {commentList.map((comment) => (
-        <div className={styles.commentView}>
+        <div className={styles.commentView} key={comment.id}>
+          <div className={styles.checkbox}>
+            <CheckBox></CheckBox>
+          </div>
           <div className={styles.commentNickname}>
             <Title size="h5">{comment.nickname}</Title>
           </div>

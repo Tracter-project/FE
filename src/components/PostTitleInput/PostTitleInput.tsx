@@ -1,11 +1,23 @@
-// import React from "react";
+import { ChangeEvent } from "react";
 import styles from "./PostTitleInput.module.scss";
 
-// onClick={}
-export default function PostTitleInput() {
+interface PostContentProps {
+  titleInput: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export default function PostTitleInput({
+  titleInput,
+  onChange,
+}: PostContentProps) {
   return (
     <>
-      <input type="text" className={styles.postTitleInput} />
+      <input
+        type="text"
+        className={styles.postTitleInput}
+        value={titleInput}
+        onChange={onChange}
+      />
     </>
   );
 }
