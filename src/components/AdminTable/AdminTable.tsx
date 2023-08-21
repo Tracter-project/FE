@@ -66,7 +66,7 @@ export default function AdminTable({
                 <ModifyButton onClick={() => onEdit(0)}></ModifyButton>
 
                 <DeleteButton
-                    onClick={() => handleDeleteSelected}
+                    onClick={() => handleDeleteSelected()}
                 ></DeleteButton>
             </div>
             <table className={styles.table}>
