@@ -15,6 +15,7 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { MdEmail } from "react-icons/md";
 import LoginImg from "../assets/loginImg.png";
 
+
 //인기숙소리스트 타입
 interface PopularItem {
     id: number;
@@ -178,6 +179,7 @@ export default function Min() {
             ></CheckBox>
             <MainPopularPlaces popularList={dummyPopularList} />
             <MainNewPlaces newList={dummyNewList} />
+            
             <AdminTable
                 data={data}
                 onEdit={handleEdit}
