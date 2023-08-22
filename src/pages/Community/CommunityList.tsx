@@ -39,6 +39,28 @@ export default function CommunityList() {
       date: "1일 전",
       placeImage: "",
     },
+    {
+      id: 101,
+      subject: "기타",
+      nickname: "이뽀리",
+      title: "글 제목",
+      contents: "dfasdfsdrsdfasdrsdfasdsarsfasdrdsrsadfasdfsd",
+      postLikeCount: 90,
+      commentsCount: 20,
+      date: "1일 전",
+      placeImage: "",
+    },
+    {
+      id: 102,
+      subject: "기타",
+      nickname: "이뽀리",
+      title: "글 제목",
+      contents: "dfasdfsdrsdfasdrsdfasdsarsfasdrdsrsadfasdfsd",
+      postLikeCount: 90,
+      commentsCount: 20,
+      date: "1일 전",
+      placeImage: "",
+    },
   ];
 
   return (

@@ -9,35 +9,37 @@ import Login from "./pages/Login/Login.tsx";
 import Register from "./pages/Register/Register.tsx";
 import Admin from "./pages/Admin/Admin.tsx";
 import AdminCategory from "./pages/Admin/AdminCategory.tsx";
+import CommunityList from "./pages/Community/CommunityList.tsx";
 import Min from "./pages/min.tsx";
 import Sol from "./pages/sol.tsx";
 import Ho from "./pages/ho.tsx";
 import Seok from "./pages/seok.tsx";
+
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <App />,
-        errorElement: <NotFound />,
-        children: [
-            { index: true, path: "/", element: <Home /> },
-            { path: "/login", element: <Login /> },
-            { path: "/register", element: <Register /> },
-            { path: "/admin", element: <Admin /> },
-            { path: "/admin/category", element: <AdminCategory /> },
-            { path: "/min", element: <Min /> },
-            { path: "/sol", element: <Sol /> },
-            { path: "/ho", element: <Ho /> },
-            { path: "/seok", element: <Seok /> },
-            { path: "/community/list", element: <Seok /> },
-        ],
-    },
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <NotFound />,
+    children: [
+      { index: true, path: "/", element: <Home /> },
+      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Register /> },
+      { path: "/admin", element: <Admin /> },
+      { path: "/admin/category", element: <AdminCategory /> },
+      { path: "/community/list", element: <CommunityList /> },
+      { path: "/min", element: <Min /> },
+      { path: "/sol", element: <Sol /> },
+      { path: "/ho", element: <Ho /> },
+      { path: "/seok", element: <Seok /> },
+    ],
+  },
 ]);
 
 const root = ReactDOM.createRoot(
-    document.getElementById("root") as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
-    <React.StrictMode>
-        <RouterProvider router={router} />
-    </React.StrictMode>
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
 );
