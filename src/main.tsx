@@ -14,6 +14,7 @@ import Min from "./pages/min.tsx";
 import Sol from "./pages/sol.tsx";
 import Ho from "./pages/ho.tsx";
 import Seok from "./pages/seok.tsx";
+import CommunityAddPost from "./pages/Community/CommunityAddPost.tsx";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       { path: "/admin", element: <Admin /> },
       { path: "/admin/category", element: <AdminCategory /> },
       { path: "/community/list", element: <CommunityList /> },
+      { path: "/community/addpost", element: <CommunityAddPost /> },
       { path: "/min", element: <Min /> },
       { path: "/sol", element: <Sol /> },
       { path: "/ho", element: <Ho /> },
