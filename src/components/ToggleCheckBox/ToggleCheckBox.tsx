@@ -1,30 +1,35 @@
-// import React from 'react';
-// import styles from './ToggleCheckBox.module.scss';
+import React, { useState } from 'react';
+import ToggleCheckBoxSetting from './ToggleCheckBoxSetting';
+import './ToggleCheckBox.scss';
 
-// type ToggleCheckBoxProps = {
-//   id: string;
-//   isChecked: boolean;
-//   onChange: React.ChangeEventHandler<HTMLInputElement>;
-//   label: string;
-//   className?: string;
-// }
+const App = (): React.ReactElement => {
+    const [checkedStates, setCheckedStates] = useState<{ [checkboxName: string]: boolean }>({
+        roundCheckbox1: false,
+        roundCheckbox2: false,
+        roundCheckbox3: false,
+    });
 
-// const ToggleCheckBox: React.FC<ToggleCheckBoxProps> = (props) => {
-//   return (
-//     <>
-//       <input
-//         type="checkbox"
-//         id={props.id}
-//         className={styles.checkBox}
-//         checked={props.isChecked}
-//         onChange={props.onChange}
-//       />
-//       <label htmlFor={props.id} className={`${styles.checkLabel} ${props.className}`}>
-//         {props.label}
-        
-//       </label>
-//     </>
-//   );
-// };
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, checked } = e.target;
 
-// export default ToggleCheckBox;
+        setCheckedStates((prevState) => ({
+            ...prevState,
+            [name]: checked,
+        }));
+    };
+
+    return (
+        <div>
+            <ToggleCheckBoxSetting
+                label="체크박스 예시"
+                name="roundCheckbox1"
+                checked={checkedStates.roundCheckbox1}
+                onChange={handleChange}
+            />
+           
+            
+        </div>
+    );
+};
+
+export default App;
