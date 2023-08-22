@@ -1,0 +1,32 @@
+.addPostContainer {
+  margin: 40px 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .checkboxWrap {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+
+    .checkbox {
+      width: 520px;
+      display: flex;
+      justify-content: flex-start;
+    }
+  }
+
+  .inputWrap {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+
+    b {
+      position: relative;
+      top: 20px;
+    }
+    .inputBox {
+      width: 520px;
+    }
+  }
+}
