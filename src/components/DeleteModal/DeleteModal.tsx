@@ -1,14 +1,17 @@
-import styles from "./DeleteModal.module.scss";
 import React from "react";
-import Title from "../Title/Title";
+import styles from "./DeleteModal.module.scss";
 import { FaTimes } from "react-icons/fa";
 
-export default function DeleteModal() {
-  return (
-    <div className={styles.deleteModal}>
-      <Title size="h2" className={styles.title}>
-        <FaTimes className={styles.closeBtn} />
-      </Title>
-    </div>
-  );
+interface DeleteModalProps {
+    children: React.ReactNode;
+    className: string;
+}
+
+export default function DeleteModal({ children, className }: DeleteModalProps) {
+    return (
+        <div className={styles.deleteModal}>
+            <FaTimes className={styles.closeBtn} />
+            <div className={className}>{children}</div>
+        </div>
+    );
 }
