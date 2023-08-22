@@ -1,11 +1,14 @@
-import styles from './EditedInput.module.scss';
+import React from "react";
+import styles from "./EditedInput.module.scss";
 
-export default function EditedInput() {
-  return (
-    <>
-      <label htmlFor="EditInput">기존 카테고리</label>
-      <br />
-      <input type="text" id={styles.EditInput} value="호캉스" />
-    </>
-  );
+interface EditedInputProps {
+    value: string;
+}
+
+export default function EditedInput({ value }: EditedInputProps) {
+    return (
+        <>
+            <input type="text" id={styles.EditInput} value={value} readOnly />
+        </>
+    );
 }
