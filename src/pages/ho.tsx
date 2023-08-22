@@ -4,6 +4,8 @@ import TestScore from '../components/TestScore/TestScore';
 import TestSelectButton from '../components/TestSelectButton/TestSelectButton';
 import EditedInput from '../components/EditedInput/EditedInput';
 import TestProgress from '../components/TestProgress/TestProgress';
+import TabMenu from '../components/TapMenu/TapMenu';
+import ToggleCheckBox from '../components/ToggleCheckBox/ToggleCheckBox';
 
 export default function Ho() {
     return (
@@ -11,10 +13,11 @@ export default function Ho() {
             <TestScore />
             <TestSelectButton />
             <TestButton />
-            {/* <ToggleCheckBox /> */}
             <NewInput />
             <EditedInput />
             <TestProgress />
+            <TabMenu />
+            <ToggleCheckBox />
         </>
     );
 }
