@@ -5,9 +5,7 @@
 }
 
 .newInputWrap {
-  b {
-    margin-bottom: 20px;
-  }
+  margin-bottom: 40px;
 
   .inputBox {
     display: flex;
@@ -17,5 +15,36 @@
     button {
       width: 20%;
     }
+  }
+}
+
+.editedInputWrap {
+
+
+  .inputBox {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .buttonWrap {
+    width: 20%;
+    display: flex;
+    gap: 20px;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+
+  h2 {
+    margin-bottom: 50px;
+    font-weight: bold;
+  }
+
+  b {
+    margin-bottom: 40px;
   }
 }
