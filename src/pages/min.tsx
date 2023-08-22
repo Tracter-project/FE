@@ -9,9 +9,11 @@ import CheckBox from "../components/CheckBox/CheckBox";
 import MainPopularPlaces from "../components/MainPopularPlaces/MainPopularPlaces";
 import MainNewPlaces from "../components/MainNewPlaces/MainNewPlaces";
 import AdminTable from "../components/AdminTable/AdminTable";
+import LocalImg from "../components/LocalImg/LocalImg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { MdEmail } from "react-icons/md";
+import LoginImg from "../assets/loginImg.png";
 
 //인기숙소리스트 타입
 interface PopularItem {
@@ -183,6 +185,11 @@ export default function Min() {
                 onAdd={handleAdd}
                 setData={setData}
             ></AdminTable>
+            <LocalImg
+                src={LoginImg}
+                alt="로그인 이미지"
+                className="imgStyle"
+            ></LocalImg>
         </>
     );
 }

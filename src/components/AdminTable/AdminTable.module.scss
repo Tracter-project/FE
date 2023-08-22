@@ -1,10 +1,32 @@
 .tableWrap {
   display: flex;
   flex-direction: column;
+  border-radius: 10px;
+
+
 
   .buttonIcon {
     align-self: flex-end;
   }
 
+  table {
+    border: 5px solid #959595;
+    border-collapse: collapse;
+    box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.20);
+  }
 
+  thead {
+    border: 5px solid #959595;
+
+    th {
+      border: 5px solid #959595;
+    }
+  }
+
+  tbody {
+    td {
+      border: 5px solid #959595;
+      text-align: center;
+    }
+  }
 }
