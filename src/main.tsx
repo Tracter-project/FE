@@ -28,6 +28,7 @@ const router = createBrowserRouter([
             { path: "/sol", element: <Sol /> },
             { path: "/ho", element: <Ho /> },
             { path: "/seok", element: <Seok /> },
+            { path: "/community/list", element: <Seok /> },
         ],
     },
 ]);
