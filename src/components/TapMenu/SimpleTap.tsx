@@ -10,11 +10,11 @@ type SimpleTapProps = {
     children: React.ReactElement<TabProps>[];
 };
 
-export const Tab: React.FC<TabProps> = ({ children }) => {
+export const Tab = ({ children, aKey, title }: TabProps): JSX.Element | null => {
     return <div>{children}</div>;
 };
 
-const SimpleTap: React.FC<SimpleTapProps> = ({ children }) => {
+const SimpleTap = ({ children }: SimpleTapProps): JSX.Element | null => {
     const [activeKey, setActiveKey] = useState(children[0].props.aKey);
 
     const handleTabClick = (aKey: string) => {

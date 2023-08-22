@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "./EditedInput.module.scss";
+import React from 'react';
+import styles from './EditedInput.module.scss';
 
 interface EditedInputProps {
     value: string;
