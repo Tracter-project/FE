@@ -1,9 +1,15 @@
+.postList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .postContainer {
-  width: 100%;
+  width: 640px;
   height: 220px;
   display: flex;
   align-items: flex-start;
-  padding: 10px 40px;
+  padding: 20px 40px;
   border-radius: 10px;
   box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2);
   margin: 10px 0;
@@ -25,17 +31,18 @@
   }
 
   .postTitle {
-    margin-top: 20px;
+    margin-top: 30px;
   }
 
   .postContent {
-    margin: 10px 0 40px 0;
+    margin: 10px 0 40px;
   }
 
   .leftbottom {
     display: flex;
     justify-content: flex-start;
     gap: 10px;
+    margin-bottom: 50px;
     color: #a4a4a4;
   }
 
@@ -45,7 +52,7 @@
 
     .likeButton {
       position: relative;
-      bottom: 6px;
+      bottom: 11px;
     }
   }
 
