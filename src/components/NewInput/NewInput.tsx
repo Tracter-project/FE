@@ -1,9 +1,11 @@
 import styles from "./NewInput.module.scss";
-
-export default function NewInput() {
+interface NewInput {
+    type: string;
+}
+export default function NewInput({ type }: NewInput) {
     return (
         <>
-            <input type="text" id={styles.NewInput}></input>
+            <input type={type} id={styles.NewInput}></input>
         </>
     );
 }
