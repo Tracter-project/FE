@@ -10,11 +10,11 @@ import MainPopularPlaces from "../components/MainPopularPlaces/MainPopularPlaces
 import MainNewPlaces from "../components/MainNewPlaces/MainNewPlaces";
 import AdminTable from "../components/AdminTable/AdminTable";
 import LocalImg from "../components/LocalImg/LocalImg";
+import MyPagePlaces from "../components/MyPagePlaces/MyPagePlaces";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { MdEmail } from "react-icons/md";
 import LoginImg from "../assets/loginImg.png";
-
 
 //인기숙소리스트 타입
 interface PopularItem {
@@ -32,6 +32,13 @@ interface NewItem {
     title: string;
     description: string;
     date: Date;
+}
+
+//마이페이지숙소리스트 타입
+interface MyItem {
+    id: number;
+    imageUrl: string;
+    title: string;
 }
 
 export default function Min() {
@@ -131,6 +138,22 @@ export default function Min() {
         },
     ];
 
+    //마이페이지숙소 더미
+    const dummyMyPageList: MyItem[] = [
+        {
+            id: 1,
+            imageUrl:
+                "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
+            title: "서울 호캉스",
+        },
+        {
+            id: 2,
+            imageUrl:
+                "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
+            title: "제주도 여행",
+        },
+    ];
+
     // 시간 정렬
     dummyNewList.sort((a, b) => b.date.getTime() - a.date.getTime());
 
@@ -179,7 +202,7 @@ export default function Min() {
             ></CheckBox>
             <MainPopularPlaces popularList={dummyPopularList} />
             <MainNewPlaces newList={dummyNewList} />
-            
+
             <AdminTable
                 data={data}
                 onEdit={handleEdit}
@@ -192,6 +215,7 @@ export default function Min() {
                 alt="로그인 이미지"
                 className="imgStyle"
             ></LocalImg>
+            <MyPagePlaces myList={dummyMyPageList}></MyPagePlaces>
         </>
     );
 }
