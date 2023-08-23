@@ -48,3 +48,86 @@
     margin-bottom: 40px;
   }
 }
+
+.modal {
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+
+
+  .addList {
+    display: flex;
+    flex-direction: column;
+
+    margin: 0 auto;
+
+    h2 {
+      margin-bottom: 120px;
+    }
+
+    .addWarp {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+
+      .imgInput {
+        display: flex;
+        align-items: center;
+        text-align: center;
+
+        b {
+          width: 15%;
+        }
+
+        input {
+          position: relative;
+        }
+
+        input[type=file]::file-selector-button {
+          position: absolute;
+          right: 0;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          width: 84px;
+          height: 32px;
+
+        }
+
+      }
+
+      .check {
+        display: flex;
+        text-align: center;
+
+        b {
+          width: 15%;
+        }
+
+        .checkbox {
+          display: flex;
+          width: 100%;
+        }
+      }
+
+      .input {
+        display: flex;
+        align-items: center;
+        text-align: center;
+
+        b {
+          width: 15%;
+        }
+
+        .checkbox {
+          display: flex;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  button {
+    margin: 0 auto;
+    margin-top: 52px;
+  }
+}

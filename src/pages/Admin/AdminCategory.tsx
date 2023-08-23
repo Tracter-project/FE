@@ -10,8 +10,8 @@ function NewInputWrap() {
         <div className={styles.newInputWrap}>
             <Title size="b">카테고리 추가</Title>
             <div className={styles.inputBox}>
-                <NewInput type="type"></NewInput>
-                <Button>추가</Button>
+                <NewInput type="text" onChange={() => {}} />
+                <Button onClick={() => {}}>추가</Button>
             </div>
         </div>
     );
@@ -24,8 +24,8 @@ function EditedInputWrap() {
             <div className={styles.inputBox}>
                 <EditedInput value="호캉스"></EditedInput>
                 <div className={styles.buttonWrap}>
-                    <Button>수정</Button>
-                    <Button>삭제</Button>
+                    <Button onClick={() => {}}>수정</Button>
+                    <Button onClick={() => {}}>삭제</Button>
                 </div>
             </div>
         </div>

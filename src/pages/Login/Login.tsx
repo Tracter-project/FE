@@ -20,7 +20,7 @@ export default function Login() {
                 <Title size="h5">로그인</Title>
                 <Input icon={<MdEmail />} text={"이메일"} />
                 <Input icon={<AiFillLock />} text={"비밀번호"} />
-                <Button>로그인</Button>
+                <Button onClick={() => {}}>로그인</Button>
             </div>
         </form>
     );
