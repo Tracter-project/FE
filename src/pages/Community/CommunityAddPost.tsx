@@ -47,7 +47,7 @@ export default function AddPost() {
 
   return (
     <div className={styles.addPostContainer}>
-      <div >
+      <div className={styles.checkboxWrap}>
         <Title size="b">글머리</Title>
         <div className={styles.checkbox}>
           <RoundCheckbox label="후기" name="roundCheckbox1" />

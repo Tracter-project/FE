@@ -30,6 +30,7 @@ export default function Admin() {
         },
     ]);
 
+    () => {}
     //adminTable CRUD
     const handleEdit = (id: number) => {
         //수정 로직 구현
