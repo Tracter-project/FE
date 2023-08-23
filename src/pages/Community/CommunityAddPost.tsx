@@ -46,10 +46,13 @@ export default function CommunityAddPost() {
   // 기타 => (SearchPlace, Place MainImage, Place Title) 숨기기
   return (
     <div className={styles.addPostContainer}>
-      <SearchPlace
-        searchInput={searchInput}
-        onChange={handleSearchInput}
-      ></SearchPlace>
+      <div className={styles.addPostHead}>
+        <Title size="h2">글 작성</Title>
+      </div>
+        <SearchPlace
+          searchInput={searchInput}
+          onChange={handleSearchInput}
+        ></SearchPlace>
       <div className={styles.placeInfo}>
         <img src={place.mainImage} alt="Place Image" />
         <Title size="b">{place.title}</Title>

@@ -1,8 +1,12 @@
 .addPostContainer {
-  margin: 5% 0;
+  margin: 2% 0;
   display: flex;
   align-items: center;
   flex-direction: column;
+
+  .addPostHead {
+    align-self: flex-start;
+  }
 
   .placeInfo {
     display: flex;
