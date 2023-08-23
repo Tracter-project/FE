@@ -3,15 +3,14 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  
+
   .checkboxWrap {
     display: flex;
     justify-content: flex-start;
     gap: 20px;
-    width: 600px;
 
     .checkbox {
-      width: 80%;
+      width: 520px;
       display: flex;
       justify-content: flex-start;
     }
@@ -22,14 +21,12 @@
     justify-content: flex-start;
     gap: 20px;
 
-    width: 600px;
-
     b {
       position: relative;
       top: 20px;
     }
     .inputBox {
-      width: 80%;
+      width: 520px;
     }
   }
 }
