@@ -1,16 +1,55 @@
 import styles from "./MainImage.module.scss";
-import React from "react";
+import Title from "../Title/Title";
+import LikeButton from "../LikeButton/LikeButton";
 
-const MainImage: React.FC = () => {
-  return (
-    <div className={styles.mainImage}>
-      <img
-        src="https://yaimg.yanolja.com/v5/2022/10/31/12/640/635fc0f6abccc1.66460254.jpg" // 이미지 파일의 경로
-        alt="Main Image" // 대체 텍스트
-        className="main-image"
-      />
-    </div>
+interface MainImageItem {
+  id: number;
+  imageUrl: string;
+  title: string;
+  popularity: number;
+  price: number; // 가격
+}
+
+interface MainImageProps {
+  MainImageList: MainImageItem[];
+}
+
+export default function MainImage(props: MainImageProps) {
+  const { MainImageList } = props;
+
+  const sortedPopularList = MainImageList.sort(
+    (a, b) => b.popularity - a.popularity
   );
-};
+  const handleLikeBtn = (postId: number) => {
+    alert(`ID ${postId} 게시글 좋아요`);
+  };
 
-export default MainImage;
+  return (
+    <>
+      <div className={styles.mainBox}>
+        {sortedPopularList.map((item) => (
+          <div key={item.id} className={styles.mainImage}>
+            <img src={item.imageUrl} alt={item.title} />
+            <div className={styles.mainWrap}>
+              <div className={styles.mainTitle}>
+                <Title size="b" className={styles.title}>
+                  {item.title}
+                </Title>
+                <Title size="p" className={styles.popularity}>
+                  <LikeButton
+                    onClick={() => handleLikeBtn(item.id)}
+                  ></LikeButton>
+                  {item.popularity}
+                </Title>
+              </div>
+              <Title size="b" className={styles.price}>
+                {item.price}
+              </Title>
+            </div>
+            {/* 좋아요 버튼 추가해야합니다 */}
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
