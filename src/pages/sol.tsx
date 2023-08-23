@@ -1,20 +1,20 @@
 import Comment from "../components/Comment/Comment";
 import CommentView from "../components/CommentView/CommentView";
-import AddButton from "../components/AddButton/AddButton";
-import DeleteButton from "../components/DeleteButton/DeleteButton";
-import ModifyButton from "../components/ModifyButton/ModifyButton";
-import LikeButton from "../components/LikeButton/LikeButton";
+// import AddButton from "../components/AddButton/AddButton";
+// import DeleteButton from "../components/DeleteButton/DeleteButton";
+// import ModifyButton from "../components/ModifyButton/ModifyButton";
+// import LikeButton from "../components/LikeButton/LikeButton";
 import PostTitleInput from "../components/PostTitleInput/PostTitleInput";
 import PostContentInput from "../components/PostContentInput/PostContentInput";
 import SearchPlace from "../components/SearchPlace/SearchPlace";
 import PostList from "../components/PostList/PostList";
-import React, { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface IPost {
   id: number;
   subject: string;
-  nickname: string;
+  writer: string;
   title: string;
   contents: string;
   postLikeCount: number;
@@ -25,7 +25,7 @@ interface IPost {
 
 interface IComment {
   id: number;
-  nickname: string;
+  writer: string;
   comment: string;
   date: string;
 }

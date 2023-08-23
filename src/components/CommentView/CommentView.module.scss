@@ -8,7 +8,7 @@
 
     .title {
       position: relative;
-      top: 15px;
+      top: 20px;
     }
 
     .icons {
@@ -30,13 +30,12 @@
     gap: 20px;
 
     .checkbox {
-      margin-right: -50px;
-      margin-top: 10px;
+      margin-right: -30px;
+      margin-top: 5px;
     }
 
-    .commentWriter{
-      // margin-left: -20px;
-      // color: black;
+    .commentWriter {
+      width: 10%;
     }
     .commentContent {
       width: 70%;

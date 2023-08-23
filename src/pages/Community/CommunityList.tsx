@@ -23,10 +23,10 @@ export default function CommunityList() {
 
   return (
     <div className={styles.communityListContainer}>
-      <div className={styles.addButton}>
-        <AddButton onClick={handleAddButton}></AddButton>
-      </div>
-      <PostList postList={dummyPostList}></PostList>
+        <div className={styles.addButton}>
+          <AddButton onClick={handleAddButton}></AddButton>
+        </div>
+        <PostList postList={dummyPostList}></PostList>{" "}
     </div>
   );
 }
@@ -70,6 +70,16 @@ const dummyPostList: IPost[] = [
     id: 102,
     subject: "기타",
     writer: "이뽀리",
+    title: "글 제목",
+    contents: "dfasdfsdrsdfasdrsdfasdsarsfasdrdsrsadfasdfsd",
+    postLikeCount: 90,
+    commentsCount: 20,
+    date: "1일 전",
+    placeImage: "",
+  },  {
+    id: 103,
+    subject: "기타",
+    writer: "뽀리",
     title: "글 제목",
     contents: "dfasdfsdrsdfasdrsdfasdsarsfasdrdsrsadfasdfsd",
     postLikeCount: 90,
