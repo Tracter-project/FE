@@ -1,8 +1,11 @@
-import Title from "../../components/Title/Title";
-import AdminTable from "../../components/AdminTable/AdminTable";
 import { useState } from "react";
 import styles from "./Admin.module.scss";
-
+import Title from "../../components/Title/Title";
+import AdminTable from "../../components/AdminTable/AdminTable";
+import DeleteModal from "../../components/DeleteModal/DeleteModal";
+import Button from "../../components/Button/Button";
+import NewInput from "../../components/NewInput/NewInput";
+import ToggleCheckBox from "../../components/ToggleCheckBox/ToggleCheckBox";
 export default function Admin() {
     const [data, setData] = useState([
         {
@@ -27,6 +30,7 @@ export default function Admin() {
         },
     ]);
 
+    () => {}
     //adminTable CRUD
     const handleEdit = (id: number) => {
         //수정 로직 구현
@@ -66,6 +70,32 @@ export default function Admin() {
                 onAdd={handleAdd}
                 setData={setData}
             ></AdminTable>
+            <DeleteModal className={styles.content}>
+                <Title size="h2">숙소리스트 삭제</Title>
+                <Title size="b">숙소리스트를 삭제하시겠습니까?</Title>
+                <Button>확인</Button>
+            </DeleteModal>
+            <AddWrap></AddWrap>
         </>
     );
+
+    function AddWrap() {
+        return (
+            <>
+                <Title size="h2">숙소 리스트 추가</Title>
+                <div className={styles.addwarp}>
+                    <div className={styles.imgInput}>
+                        <Title size="b">사진첨부</Title>
+                        <NewInput type="file"></NewInput>
+                    </div>
+                    <div className={styles.area}>
+                        <Title size="b">지역</Title>
+                        <div className={styles.checkbox}>
+                            <ToggleCheckBox></ToggleCheckBox>
+                        </div>
+                    </div>
+                </div>
+            </>
+        );
+    }
 }
