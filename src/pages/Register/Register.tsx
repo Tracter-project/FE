@@ -58,7 +58,7 @@ export default function Register() {
                 text={"비밀번호 확인"}
                 className={styles.passwordinput}
             />
-            <Button>가입하기</Button>
+            <Button onClick={() => {}}>가입하기</Button>
         </form>
     );
 }
