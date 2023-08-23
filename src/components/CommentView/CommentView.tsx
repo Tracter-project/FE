@@ -53,12 +53,16 @@ export default function CommentView(props: CommentViewProps) {
         </div>
         {commentList.map((comment) => (
           <div className={styles.commentView} key={comment.id}>
-            {/* <div className={styles.checkbox}>
-              <CheckBox
-                checked={comment.id === selectedCommentId}
-                onChange={() => handleCheckboxChange(comment.id)}
-              />
-            </div> */}
+            {comment.id === 1 ? (
+              <div className={styles.checkbox}>
+                <CheckBox
+                  checked={comment.id === selectedCommentId}
+                  onChange={() => handleCheckboxChange(comment.id)}
+                />
+              </div>
+            ) : (
+              ""
+            )}
             <div className={styles.commentWriter}>
               <Title size="h5">{comment.writer}</Title>
             </div>

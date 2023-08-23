@@ -1,6 +1,6 @@
 import Title from "../../components/Title/Title";
 import styles from "./CommunityAddPost.module.scss";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PostTitleInput from "../../components/PostTitleInput/PostTitleInput";
 import PostContentInput from "../../components/PostContentInput/PostContentInput";
 import { ChangeEvent, useState } from "react";
@@ -28,10 +28,10 @@ export default function CommunityAddPost() {
   };
 
   // 작성하기 버튼
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const handleSubmit = () => {
     alert(`제목: ${titleInput}\n내용: ${contentInput}`); // post api
-    // navigate("/community/list");
+    navigate("/community/list");
   };
 
   // searchInput에 검색된 place 불러오기
