@@ -1,32 +1,65 @@
-.addPostContainer {
-  margin: 40px 0;
+.postDetailsContainer {
+  margin: 5% 0;
+  width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
 
-  .checkboxWrap {
+  .postContainer {
     display: flex;
-    justify-content: flex-start;
-    gap: 20px;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: 50%;
+    padding: 20px 40px;
+    margin: 10px 0;
 
-    .checkbox {
-      width: 520px;
+    .lefttop {
       display: flex;
       justify-content: flex-start;
+      gap: 10px;
+
+      .writer {
+        margin-top: 2px;
+      }
+
+      .date {
+        color: #a4a4a4;
+      }
+    }
+
+    .postTitle {
+      margin-top: 30px;
+    }
+
+    .postContent {
+      margin: 60px 0 100px 0;
+      width: 90%;
+    }
+
+    .leftbottom {
+      display: flex;
+      justify-content: flex-start;
+      gap: 10px;
+      color: #a4a4a4;
+    }
+
+    .right {
+      .buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        position: relative;
+        bottom: 11px;
+      }
+      img {
+        margin: 30px 0;
+        width: 615px;
+        height: 370px;
+      }
     }
   }
 
-  .inputWrap {
-    display: flex;
-    justify-content: flex-start;
-    gap: 20px;
-
-    b {
-      position: relative;
-      top: 20px;
-    }
-    .inputBox {
-      width: 520px;
-    }
+  .commentContainer {
+    margin-top: 50px;
   }
 }
