@@ -168,7 +168,7 @@ export default function Min() {
                 <FontAwesomeIcon icon={faPen} />
                 hello
             </Title>
-            <Button>가입하기</Button>
+            <Button onClick={() => {}}>가입하기</Button>
             <MainLargeButton>테스트 하러가기</MainLargeButton>
             <MainButton>바로가기</MainButton>
             <BorderButton>메일 발송</BorderButton>
