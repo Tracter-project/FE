@@ -15,6 +15,7 @@ import Sol from "./pages/sol.tsx";
 import Ho from "./pages/ho.tsx";
 import Seok from "./pages/seok.tsx";
 import CommunityAddPost from "./pages/Community/CommunityAddPost.tsx";
+import PlaceAddPost from "./pages/Community/PlaceAddPost.tsx";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
       { path: "/admin/category", element: <AdminCategory /> },
       { path: "/community/list", element: <CommunityList /> },
       { path: "/community/addpost", element: <CommunityAddPost /> },
+      { path: "/place/addpost", element: <PlaceAddPost /> }, // + :placeId
       { path: "/min", element: <Min /> },
       { path: "/sol", element: <Sol /> },
       { path: "/ho", element: <Ho /> },
