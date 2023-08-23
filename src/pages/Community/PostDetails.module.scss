@@ -2,7 +2,6 @@
   margin: 5% 0;
   width: 100%;
   display: flex;
-  align-items: center;
   flex-direction: column;
 
   .postContainer {
@@ -44,12 +43,11 @@
     }
 
     .right {
-      .buttons {
+      .buttons,
+      .writerButtons {
         display: flex;
         justify-content: flex-end;
         gap: 10px;
-        position: relative;
-        bottom: 11px;
       }
       img {
         margin: 30px 0;
@@ -61,5 +59,36 @@
 
   .commentContainer {
     margin-top: 50px;
+  }
+
+  .editMode {
+    margin: 40px 0;
+
+    .postTitle input {
+      width: 600px;
+      height: 48px;
+      border: 1px solid #a5a5a5;
+      border-radius: 10px;
+      padding: 20px;
+      font-size: 24px;
+    }
+
+    .postContent textarea {
+      width: 600px;
+      height: 400px;
+      border: 1px solid #a5a5a5;
+      border-radius: 10px;
+      padding: 20px;
+      font-size: 20px;
+      position: relative;
+      bottom: 20px;
+    }
+
+    .submitButton {
+      position: relative;
+      bottom: 90px;
+      display: flex;
+      gap: 20px;
+    }
   }
 }

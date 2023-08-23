@@ -6,6 +6,8 @@ import Title from "../../components/Title/Title";
 import DeleteButton from "../../components/DeleteButton/DeleteButton";
 import ModifyButton from "../../components/ModifyButton/ModifyButton";
 import LikeButton from "../../components/LikeButton/LikeButton";
+import { useNavigate, useParams } from "react-router-dom";
+import Button from "../../components/Button/Button";
 
 interface IPost {
   id: number;
@@ -41,10 +43,6 @@ interface IComment {
 }
 
 export default function PostDetails() {
-  //handleButtons
-  const handleModifyBtn = (postId: number) => {
-    alert(`ID ${postId} 게시글 수정`);
-  };
   const handleDeleteBtn = (postId: number) => {
     alert(`ID ${postId} 게시글 삭제`);
   };
@@ -52,10 +50,33 @@ export default function PostDetails() {
     alert(`ID ${postId} 게시글 좋아요`);
   };
 
+  // 수정하기
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [modifiedTitle, setModifiedTitle] = useState(post.title);
+  const [modifiedContents, setModifiedContents] = useState(post.contents);
+
+  // 글 수정 버튼 클릭 시 수정 모드 활성화
+  const handleModifyBtn = () => {
+    setIsEditMode(true);
+  };
+
+  // 수정
+  const handleModifyTitle = (event: ChangeEvent<HTMLInputElement>) => {
+    setModifiedTitle(event.target.value);
+  };
+  const handleModifyContent = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setModifiedContents(event.target.value);
+  };
+
+  const handleSubmitBtn = () => {
+    alert(`수정된제목: ${modifiedTitle}\n수정된 내용: ${modifiedContents}`);
+    setIsEditMode(false);
+  };
+
   //CommentSubmit
   const [commentInput, setCommentInput] = useState("");
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleCommentInput = (event: ChangeEvent<HTMLInputElement>) => {
     setCommentInput(event.target.value);
   };
 
@@ -67,7 +88,7 @@ export default function PostDetails() {
   return (
     <div className={styles.postDetailsContainer}>
       <div className={styles.postContainer}>
-        <section className={styles.left}>
+        <div className={styles.left}>
           <div className={styles.lefttop}>
             <div className={styles.writer}>
               <Title size="b">{post.writer}</Title>
@@ -77,31 +98,56 @@ export default function PostDetails() {
             </div>
           </div>
 
-          <div className={styles.postTitle}>
-            <Title size="h2">{post.title}</Title>
-          </div>
-
-          <div className={styles.postContent}>
-            <Title size="h5">{post.contents}</Title>
-          </div>
+          {isEditMode ? (
+            <div className={styles.editMode}>
+              <div className={styles.postTitle}>
+                <input value={modifiedTitle} onChange={handleModifyTitle} />
+              </div>
+              <div className={styles.postContent}>
+                <textarea
+                  value={modifiedContents}
+                  onChange={handleModifyContent}
+                />
+              </div>
+              <div className={styles.submitButton}>
+                <Button onClick={() => setIsEditMode(false)}>취소</Button>
+                <Button onClick={handleSubmitBtn}>수정하기</Button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className={styles.postTitle}>
+                <Title size="h3">{post.title}</Title>
+              </div>
+              <div className={styles.postContent}>
+                <Title size="h5">{post.contents}</Title>
+              </div>
+            </>
+          )}
 
           <div className={styles.leftbottom}>
             <Title size="p">좋아요 {post.postLikeCount}개</Title>
             <Title size="p">댓글 {post.commentsCount}개</Title>
           </div>
-        </section>
-        <section className={styles.right}>
+        </div>
+        <div className={styles.right}>
           <div className={styles.righttop}>
             {/* <div>
               <Title size="h5">{post.subject}</Title>
             </div> */}
             <div className={styles.buttons}>
-              <ModifyButton
-                onClick={() => handleModifyBtn(post.id)}
-              ></ModifyButton>
-              <DeleteButton
-                onClick={() => handleDeleteBtn(post.id)}
-              ></DeleteButton>
+              {post.writer === "이뽀리" ? (
+                <div className={styles.writerButtons}>
+                  <ModifyButton
+                    onClick={() => setIsEditMode(true)}
+                  ></ModifyButton>
+                  <DeleteButton
+                    onClick={() => handleDeleteBtn(post.id)}
+                  ></DeleteButton>
+                </div>
+              ) : (
+                ""
+              )}
               <LikeButton onClick={() => handleLikeBtn(post.id)}></LikeButton>
             </div>
           </div>
@@ -110,13 +156,13 @@ export default function PostDetails() {
           ) : (
             ""
           )}
-        </section>
-      </div>{" "}
+        </div>
+      </div>
       <div className={styles.commentContainer}>
         <CommentView commentList={dummyCommentList}></CommentView>
         <Comment
           commentInput={commentInput}
-          onChange={handleInputChange}
+          onChange={handleCommentInput}
           onClick={handleCommentSubmit}
         >
           댓글 작성
