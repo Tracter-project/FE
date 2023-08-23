@@ -41,37 +41,42 @@ export default function PlaceAddPost() {
   };
 
   return (
-    <div className={styles.addPostContainer}>
-      <div className={styles.placeInfo}>
-        <img src={place.mainImage} alt="Place Image" />
-        <Title size="b">{place.title}</Title>
-      </div>
-      <div className={styles.checkboxWrap}>
-        <Title size="b">글머리</Title>
-        <div className={styles.checkbox}>
-          <RoundCheckbox label="후기" name="roundCheckbox1" />
-          <RoundCheckbox label="질문" name="roundCheckbox1" />
+    <>
+      <div className={styles.addPostContainer}>
+        <div className={styles.addPostHead}>
+          <Title size="h2">글 작성</Title>
+        </div>
+        <div className={styles.placeInfo}>
+          <img src={place.mainImage} alt="Place Image" />
+          <Title size="b">{place.title}</Title>
+        </div>
+        <div className={styles.checkboxWrap}>
+          <Title size="b">글머리</Title>
+          <div className={styles.checkbox}>
+            <RoundCheckbox label="후기" name="roundCheckbox1" />
+            <RoundCheckbox label="질문" name="roundCheckbox1" />
+          </div>
+        </div>
+        <div className={styles.inputWrap}>
+          <Title size="b">제목</Title>
+          <div className={styles.inputBox}>
+            <PostTitleInput
+              onChange={handleTitleInput}
+              titleInput={titleInput}
+            ></PostTitleInput>
+          </div>
+        </div>
+        <div className={styles.inputWrap}>
+          <Title size="b">내용</Title>
+          <div className={styles.inputBox}>
+            <PostContentInput
+              onChange={handleContentInput}
+              contentInput={contentInput}
+            ></PostContentInput>
+            <Button onClick={handleSubmit}>작성하기</Button>
+          </div>
         </div>
       </div>
-      <div className={styles.inputWrap}>
-        <Title size="b">제목</Title>
-        <div className={styles.inputBox}>
-          <PostTitleInput
-            onChange={handleTitleInput}
-            titleInput={titleInput}
-          ></PostTitleInput>
-        </div>
-      </div>
-      <div className={styles.inputWrap}>
-        <Title size="b">내용</Title>
-        <div className={styles.inputBox}>
-          <PostContentInput
-            onChange={handleContentInput}
-            contentInput={contentInput}
-          ></PostContentInput>
-          <Button onClick={handleSubmit}>작성하기</Button>
-        </div>
-      </div>
-    </div>
+    </>
   );
 }

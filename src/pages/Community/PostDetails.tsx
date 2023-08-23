@@ -55,12 +55,6 @@ export default function PostDetails() {
   const [modifiedTitle, setModifiedTitle] = useState(post.title);
   const [modifiedContents, setModifiedContents] = useState(post.contents);
 
-  // 글 수정 버튼 클릭 시 수정 모드 활성화
-  const handleModifyBtn = () => {
-    setIsEditMode(true);
-  };
-
-  // 수정
   const handleModifyTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setModifiedTitle(event.target.value);
   };

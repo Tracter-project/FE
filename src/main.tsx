@@ -38,7 +38,7 @@ const router = createBrowserRouter([
       { path: "/ho", element: <Ho /> },
       { path: "/seok", element: <Seok /> },
       { path: "/place/addpost/:placeId", element: <PlaceAddPost /> },
-      { path: "/community/:postId", element: <PostDetails /> },
+      { path: "/community/post/:postId", element: <PostDetails /> },
     ],
   },
 ]);
