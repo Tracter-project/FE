@@ -5,7 +5,7 @@ import LikeButton from "../LikeButton/LikeButton";
 interface NewPost {
   id: number;
   subject: string;
-  nickname: string;
+  writer: string;
   title: string;
   contents: string;
   postLikeCount: number;
@@ -34,8 +34,8 @@ export default function PostsList(props: PostListProps) {
           <div className={styles.postContainer}>
             <section className={styles.left}>
               <div className={styles.lefttop}>
-                <div className={styles.nickname}>
-                  <Title size="b">{post.nickname}</Title>
+                <div className={styles.writer}>
+                  <Title size="b">{post.writer}</Title>
                 </div>
                 <div className={styles.date}>
                   <Title size="sub">{post.date}</Title>

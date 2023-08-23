@@ -7,7 +7,7 @@ import { useState } from "react";
 
 interface NewComment {
   id: number;
-  nickname: string;
+  writer: string;
   comment: string;
   date: string;
 }
@@ -38,6 +38,7 @@ export default function CommentView(props: CommentViewProps) {
     }
   };
 
+  // 체크박스 : comment.writer === 현재 유저일 경우에만 보이게
   return (
     <>
       <div className={styles.commentViewWrap}>
@@ -52,14 +53,14 @@ export default function CommentView(props: CommentViewProps) {
         </div>
         {commentList.map((comment) => (
           <div className={styles.commentView} key={comment.id}>
-            <div className={styles.checkbox}>
+            {/* <div className={styles.checkbox}>
               <CheckBox
                 checked={comment.id === selectedCommentId}
                 onChange={() => handleCheckboxChange(comment.id)}
               />
-            </div>
-            <div className={styles.commentNickname}>
-              <Title size="h5">{comment.nickname}</Title>
+            </div> */}
+            <div className={styles.commentWriter}>
+              <Title size="h5">{comment.writer}</Title>
             </div>
             <div className={styles.commentContent}>
               <Title size="p">{comment.comment}</Title>
