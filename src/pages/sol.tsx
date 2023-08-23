@@ -35,7 +35,7 @@ export default function Sol() {
     {
       id: 1,
       subject: "질문",
-      nickname: "이뽀리",
+      writer: "이뽀리",
       title: "글 제목",
       contents: "내용입니다",
       postLikeCount: 90,
@@ -47,7 +47,7 @@ export default function Sol() {
     {
       id: 100,
       subject: "기타",
-      nickname: "이뽀리",
+      writer: "이뽀리",
       title: "글 제목",
       contents: "dfasdfsdrsdfasdrsdfasdsarsfasdrdsrsadfasdfsd",
       postLikeCount: 90,
@@ -60,13 +60,13 @@ export default function Sol() {
   const dummyCommentList: IComment[] = [
     {
       id: 1,
-      nickname: "이뽀리",
+      writer: "이뽀리",
       comment: "댓글ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ",
       date: new Date("2023-08-19T15:45:00").toLocaleString(),
     },
     {
       id: 2,
-      nickname: "이뽀리",
+      writer: "이뽀리",
       comment:
         "댓글ㄹㄹㄹㄹㄹㄹㄹㄹdfasdfsdfasdㅁㅇㄴㄹㅇㄴㅁㄱㄴㄹㅁㄴㅇㄱㄴㄹㅁㄴㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄱㄴㅇㄹㅊㅁㄴㅇㄱㄴㅇㄱㄹㄹㄹ",
       date: new Date("2023-08-19T15:45:00").toLocaleString(),
