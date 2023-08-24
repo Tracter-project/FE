@@ -20,34 +20,34 @@ import PlaceAddPost from "./pages/Community/PlaceAddPost.tsx";
 import PostDetails from "./pages/Community/PostDetails.tsx";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <NotFound />,
-    children: [
-      { index: true, path: "/", element: <Home /> },
-      { path: "/login", element: <Login /> },
-      { path: "/register", element: <Register /> },
-      { path: "/admin", element: <Admin /> },
-      { path: "/admin/category", element: <AdminCategory /> },
-      { path: "/mypage", element: <MyPage /> },
-      { path: "/community/list", element: <CommunityList /> },
-      { path: "/community/addpost", element: <CommunityAddPost /> },
-      { path: "/min", element: <Min /> },
-      { path: "/sol", element: <Sol /> },
-      { path: "/ho", element: <Ho /> },
-      { path: "/seok", element: <Seok /> },
-      { path: "/place/addpost/:placeId", element: <PlaceAddPost /> },
-      { path: "/community/post/:postId", element: <PostDetails /> },
-    ],
-  },
+    {
+        path: "/",
+        element: <App />,
+        errorElement: <NotFound />,
+        children: [
+            { index: true, path: "/", element: <Home /> },
+            { path: "/login", element: <Login /> },
+            { path: "/register", element: <Register /> },
+            { path: "/admin", element: <Admin /> },
+            { path: "/admin/category", element: <AdminCategory /> },
+            { path: "/mypage", element: <MyPage /> },
+            { path: "/community/list", element: <CommunityList /> },
+            { path: "/community/addpost", element: <CommunityAddPost /> },
+            { path: "/min", element: <Min /> },
+            { path: "/sol", element: <Sol /> },
+            { path: "/ho", element: <Ho /> },
+            { path: "/seok", element: <Seok /> },
+            { path: "/place/addpost/:placeId", element: <PlaceAddPost /> },
+            { path: "/community/post/:postId", element: <PostDetails /> },
+        ],
+    },
 ]);
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+    document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+    <React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>
 );
