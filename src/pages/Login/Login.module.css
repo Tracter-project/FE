@@ -1,0 +1,23 @@
+.loginWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+}
+.loginWrap .login {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.loginWrap .login h2 {
+  color: #4477CE;
+}
+.loginWrap .login h5 {
+  color: #A5A5A5;
+  margin-top: 28px;
+  margin-bottom: 20px;
+}
+.loginWrap .login button {
+  margin-top: 20px;
+}/*# sourceMappingURL=Login.module.css.map */

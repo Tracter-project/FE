@@ -1,0 +1,11 @@
+.communityListContainer {
+  margin: 5% 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.communityListContainer .addButton {
+  align-self: self-end;
+  position: relative;
+  right: 50px;
+}/*# sourceMappingURL=CommunityList.module.css.map */

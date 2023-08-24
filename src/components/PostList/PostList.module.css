@@ -1,0 +1,53 @@
+.postList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.postContainer {
+  width: 640px;
+  height: 220px;
+  display: flex;
+  align-items: flex-start;
+  padding: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2);
+  margin: 10px 0;
+  justify-content: space-between;
+}
+.postContainer .lefttop {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+.postContainer .lefttop .writer {
+  margin-top: 2px;
+}
+.postContainer .lefttop .date {
+  color: #a4a4a4;
+}
+.postContainer .postTitle {
+  margin-top: 30px;
+}
+.postContainer .postContent {
+  margin: 10px 0 40px;
+}
+.postContainer .leftbottom {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-bottom: 50px;
+  color: #a4a4a4;
+}
+.postContainer .righttop {
+  display: flex;
+  justify-content: flex-end;
+}
+.postContainer .righttop .likeButton {
+  position: relative;
+  bottom: 11px;
+}
+.postContainer .thumbnail img {
+  width: 200px;
+  height: 120px;
+}/*# sourceMappingURL=PostList.module.css.map */

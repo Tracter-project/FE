@@ -1,0 +1,14 @@
+.addButton {
+  border: none;
+  background: none;
+  outline: none;
+}
+.addButton .plusIcon {
+  width: 40px;
+  height: 40px;
+  scale: 0.9;
+  transition: 0.5s;
+}
+.addButton .plusIcon:hover {
+  color: #4477ce;
+}/*# sourceMappingURL=AddButton.module.css.map */

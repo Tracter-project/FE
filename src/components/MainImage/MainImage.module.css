@@ -1,0 +1,32 @@
+.mainBox {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  row-gap: 100px;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+  place-items: center;
+}
+.mainBox .mainImage {
+  min-width: 320px;
+}
+.mainBox .mainImage img {
+  width: 100%;
+  height: 320px;
+}
+.mainBox .mainImage .mainWrap .mainTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.mainBox .mainImage .mainWrap .mainTitle .popularity {
+  cursor: pointer;
+  font-weight: bold;
+  color: #ff0000;
+  display: flex;
+  align-items: center;
+}
+.mainBox .mainImage .mainWrap .mainTitle .popularity svg {
+  width: 2em;
+  height: 2em;
+}/*# sourceMappingURL=MainImage.module.css.map */
