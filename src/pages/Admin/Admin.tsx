@@ -1,31 +1,32 @@
-import { useState } from "react";
-import styles from "./Admin.module.scss";
-import Title from "../../components/Title/Title";
-import AdminTable from "../../components/AdminTable/AdminTable";
-import DeleteModal from "../../components/DeleteModal/DeleteModal";
-import Button from "../../components/Button/Button";
-import NewInput from "../../components/NewInput/NewInput";
-import ToggleCheckBox from "../../components/ToggleCheckBox/ToggleCheckBox";
+import { useState } from 'react';
+import styles from './Admin.module.scss';
+import Title from '../../components/Title/Title';
+import AdminTable from '../../components/AdminTable/AdminTable';
+import DeleteModal from '../../components/DeleteModal/DeleteModal';
+import Button from '../../components/Button/Button';
+import NewInput from '../../components/NewInput/NewInput';
+// import ToggleCheckBox from "../../components/ToggleCheckBox/ToggleCheckBox";
+import RoundCheckbox from '../../components/ToggleCheckBox/ToggleCheckBoxSetting';
 export default function Admin() {
     const [data, setData] = useState([
         {
             id: 1,
             selected: false,
-            imageUrl: "URL_1",
-            area: "서울",
-            category: "호텔",
-            name: "숙소 1",
-            description: "숙소 설명 1",
+            imageUrl: 'URL_1',
+            area: '서울',
+            category: '호텔',
+            name: '숙소 1',
+            description: '숙소 설명 1',
             price: 100,
         },
         {
             id: 2,
             selected: false,
-            imageUrl: "URL_2",
-            area: "제주",
-            category: "펜션",
-            name: "숙소 2",
-            description: "숙소 설명 2",
+            imageUrl: 'URL_2',
+            area: '제주',
+            category: '펜션',
+            name: '숙소 2',
+            description: '숙소 설명 2',
             price: 150,
         },
     ]);
@@ -47,11 +48,11 @@ export default function Admin() {
         const newEntry = {
             id: newId,
             selected: false,
-            imageUrl: "URL_new",
-            area: "새로운 지역",
-            category: "새로운 카테고리",
-            name: "새로운 숙소",
-            description: "새로운 설명",
+            imageUrl: 'URL_new',
+            area: '새로운 지역',
+            category: '새로운 카테고리',
+            name: '새로운 숙소',
+            description: '새로운 설명',
             price: 200,
         };
 
@@ -90,7 +91,8 @@ export default function Admin() {
                     <div className={styles.area}>
                         <Title size="b">지역</Title>
                         <div className={styles.checkbox}>
-                            <ToggleCheckBox></ToggleCheckBox>
+                            <RoundCheckbox></RoundCheckbox>
+                        
                         </div>
                     </div>
                 </div>
