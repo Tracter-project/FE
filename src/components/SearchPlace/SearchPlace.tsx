@@ -1,16 +1,15 @@
 import { ChangeEvent } from "react";
 import styles from "./SearchPlace.module.scss";
 import { IoMdSearch } from "react-icons/io";
+import { useRecoilState } from "recoil";
+import { searchPlace } from "../../recoilAtoms";
 
-interface SearchPlaceProps {
-  searchInput: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-}
+export default function SearchPlace() {
+  const [searchInput, setSearchInput] = useRecoilState(searchPlace);
+  const handleSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(event.target.value);
+  };
 
-export default function SearchPlace({
-  searchInput,
-  onChange,
-}: SearchPlaceProps) {
   return (
     <>
       <div className={styles.search}>
@@ -20,7 +19,7 @@ export default function SearchPlace({
           className="searchInput"
           placeholder="숙소 찾기"
           value={searchInput}
-          onChange={onChange}
+          onChange={handleSearchInput}
         />
       </div>
     </>
