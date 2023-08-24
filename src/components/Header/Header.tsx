@@ -41,11 +41,11 @@ export default function Header() {
           <div className={styles.dropdown}>
             <DropdownOption title="카테고리">
               <div className={styles.dropdownContent}>
-                <Link to={`/:${category[0].id}`}>{category[0].name}</Link>
-                <Link to={`/:${category[1].id}`}>{category[1].name}</Link>
-                <Link to={`/:${category[2].id}`}>{category[2].name}</Link>
-                <Link to={`/:${category[3].id}`}>{category[3].name}</Link>
-                <Link to={`/:${category[4].id}`}>{category[4].name}</Link>
+                <Link to={`/category/:${category[0].id}`}>{category[0].name}</Link>
+                <Link to={`/category/:${category[1].id}`}>{category[1].name}</Link>
+                <Link to={`/category/:${category[2].id}`}>{category[2].name}</Link>
+                <Link to={`/category/:${category[3].id}`}>{category[3].name}</Link>
+                <Link to={`/category/:${category[4].id}`}>{category[4].name}</Link>
               </div>
             </DropdownOption>
           </div>
