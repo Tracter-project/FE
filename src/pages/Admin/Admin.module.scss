@@ -49,82 +49,76 @@
   }
 }
 
-.modal {
-  max-width: 700px;
-  width: 100%;
-  text-align: center;
 
 
-  .addList {
+
+.addList {
+  display: flex;
+  flex-direction: column;
+
+  margin: 0 auto;
+
+  h2 {
+    margin-bottom: 120px;
+  }
+
+  .addWarp {
     display: flex;
     flex-direction: column;
+    gap: 32px;
 
-    margin: 0 auto;
-
-    h2 {
-      margin-bottom: 120px;
-    }
-
-    .addWarp {
+    .imgInput {
       display: flex;
-      flex-direction: column;
-      gap: 32px;
+      align-items: center;
+      text-align: center;
 
-      .imgInput {
-        display: flex;
-        align-items: center;
-        text-align: center;
+      b {
+        width: 15%;
+      }
 
-        b {
-          width: 15%;
-        }
+      input {
+        position: relative;
+      }
 
-        input {
-          position: relative;
-        }
-
-        input[type=file]::file-selector-button {
-          display: none;
-
-        }
+      input[type=file]::file-selector-button {
+        display: none;
 
       }
 
-      .check {
-        display: flex;
-        text-align: center;
+    }
 
-        b {
-          width: 15%;
-        }
+    .check {
+      display: flex;
+      text-align: center;
 
-        .checkbox {
-          display: flex;
-          width: 100%;
-        }
+      b {
+        width: 15%;
       }
 
-      .input {
+      .checkbox {
         display: flex;
-        align-items: center;
-        text-align: center;
-
-        b {
-          width: 15%;
-        }
-
-        .checkbox {
-          display: flex;
-          width: 100%;
-        }
+        width: 100%;
       }
     }
 
-    &>button {
-      margin: 0 auto;
-      margin-top: 52px;
+    .input {
+      display: flex;
+      align-items: center;
+      text-align: center;
+
+      b {
+        width: 15%;
+      }
+
+      .checkbox {
+        display: flex;
+        width: 100%;
+      }
     }
   }
 
-
+  &>button {
+    margin: 0 auto;
+    margin-top: 52px;
+  }
 }
