@@ -5,8 +5,10 @@ import AdminTable from '../../components/AdminTable/AdminTable';
 import DeleteModal from '../../components/DeleteModal/DeleteModal';
 import Button from '../../components/Button/Button';
 import NewInput from '../../components/NewInput/NewInput';
-// import ToggleCheckBox from "../../components/ToggleCheckBox/ToggleCheckBox";
-import RoundCheckbox from '../../components/ToggleCheckBox/ToggleCheckBoxSetting';
+import ToggleCheckBox from '../../components/ToggleCheckBox/ToggleCheckBox';
+import TapMenu from '../../components/TapMenu/TapMenu';
+import EditModal from '../../components/EditModal/EditModal';
+
 export default function Admin() {
     const [data, setData] = useState([
         {
@@ -91,8 +93,29 @@ export default function Admin() {
                     <div className={styles.area}>
                         <Title size="b">지역</Title>
                         <div className={styles.checkbox}>
-                            <RoundCheckbox></RoundCheckbox>
-                        
+                            <ToggleCheckBox></ToggleCheckBox>
+                            <ToggleCheckBox></ToggleCheckBox>
+                            <ToggleCheckBox></ToggleCheckBox>
+                            <ToggleCheckBox></ToggleCheckBox>
+                            <ToggleCheckBox></ToggleCheckBox>
+                        </div>
+                    </div>
+                    <div className={styles.input}>
+                        <Title size="b">숙소명</Title>
+                        <NewInput type="text" onChange={() => {}} />
+                    </div>
+                    <div className={styles.input}>
+                        <Title size="b">상세설명</Title>
+                        <NewInput type="text" onChange={() => {}} />
+                    </div>
+                    <div className={styles.check}>
+                        <Title size="b">카테고리</Title>
+                        <div className={styles.checkbox}>
+                            <ToggleCheckBox></ToggleCheckBox>
+                            <ToggleCheckBox></ToggleCheckBox>
+                            <ToggleCheckBox></ToggleCheckBox>
+                            <ToggleCheckBox></ToggleCheckBox>
+                            <ToggleCheckBox></ToggleCheckBox>
                         </div>
                     </div>
                 </div>
