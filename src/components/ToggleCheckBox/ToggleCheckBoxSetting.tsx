@@ -1,6 +1,5 @@
 import React from 'react';
-import './ToggleCheckBox.scss'; 
-
+import './ToggleCheckBox.scss';
 type RoundCheckboxProps = {
     label: string;
     name: string;
