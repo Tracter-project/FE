@@ -1,13 +1,14 @@
-import { useState } from 'react';
-import styles from './Admin.module.scss';
-import Title from '../../components/Title/Title';
-import AdminTable from '../../components/AdminTable/AdminTable';
-import DeleteModal from '../../components/DeleteModal/DeleteModal';
-import Button from '../../components/Button/Button';
-import NewInput from '../../components/NewInput/NewInput';
-import ToggleCheckBox from '../../components/ToggleCheckBox/ToggleCheckBox';
-import TapMenu from '../../components/TapMenu/TapMenu';
-import EditModal from '../../components/EditModal/EditModal';
+import { useState } from "react";
+import styles from "./Admin.module.scss";
+import Title from "../../components/Title/Title";
+import AdminTable from "../../components/AdminTable/AdminTable";
+import DeleteModal from "../../components/DeleteModal/DeleteModal";
+import Button from "../../components/Button/Button";
+import NewInput from "../../components/NewInput/NewInput";
+import ToggleCheckBox from "../../components/ToggleCheckBox/ToggleCheckBox";
+import TapMenu from "../../components/TapMenu/TapMenu";
+import EditModal from "../../components/EditModal/EditModal";
+
 
 export default function Admin() {
     const [data, setData] = useState([
