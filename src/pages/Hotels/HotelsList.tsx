@@ -80,24 +80,24 @@ const dummyMainImageList: MainImageItem[] = [
 ];
 
 export default function HotelsList() {
-    return (
-        <>
-            <Title size="h2" className={styles.title}>
-                카테고리 (숙소리스트)
-            </Title>
-            <div className={styles.hotelsTitle}>
-                <Title size="h2">호캉스</Title>
-                <DropdownOption title="전체">
-                    <div className={styles.dropdownContent}>
-                        <Link to="/">서울</Link>
-                        <Link to="/">강원</Link>
-                        <Link to="/">전라</Link>
-                        <Link to="/">경상</Link>
-                        <Link to="/">제주</Link>
-                    </div>
-                </DropdownOption>
-            </div>
-            <MainImage MainImageList={dummyMainImageList} />
-        </>
-    );
+  return (
+    <>
+      <Title size="h2" className={styles.title}>
+        카테고리 (숙소리스트)
+      </Title>
+      <div className={styles.hotelsTitle}>
+        <Title size="h2">호캉스</Title>
+        <DropdownOption title="전체" className={styles.dropdown}>
+          <div className={styles.dropdownContent}>
+            <Link to="/">서울</Link>
+            <Link to="/">강원</Link>
+            <Link to="/">전라</Link>
+            <Link to="/">경상</Link>
+            <Link to="/">제주</Link>
+          </div>
+        </DropdownOption>
+      </div>
+      <MainImage MainImageList={dummyMainImageList} />
+    </>
+  );
 }
