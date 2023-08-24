@@ -168,22 +168,22 @@ export default function Min() {
         setData(updatedData);
     };
 
-    const handleAdd = () => {
-        // 추가 로직 구현
-        const newId = data.length + 1;
-        const newEntry = {
-            id: newId,
-            selected: false,
-            imageUrl: "URL_new",
-            area: "새로운 지역",
-            category: "새로운 카테고리",
-            name: "새로운 숙소",
-            description: "새로운 설명",
-            price: 200,
-        };
+    // const handleAdd = () => {
+    //     // 추가 로직 구현
+    //     const newId = data.length + 1;
+    //     const newEntry = {
+    //         id: newId,
+    //         selected: false,
+    //         imageUrl: "URL_new",
+    //         area: "새로운 지역",
+    //         category: "새로운 카테고리",
+    //         name: "새로운 숙소",
+    //         description: "새로운 설명",
+    //         price: 200,
+    //     };
 
-        setData([...data, newEntry]);
-    };
+    //     setData([...data, newEntry]);
+    // };
 
     return (
         <>
@@ -207,7 +207,7 @@ export default function Min() {
                 data={data}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
-                onAdd={handleAdd}
+                // onAdd={handleAdd}
                 setData={setData}
             ></AdminTable>
             <LocalImg
