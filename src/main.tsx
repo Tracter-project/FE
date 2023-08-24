@@ -18,6 +18,9 @@ import CommunityAddPost from "./pages/Community/CommunityAddPost.tsx";
 import MyPage from "./pages/MyPage/MyPage.tsx";
 import PlaceAddPost from "./pages/Community/PlaceAddPost.tsx";
 import PostDetails from "./pages/Community/PostDetails.tsx";
+import HotelsList from "./pages/Hotels/HotelsList.tsx";
+import HotelsDetail from "./pages/HotelsDetail/HotelsDetail.tsx";
+import HotelsMap from "./pages/HotelsMap/HotelsMap.tsx";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +42,9 @@ const router = createBrowserRouter([
       { path: "/seok", element: <Seok /> },
       { path: "/place/addpost/:placeId", element: <PlaceAddPost /> },
       { path: "/community/post/:postId", element: <PostDetails /> },
+      { path: "/hotelsList", element: <HotelsList /> },
+      { path: "/hotelsDetail", element: <HotelsDetail /> },
+      { path: "/hotelsMap", element: <HotelsMap /> },
     ],
   },
 ]);
