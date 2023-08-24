@@ -1,21 +1,20 @@
 import { ChangeEvent } from "react";
 import styles from "./PostContentInput.module.scss";
+import { useRecoilState } from "recoil";
+import { contentInput } from "../../recoilAtoms";
 
-interface PostContentProps {
-  contentInput: string;
-  onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-}
+export default function PostContentInput() {
+  const [postContentInput, setPostContentInput] = useRecoilState(contentInput);
+  const handleContentInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setPostContentInput(event.target.value);
+  };
 
-export default function PostContentInput({
-  contentInput,
-  onChange,
-}: PostContentProps) {
   return (
     <>
       <textarea
         className={styles.postContentInput}
-        value={contentInput}
-        onChange={onChange}
+        value={postContentInput}
+        onChange={handleContentInput}
       />
     </>
   );
