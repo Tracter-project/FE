@@ -108,13 +108,24 @@ export default function Sol() {
     setSearchInput(event.target.value);
   };
 
+  // TitleInput 상태관리
+  // const [titleInput, setTitleInput] = useState("");
+  // const handleTitleInput = (event: ChangeEvent<HTMLInputElement>) => {
+  //   setTitleInput(event.target.value);
+  // };
+
+  // ContentInput 상태관리
+  // const [contentInput, setContentInput] = useState("");
+  // const handleContentInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  //   setContentInput(event.target.value);
+  // };
   return (
     <>
       {/* <LikeButton onClick={handleModifyButton}></LikeButton> */}
       {/* <AddButton onClick={handleAddButton}></AddButton> */}
       {/* <ModifyButton onClick={handleModifyButton}></ModifyButton> */}
       {/* <DeleteButton onClick={handleDeleteButton}></DeleteButton> */}
-      <CommentView commentList={dummyCommentList}></CommentView>
+      {/* <CommentView commentList={dummyCommentList}></CommentView>
       <Comment
         commentInput={commentInput}
         onChange={handleInputChange}
@@ -134,7 +145,7 @@ export default function Sol() {
         searchInput={searchInput}
         onChange={handleSearchInput}
       ></SearchPlace>
-      <PostList postList={dummyPostList}></PostList>
+      <PostList postList={dummyPostList}></PostList> */}
     </>
   );
 }
