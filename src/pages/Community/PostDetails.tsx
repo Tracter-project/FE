@@ -6,7 +6,7 @@ import Title from "../../components/Title/Title";
 import DeleteButton from "../../components/DeleteButton/DeleteButton";
 import ModifyButton from "../../components/ModifyButton/ModifyButton";
 import LikeButton from "../../components/LikeButton/LikeButton";
-import { useNavigate, useParams } from "react-router-dom";
+// import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/Button/Button";
 
 interface IPost {
@@ -42,12 +42,15 @@ interface IComment {
   date: string;
 }
 
+// 현재 유저 likedPosts에 있는 포스트인지 확인
+const like = true;
+
 export default function PostDetails() {
   const handleDeleteBtn = (postId: number) => {
     alert(`ID ${postId} 게시글 삭제`);
   };
   const handleLikeBtn = (postId: number) => {
-    alert(`ID ${postId} 게시글 좋아요`);
+    alert(`ID ${postId}`);
   };
 
   // 수정하기
@@ -142,7 +145,10 @@ export default function PostDetails() {
               ) : (
                 ""
               )}
-              <LikeButton onClick={() => handleLikeBtn(post.id)}></LikeButton>
+              <LikeButton
+                onClick={() => handleLikeBtn(post.id)}
+                like={like}
+              ></LikeButton>
             </div>
           </div>
           {post.placeImage !== "" ? (

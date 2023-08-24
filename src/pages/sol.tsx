@@ -9,7 +9,7 @@ import PostContentInput from "../components/PostContentInput/PostContentInput";
 import SearchPlace from "../components/SearchPlace/SearchPlace";
 import PostList from "../components/PostList/PostList";
 import { useState, ChangeEvent } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 interface IPost {
   id: number;
@@ -85,10 +85,10 @@ export default function Sol() {
   };
 
   // AddButton - (1) 글 작성 페이지로 이동
-  const navigate = useNavigate();
-  const handleAddButton = () => {
-    navigate("/community/addpost");
-  };
+  // const navigate = useNavigate();
+  // const handleAddButton = () => {
+  //   navigate("/community/addpost");
+  // };
 
   // postTitleInput
   const [titleInput, setTitleInput] = useState("");

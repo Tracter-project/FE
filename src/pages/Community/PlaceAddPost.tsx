@@ -26,10 +26,10 @@ export default function PlaceAddPost() {
   };
 
   // 작성하기 버튼
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const handleSubmit = () => {
     alert(`제목: ${titleInput}\n내용: ${contentInput}`); // post api
-    // navigate("/community/list");
+    navigate("/community/list");
   };
 
   // api ->  place = placeId로 Place 이미지, 숙소명
