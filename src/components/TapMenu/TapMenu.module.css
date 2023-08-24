@@ -1,0 +1,27 @@
+ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+li {
+  list-style: none;
+}
+
+li:nth-child(1) {
+  background-color: #d9d9d9;
+  width: 160px;
+  height: 48px;
+  text-align: center;
+  padding-top: 15px;
+}
+
+li:nth-child(2) {
+  background-color: red;
+  width: 160px;
+  height: 48px;
+  text-align: center;
+  padding-top: 15px;
+}/*# sourceMappingURL=TapMenu.module.css.map */

@@ -1,0 +1,79 @@
+.postDetailsContainer {
+  margin: 5% 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.postDetailsContainer .postContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 50%;
+  padding: 20px 40px;
+  margin: 10px 0;
+}
+.postDetailsContainer .postContainer .lefttop {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+.postDetailsContainer .postContainer .lefttop .writer {
+  margin-top: 2px;
+}
+.postDetailsContainer .postContainer .lefttop .date {
+  color: #a4a4a4;
+}
+.postDetailsContainer .postContainer .postTitle {
+  margin-top: 30px;
+}
+.postDetailsContainer .postContainer .postContent {
+  margin: 60px 0 100px 0;
+  width: 90%;
+}
+.postDetailsContainer .postContainer .leftbottom {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  color: #a4a4a4;
+}
+.postDetailsContainer .postContainer .right .buttons,
+.postDetailsContainer .postContainer .right .writerButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.postDetailsContainer .postContainer .right img {
+  margin: 30px 0;
+  width: 615px;
+  height: 370px;
+}
+.postDetailsContainer .commentContainer {
+  margin-top: 50px;
+}
+.postDetailsContainer .editMode {
+  margin: 40px 0;
+}
+.postDetailsContainer .editMode .postTitle input {
+  width: 600px;
+  height: 48px;
+  border: 1px solid #a5a5a5;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 24px;
+}
+.postDetailsContainer .editMode .postContent textarea {
+  width: 600px;
+  height: 400px;
+  border: 1px solid #a5a5a5;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 20px;
+  position: relative;
+  bottom: 20px;
+}
+.postDetailsContainer .editMode .submitButton {
+  position: relative;
+  bottom: 90px;
+  display: flex;
+  gap: 20px;
+}/*# sourceMappingURL=PostDetails.module.css.map */

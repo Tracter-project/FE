@@ -1,0 +1,42 @@
+.subImage {
+  height: 400px;
+  overflow: hidden;
+  margin-bottom: 100px;
+}
+.subImage img {
+  width: 100%;
+}
+
+.subBox {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 100px;
+}
+.subBox .subLeft {
+  width: 50%;
+}
+.subBox .subLeft .subTitle {
+  display: flex;
+  justify-content: space-between;
+}
+.subBox .subLeft .subTitle .title {
+  border-bottom: 0;
+}
+.subBox .subLeft .subTitle svg {
+  color: #608bd5;
+}
+.subBox .subLeft .subInfo {
+  margin-bottom: 40px;
+}
+.subBox .subLeft .subPlaces {
+  margin-bottom: 40px;
+  display: block;
+}
+.subBox .subLeft Button {
+  width: 260px;
+  display: block;
+  margin-bottom: 5px;
+}
+.subBox .subRight {
+  width: 50%;
+}/*# sourceMappingURL=HotelsDetail.module.css.map */

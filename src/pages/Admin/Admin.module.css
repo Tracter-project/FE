@@ -1,0 +1,101 @@
+.title {
+  padding-bottom: 20px;
+  border-bottom: 2px solid #000;
+  margin-bottom: 28px;
+}
+
+.newInputWrap {
+  margin-bottom: 40px;
+}
+.newInputWrap .inputBox {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+.newInputWrap .inputBox button {
+  width: 20%;
+}
+
+.editedInputWrap .inputBox {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+.editedInputWrap .buttonWrap {
+  width: 20%;
+  display: flex;
+  gap: 20px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+.content h2 {
+  margin-bottom: 50px;
+  font-weight: bold;
+}
+.content b {
+  margin-bottom: 40px;
+}
+
+.modal {
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+}
+.modal .addList {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+.modal .addList h2 {
+  margin-bottom: 120px;
+}
+.modal .addList .addWarp {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.modal .addList .addWarp .imgInput {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.modal .addList .addWarp .imgInput b {
+  width: 15%;
+}
+.modal .addList .addWarp .imgInput input {
+  position: relative;
+}
+.modal .addList .addWarp .imgInput input[type=file]::file-selector-button {
+  display: none;
+}
+.modal .addList .addWarp .check {
+  display: flex;
+  text-align: center;
+}
+.modal .addList .addWarp .check b {
+  width: 15%;
+}
+.modal .addList .addWarp .check .checkbox {
+  display: flex;
+  width: 100%;
+}
+.modal .addList .addWarp .input {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.modal .addList .addWarp .input b {
+  width: 15%;
+}
+.modal .addList .addWarp .input .checkbox {
+  display: flex;
+  width: 100%;
+}
+.modal .addList > button {
+  margin: 0 auto;
+  margin-top: 52px;
+}/*# sourceMappingURL=Admin.module.css.map */

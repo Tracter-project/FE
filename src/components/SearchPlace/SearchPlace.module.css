@@ -1,0 +1,13 @@
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.search .searchIcon {
+  font-size: 20px;
+}
+.search input {
+  width: 260px;
+  border: none;
+  border-bottom: 1px solid #000;
+}/*# sourceMappingURL=SearchPlace.module.css.map */

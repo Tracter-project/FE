@@ -1,0 +1,23 @@
+.tableWrap {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+}
+.tableWrap .buttonIcon {
+  align-self: flex-end;
+}
+.tableWrap table {
+  border: 5px solid #959595;
+  border-collapse: collapse;
+  box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.2);
+}
+.tableWrap thead {
+  border: 5px solid #959595;
+}
+.tableWrap thead th {
+  border: 5px solid #959595;
+}
+.tableWrap tbody td {
+  border: 5px solid #959595;
+  text-align: center;
+}/*# sourceMappingURL=AdminTable.module.css.map */

@@ -1,0 +1,11 @@
+.mapLink {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #608bd5;
+  padding: 10px;
+  justify-content: center;
+}
+.mapLink svg {
+  margin-right: 10px;
+}/*# sourceMappingURL=MapLink.module.css.map */

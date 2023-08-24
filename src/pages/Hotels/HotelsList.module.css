@@ -1,0 +1,12 @@
+.title {
+  padding-bottom: 20px;
+  border-bottom: 2px solid #000;
+  margin-bottom: 100px;
+}
+
+.hotelsTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}/*# sourceMappingURL=HotelsList.module.css.map */

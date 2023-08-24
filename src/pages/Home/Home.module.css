@@ -1,0 +1,92 @@
+.first {
+  display: flex;
+  flex-direction: row;
+}
+.first .firstSecText {
+  margin-right: 30px;
+  width: 340px;
+  height: 700px;
+}
+.first .firstSecText h1 {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+.first .firstSecText .TextP {
+  margin-top: 120px;
+  margin-bottom: 50px;
+  width: 341px;
+  color: #000;
+  font-family: Apple SD Gothic Neo;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px; /* 200% */
+}
+.first .firstSecPic img {
+  width: 1050px;
+  height: 600px;
+}
+
+.second {
+  margin-left: 100px;
+  width: 100%;
+  height: 100%;
+}
+.second .secondMainPopularPlaces {
+  display: flex;
+  flex-direction: row;
+  margin-top: 150px;
+  height: 500px;
+}
+
+.thrid {
+  background-color: #f1f9fc;
+  height: 600px;
+  width: 100%;
+}
+.thrid .thridSecText {
+  text-align: center;
+  padding-top: 150px;
+}
+.thrid .thridSecText h3 {
+  color: #000;
+  font-family: Apple SD Gothic Neo;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px;
+}
+.thrid .thridNewPlaces {
+  display: flex;
+  flex-direction: row;
+  margin: 50px;
+  margin-left: 0px;
+}
+
+.fourth .travelPic {
+  background-image: url("src/assets/travelPic.png");
+  background-size: 100% 400px;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 400px;
+}
+.fourth .content {
+  color: #fff;
+  font-family: Apple SD Gothic Neo;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px; /* 80% */
+  text-align: center;
+  padding-top: 100px;
+}
+.fourth .content .content:nth-child(2) {
+  margin-top: 27px;
+}
+.fourth .content .LargeButton {
+  width: 240px;
+  height: 64px;
+  border: 1px solid #fff;
+  margin: auto;
+  margin-top: 45px;
+}/*# sourceMappingURL=Home.module.css.map */

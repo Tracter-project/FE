@@ -1,0 +1,11 @@
+.likeButton {
+  border: none;
+  background: none;
+  outline: none;
+}
+.likeButton .heartIcon {
+  width: 40px;
+  height: 40px;
+  color: #ff0000;
+  scale: 0.7;
+}/*# sourceMappingURL=LikeButton.module.css.map */

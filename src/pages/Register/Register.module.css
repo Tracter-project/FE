@@ -1,0 +1,60 @@
+.registerWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+}
+.registerWrap h2 {
+  color: #4477CE;
+}
+.registerWrap h5 {
+  color: #A5A5A5;
+  margin-top: 28px;
+  margin-bottom: 20px;
+}
+.registerWrap .name {
+  width: 400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.registerWrap .name > div {
+  width: 75%;
+}
+.registerWrap .name button {
+  width: 25%;
+}
+.registerWrap .mail {
+  width: 400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.registerWrap .mail > div {
+  width: 75%;
+}
+.registerWrap .mail button {
+  width: 25%;
+}
+.registerWrap .emailConfirmation {
+  width: 400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.registerWrap .emailConfirmation > div {
+  width: 75%;
+}
+.registerWrap .emailConfirmation button {
+  width: 25%;
+}
+.registerWrap .passwordinput {
+  width: 400px;
+}
+.registerWrap button {
+  width: 400px;
+}/*# sourceMappingURL=Register.module.css.map */

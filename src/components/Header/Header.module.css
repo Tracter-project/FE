@@ -1,0 +1,52 @@
+.header {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 99;
+}
+.header .logo {
+  width: 33.3%;
+}
+.header .logo:hover a {
+  color: #4477CE;
+}
+.header .center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+.header .center .dropdown {
+  padding: 0 10px;
+  text-align: center;
+  cursor: pointer;
+}
+.header .center p:hover > a {
+  color: #4477CE;
+}
+.header .right {
+  width: 33.3%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+.header .right p:hover a {
+  color: #4477CE;
+}
+.header .right .search {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.header .right .search .searchIcon {
+  font-size: 20px;
+}
+.header .right .search input {
+  border: none;
+  border-bottom: 1px solid #000;
+}/*# sourceMappingURL=Header.module.css.map */
