@@ -23,10 +23,10 @@ export default function CommunityList() {
 
   return (
     <div className={styles.communityListContainer}>
-        <div className={styles.addButton}>
-          <AddButton onClick={handleAddButton}></AddButton>
-        </div>
-        <PostList postList={dummyPostList}></PostList>{" "}
+      <div className={styles.addButton}>
+        <AddButton onClick={handleAddButton}></AddButton>
+      </div>
+      <PostList postList={dummyPostList}></PostList>{" "}
     </div>
   );
 }
@@ -76,7 +76,8 @@ const dummyPostList: IPost[] = [
     commentsCount: 20,
     date: "1일 전",
     placeImage: "",
-  },  {
+  },
+  {
     id: 103,
     subject: "기타",
     writer: "뽀리",
