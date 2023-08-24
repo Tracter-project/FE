@@ -9,31 +9,31 @@ import ToggleCheckBox from "../../components/ToggleCheckBox/ToggleCheckBox";
 import TapMenu from "../../components/TapMenu/TapMenu";
 import EditModal from "../../components/EditModal/EditModal";
 
-
 export default function Admin() {
     const [data, setData] = useState([
         {
             id: 1,
             selected: false,
-            imageUrl: 'URL_1',
-            area: '서울',
-            category: '호텔',
-            name: '숙소 1',
-            description: '숙소 설명 1',
+            imageUrl: "URL_1",
+            area: "서울",
+            category: "호텔",
+            name: "숙소 1",
+            description: "숙소 설명 1",
             price: 100,
         },
         {
             id: 2,
             selected: false,
-            imageUrl: 'URL_2',
-            area: '제주',
-            category: '펜션',
-            name: '숙소 2',
-            description: '숙소 설명 2',
+            imageUrl: "URL_2",
+            area: "제주",
+            category: "펜션",
+            name: "숙소 2",
+            description: "숙소 설명 2",
             price: 150,
         },
     ]);
 
+    () => {}
     //adminTable CRUD
     const handleEdit = (id: number) => {
         //수정 로직 구현
@@ -51,21 +51,23 @@ export default function Admin() {
         const newEntry = {
             id: newId,
             selected: false,
-            imageUrl: 'URL_new',
-            area: '새로운 지역',
-            category: '새로운 카테고리',
-            name: '새로운 숙소',
-            description: '새로운 설명',
+            imageUrl: "URL_new",
+            area: "새로운 지역",
+            category: "새로운 카테고리",
+            name: "새로운 숙소",
+            description: "새로운 설명",
             price: 200,
         };
 
         setData([...data, newEntry]);
     };
+
     return (
         <>
             <Title size="h2" className={styles.title}>
                 관리자 페이지(숙소리스트)
             </Title>
+            <TapMenu></TapMenu>
             <AdminTable
                 data={data}
                 onEdit={handleEdit}
@@ -76,22 +78,36 @@ export default function Admin() {
             <DeleteModal className={styles.content}>
                 <Title size="h2">숙소리스트 삭제</Title>
                 <Title size="b">숙소리스트를 삭제하시겠습니까?</Title>
-                <Button>확인</Button>
+                <Button onClick={() => {}}>확인</Button>
             </DeleteModal>
             <AddWrap></AddWrap>
         </>
     );
+}
 
-    function AddWrap() {
-        return (
-            <>
+//AddWrap 컴포넌트
+function AddWrap() {
+    //인풋 관리
+    // const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    // const [inputText, setInputText] = useState<string | null>(null);
+
+    // const handleFileChange = (file: File | null) => {
+    //     setSelectedFile(file);
+    // };
+
+    // const handleTextChange = (text: string | null) => {
+    //     setInputText(text);
+    // };
+    return (
+        <EditModal className={styles.modal}>
+            <div className={styles.addList}>
                 <Title size="h2">숙소 리스트 추가</Title>
-                <div className={styles.addwarp}>
+                <div className={styles.addWarp}>
                     <div className={styles.imgInput}>
                         <Title size="b">사진첨부</Title>
-                        <NewInput type="file"></NewInput>
+                        <NewInput type="file" onChange={() => {}} />
                     </div>
-                    <div className={styles.area}>
+                    <div className={styles.check}>
                         <Title size="b">지역</Title>
                         <div className={styles.checkbox}>
                             <ToggleCheckBox></ToggleCheckBox>
@@ -120,7 +136,8 @@ export default function Admin() {
                         </div>
                     </div>
                 </div>
-            </>
-        );
-    }
+                <Button onClick={() => {}}>확인</Button>
+            </div>
+        </EditModal>
+    );
 }
