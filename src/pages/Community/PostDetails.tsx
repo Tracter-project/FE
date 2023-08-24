@@ -6,7 +6,7 @@ import Title from "../../components/Title/Title";
 import DeleteButton from "../../components/DeleteButton/DeleteButton";
 import ModifyButton from "../../components/ModifyButton/ModifyButton";
 import LikeButton from "../../components/LikeButton/LikeButton";
-import { useNavigate, useParams } from "react-router-dom";
+// import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/Button/Button";
 
 interface IPost {
