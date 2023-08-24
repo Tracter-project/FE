@@ -1,10 +1,10 @@
 .expanded {
   span {
-    color: #4477CE;
+    color: #4477ce;
   }
 
   svg {
-    color: #4477CE;
+    color: #4477ce;
   }
 
   @keyframes dropdownFadeIn {
@@ -21,7 +21,7 @@
     }
   }
 
-  .optionContent>div {
+  .optionContent > div {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,11 +33,11 @@
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    animation: dropdownFadeIn .5s ease forwards;
+    animation: dropdownFadeIn 0.5s ease forwards;
+    min-width: 100px;
 
     a:hover {
-      color: #4477CE;
+      color: #4477ce;
     }
   }
-
 }

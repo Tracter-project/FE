@@ -87,7 +87,7 @@ export default function HotelsList() {
       </Title>
       <div className={styles.hotelsTitle}>
         <Title size="h2">호캉스</Title>
-        <DropdownOption title="전체">
+        <DropdownOption title="전체" className={styles.dropdown}>
           <div className={styles.dropdownContent}>
             <Link to="/">서울</Link>
             <Link to="/">강원</Link>
