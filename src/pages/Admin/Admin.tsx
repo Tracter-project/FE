@@ -33,7 +33,6 @@ export default function Admin() {
         },
     ]);
 
-    () => {}
     //adminTable CRUD
     const handleEdit = (id: number) => {
         //수정 로직 구현
@@ -87,17 +86,6 @@ export default function Admin() {
 
 //AddWrap 컴포넌트
 function AddWrap() {
-    //인풋 관리
-    // const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    // const [inputText, setInputText] = useState<string | null>(null);
-
-    // const handleFileChange = (file: File | null) => {
-    //     setSelectedFile(file);
-    // };
-
-    // const handleTextChange = (text: string | null) => {
-    //     setInputText(text);
-    // };
     return (
         <EditModal className={styles.modal}>
             <div className={styles.addList}>
@@ -117,14 +105,6 @@ function AddWrap() {
                             <ToggleCheckBox></ToggleCheckBox>
                         </div>
                     </div>
-                    <div className={styles.input}>
-                        <Title size="b">숙소명</Title>
-                        <NewInput type="text" onChange={() => {}} />
-                    </div>
-                    <div className={styles.input}>
-                        <Title size="b">상세설명</Title>
-                        <NewInput type="text" onChange={() => {}} />
-                    </div>
                     <div className={styles.check}>
                         <Title size="b">카테고리</Title>
                         <div className={styles.checkbox}>
@@ -134,6 +114,18 @@ function AddWrap() {
                             <ToggleCheckBox></ToggleCheckBox>
                             <ToggleCheckBox></ToggleCheckBox>
                         </div>
+                    </div>
+                    <div className={styles.input}>
+                        <Title size="b">숙소명</Title>
+                        <NewInput type="text" onChange={() => {}} />
+                    </div>
+                    <div className={styles.input}>
+                        <Title size="b">상세설명</Title>
+                        <NewInput type="text" onChange={() => {}} />
+                    </div>
+                    <div className={styles.input}>
+                        <Title size="b">가격</Title>
+                        <NewInput type="text" onChange={() => {}} />
                     </div>
                 </div>
                 <Button onClick={() => {}}>확인</Button>
