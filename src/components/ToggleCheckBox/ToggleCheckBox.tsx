@@ -26,7 +26,6 @@ const App = (): React.ReactElement => {
                 checked={checkedStates.roundCheckbox1}
                 onChange={handleChange}
             />
-           
             
         </div>
     );

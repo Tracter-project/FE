@@ -1,27 +1,27 @@
 .popularPlaces {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  background-color: inherit;
+    width: 60%; // 수정함
+    height: 60%; // 수정함
+    position: relative;
+    background-color: inherit;
+    margin-right: 120px;
 
+    img {
+        width: 90%; //인기숙소 크기
+        border-radius: 10px;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    }
 
-  img {
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  }
+    .titleWrap {
+        position: absolute;
+        bottom: -30px;
+        background-color: #fff;
+        width: 15rem; // 수정함
+        height: 15rem; // 수정함
 
-  .titleWrap {
-    position: absolute;
-    bottom: -30px;
-    background-color: #fff;
-    width: 15rem;
-    height: 15rem;
-
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    justify-content: center;
-    gap: 40px;
-  }
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: center;
+        gap: 40px;
+    }
 }
