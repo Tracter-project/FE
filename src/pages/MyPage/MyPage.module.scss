@@ -1,12 +1,12 @@
 .mypage {
-  &>h2 {
+  >h2 {
     padding-bottom: 20px;
     border-bottom: 2px solid #000;
     margin-top: 52px;
     margin-bottom: 40px;
   }
 
-  &>.myPageWrap>div:nth-child(1) {
+  >.myPageWrap>div:nth-child(1) {
     svg {
       color: #000;
     }
