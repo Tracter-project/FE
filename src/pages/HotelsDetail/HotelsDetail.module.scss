@@ -1,0 +1,49 @@
+.subImage {
+  height: 400px;
+  overflow: hidden;
+  margin-bottom: 100px;
+
+  img {
+    width: 100%;
+  }
+}
+
+.subBox {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 100px;
+
+  .subLeft {
+    width: 50%;
+
+    .subTitle {
+      display: flex;
+      justify-content: space-between;
+
+      .title {
+        border-bottom: 0;
+      }
+
+      svg {
+        color: #608bd5;
+      }
+    }
+    .subInfo {
+      margin-bottom: 40px;
+    }
+
+    .subPlaces {
+      margin-bottom: 40px;
+      display: block;
+    }
+
+    Button {
+      width: 260px;
+      display: block;
+      margin-bottom: 5px;
+    }
+  }
+  .subRight {
+    width: 50%;
+  }
+}
