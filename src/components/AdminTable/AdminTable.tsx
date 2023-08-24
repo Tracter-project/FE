@@ -1,9 +1,15 @@
+import React from "react";
 import Title from "../Title/Title";
 import AddButton from "../AddButton/AddButton";
 import ModifyButton from "../ModifyButton/ModifyButton";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import CheckBox from "../CheckBox/CheckBox";
+import NewInput from "../NewInput/NewInput";
+import ToggleCheckBox from "../../components/ToggleCheckBox/ToggleCheckBox";
+import Button from "../Button/Button";
 import styles from "./AdminTable.module.scss";
+import { useSetRecoilState } from "recoil";
+import { modalState } from "../../recoilAtoms";
 
 interface AdminTableProps {
     data: {
@@ -16,9 +22,6 @@ interface AdminTableProps {
         description: string;
         price: number;
     }[];
-    onEdit: (id: number) => void;
-    onDelete: (id: number) => void;
-    onAdd: () => void;
     setData: React.Dispatch<
         React.SetStateAction<
             {
@@ -35,13 +38,8 @@ interface AdminTableProps {
     >;
 }
 
-export default function AdminTable({
-    data,
-    onEdit,
-    onDelete,
-    onAdd,
-    setData,
-}: AdminTableProps) {
+export default function AdminTable({ data, setData }: AdminTableProps) {
+    // 체크박스
     const handleCheckboxChange = (id: number) => {
         const updatedData = data.map((item) =>
             item.id === id ? { ...item, selected: !item.selected } : item
@@ -49,25 +47,66 @@ export default function AdminTable({
         setData(updatedData);
     };
 
-    const handleDeleteSelected = () => {
-        const selectedIds = data
-            .filter((item) => item.selected)
-            .map((item) => item.id);
-        const updatedData = data.filter((item) => !item.selected);
-        setData(updatedData);
-        selectedIds.forEach((id) => onDelete(id));
+    const setModal = useSetRecoilState(modalState);
+
+    const handleButtonClick = () => {
+        setModal({
+            isOpen: true,
+            content: (
+                <div className={styles.addList}>
+                    <Title size="h2">숙소 리스트 추가</Title>
+                    <div className={styles.addWarp}>
+                        <div className={styles.imgInput}>
+                            <Title size="b">사진첨부</Title>
+                            <NewInput type="file" onChange={() => {}} />
+                        </div>
+                        <div className={styles.check}>
+                            <Title size="b">지역</Title>
+                            <div className={styles.checkbox}>
+                                <ToggleCheckBox></ToggleCheckBox>
+                                <ToggleCheckBox></ToggleCheckBox>
+                                <ToggleCheckBox></ToggleCheckBox>
+                                <ToggleCheckBox></ToggleCheckBox>
+                                <ToggleCheckBox></ToggleCheckBox>
+                            </div>
+                        </div>
+                        <div className={styles.check}>
+                            <Title size="b">카테고리</Title>
+                            <div className={styles.checkbox}>
+                                <ToggleCheckBox></ToggleCheckBox>
+                                <ToggleCheckBox></ToggleCheckBox>
+                                <ToggleCheckBox></ToggleCheckBox>
+                                <ToggleCheckBox></ToggleCheckBox>
+                                <ToggleCheckBox></ToggleCheckBox>
+                            </div>
+                        </div>
+                        <div className={styles.input}>
+                            <Title size="b">숙소명</Title>
+                            <NewInput type="text" onChange={() => {}} />
+                        </div>
+                        <div className={styles.input}>
+                            <Title size="b">상세설명</Title>
+                            <NewInput type="text" onChange={() => {}} />
+                        </div>
+                        <div className={styles.input}>
+                            <Title size="b">가격</Title>
+                            <NewInput type="text" onChange={() => {}} />
+                        </div>
+                    </div>
+                    <Button onClick={() => {}}>확인</Button>
+                </div>
+            ),
+        });
     };
 
     return (
         <div className={styles.tableWrap}>
             <div className={styles.buttonIcon}>
-                <AddButton onClick={onAdd}></AddButton>
+                <AddButton onClick={handleButtonClick}></AddButton>
 
-                <ModifyButton onClick={() => onEdit(0)}></ModifyButton>
+                <ModifyButton onClick={() => {}}></ModifyButton>
 
-                <DeleteButton
-                    onClick={() => handleDeleteSelected()}
-                ></DeleteButton>
+                <DeleteButton onClick={() => {}}></DeleteButton>
             </div>
             <table className={styles.table}>
                 <thead>
