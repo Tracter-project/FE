@@ -4,9 +4,15 @@
   margin-bottom: 100px;
 }
 
-.hotelsTitle {
+.categoryTitle {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+
+  .dropdown {
+    min-width: 100px;
+    text-align: center;
+    cursor: pointer;
+  }
 }
