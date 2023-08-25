@@ -1,12 +1,12 @@
+import { useState, ChangeEvent } from "react";
 import styles from "./PostDetails.module.scss";
+// import { useNavigate, useParams } from "react-router-dom";
 import Comment from "../../components/Comment/Comment";
 import CommentView from "../../components/CommentView/CommentView";
-import { useState, ChangeEvent } from "react";
 import Title from "../../components/Title/Title";
 import DeleteButton from "../../components/DeleteButton/DeleteButton";
 import ModifyButton from "../../components/ModifyButton/ModifyButton";
 import LikeButton from "../../components/LikeButton/LikeButton";
-// import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/Button/Button";
 
 interface IPost {
