@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Title from "../Title/Title";
 import AddButton from "../AddButton/AddButton";
 import ModifyButton from "../ModifyButton/ModifyButton";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import CheckBox from "../CheckBox/CheckBox";
 import NewInput from "../NewInput/NewInput";
-import ToggleCheckBox from "../../components/ToggleCheckBox/ToggleCheckBox";
 import Button from "../Button/Button";
+import RadioButton from "../RadioButton/RadioButton";
 import styles from "./AdminTable.module.scss";
 import { useSetRecoilState } from "recoil";
 import { modalState } from "../../recoli/recoilAtoms";
@@ -46,7 +46,28 @@ export default function AdminTable({ data, setData }: AdminTableProps) {
         );
         setData(updatedData);
     };
+    //radio 버튼
+    const [selectedRegion, setSelectedRegion] = useState<string>("");
+    const [selectedCategory, setSelectedCategory] = useState<string>("");
 
+    const handleRegionChange = (region: string) => {
+        console.log("지역바뀜:", region);
+        setSelectedRegion(region);
+    };
+    console.log(handleRegionChange);
+
+    const handleCategoryChange = (category: string) => {
+        console.log("지역바뀜:", category);
+        setSelectedCategory(category);
+    };
+
+    const handleSelection = () => {
+        if (selectedRegion && selectedCategory) {
+            // console.log("선택된 지역:", selectedRegion);
+            // console.log("선택된 카테고리:", selectedCategory);
+        }
+    };
+    //modal창
     const setModal = useSetRecoilState(modalState);
 
     const handleButtonClick = () => {
@@ -63,21 +84,73 @@ export default function AdminTable({ data, setData }: AdminTableProps) {
                         <div className={styles.check}>
                             <Title size="b">지역</Title>
                             <div className={styles.checkbox}>
-                                <ToggleCheckBox></ToggleCheckBox>
-                                <ToggleCheckBox></ToggleCheckBox>
-                                <ToggleCheckBox></ToggleCheckBox>
-                                <ToggleCheckBox></ToggleCheckBox>
-                                <ToggleCheckBox></ToggleCheckBox>
+                                <RadioButton
+                                    label="서울"
+                                    checked={selectedRegion === "서울"}
+                                    onChange={() => handleRegionChange("서울")}
+                                />
+                                <RadioButton
+                                    label="강원"
+                                    checked={selectedRegion === "강원"}
+                                    onChange={() => handleRegionChange("강원")}
+                                />
+                                <RadioButton
+                                    label="전라"
+                                    checked={selectedRegion === "전라"}
+                                    onChange={() => handleRegionChange("전라")}
+                                />
+                                <RadioButton
+                                    label="경상"
+                                    checked={selectedRegion === "경상"}
+                                    onChange={() => handleRegionChange("경상")}
+                                />
+                                <RadioButton
+                                    label="제주"
+                                    checked={selectedRegion === "제주"}
+                                    onChange={() => handleRegionChange("제주")}
+                                />
                             </div>
                         </div>
                         <div className={styles.check}>
                             <Title size="b">카테고리</Title>
                             <div className={styles.checkbox}>
-                                <ToggleCheckBox></ToggleCheckBox>
-                                <ToggleCheckBox></ToggleCheckBox>
-                                <ToggleCheckBox></ToggleCheckBox>
-                                <ToggleCheckBox></ToggleCheckBox>
-                                <ToggleCheckBox></ToggleCheckBox>
+                                <RadioButton
+                                    label="호캉스"
+                                    checked={selectedCategory === "호캉스"}
+                                    onChange={() =>
+                                        handleCategoryChange("호캉스")
+                                    }
+                                />
+                                <RadioButton
+                                    label="글램핑"
+                                    checked={selectedCategory === "글램핑"}
+                                    onChange={() =>
+                                        handleCategoryChange("글램핑")
+                                    }
+                                />
+                                <RadioButton
+                                    label="풀빌라"
+                                    checked={selectedCategory === "풀빌라"}
+                                    onChange={() =>
+                                        handleCategoryChange("풀빌라")
+                                    }
+                                />
+                                <RadioButton
+                                    label="게스트 하우스"
+                                    checked={
+                                        selectedCategory === "게스트 하우스"
+                                    }
+                                    onChange={() =>
+                                        handleRegionChange("게스트 하우스")
+                                    }
+                                />
+                                <RadioButton
+                                    label="카라반"
+                                    checked={selectedCategory === "카라반"}
+                                    onChange={() =>
+                                        handleCategoryChange("카라반")
+                                    }
+                                />
                             </div>
                         </div>
                         <div className={styles.input}>
@@ -93,7 +166,7 @@ export default function AdminTable({ data, setData }: AdminTableProps) {
                             <NewInput type="text" onChange={() => {}} />
                         </div>
                     </div>
-                    <Button onClick={() => {}}>확인</Button>
+                    <Button onClick={handleSelection}>확인</Button>
                 </div>
             ),
         });

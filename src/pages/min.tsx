@@ -15,6 +15,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { MdEmail } from "react-icons/md";
 import LoginImg from "../assets/loginImg.png";
+import TabButton from "../components/TabButton/TabButton";
+import RadioButton from "../components/RadioButton/RadioButton";
 
 //인기숙소리스트 타입
 interface PopularItem {
@@ -185,6 +187,12 @@ export default function Min() {
     //     setData([...data, newEntry]);
     // };
 
+    //radio
+    const [selectedRegion, setSelectedRegion] = useState<string>("");
+    const handleRegionChange = (region: string) => {
+        console.log("지역바뀜:", region);
+        setSelectedRegion(region);
+    };
     return (
         <>
             <Title size="h1">
@@ -216,6 +224,17 @@ export default function Min() {
                 className="imgStyle"
             ></LocalImg>
             <MyPagePlaces myList={dummyMyPageList}></MyPagePlaces>
+            <TabButton></TabButton>
+            <RadioButton
+                label="경상"
+                checked={selectedRegion === "경상"}
+                onChange={() => handleRegionChange("경상")}
+            />
+            <RadioButton
+                label="제주"
+                checked={selectedRegion === "제주"}
+                onChange={() => handleRegionChange("제주")}
+            />
         </>
     );
 }

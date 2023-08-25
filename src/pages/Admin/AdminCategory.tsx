@@ -3,7 +3,7 @@ import NewInput from "../../components/NewInput/NewInput";
 import EditedInput from "../../components/EditedInput/EditedInput";
 import Button from "../../components/Button/Button";
 import styles from "./Admin.module.scss";
-import TapMenu from "../../components/TapMenu/TapMenu";
+import TabButton from "../../components/TabButton/TabButton";
 
 function NewInputWrap() {
     return (
@@ -38,7 +38,7 @@ export default function AdminCategory() {
             <Title size="h2" className={styles.title}>
                 관리자 페이지(카테고리)
             </Title>
-            <TapMenu></TapMenu>
+            <TabButton></TabButton>
             <NewInputWrap></NewInputWrap>
             <EditedInputWrap></EditedInputWrap>
         </>
