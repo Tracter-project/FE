@@ -4,6 +4,7 @@
     border-radius: 10px;
     background: #fff;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-bottom: 70px;
 
     .text {
         color: #000;
@@ -13,4 +14,15 @@
         font-weight: 700;
         line-height: normal;
     }
+}
+.selectButton:hover {
+    background: #4477ce;
+    transition: 0.2s ease-out;
+
+    .text {
+        color: #fff;
+    }
+}
+.selectButton:not(:hover) {
+    transition: 1s ease-out;
 }
