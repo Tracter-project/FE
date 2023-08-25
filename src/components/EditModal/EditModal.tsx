@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./EditModal.module.scss";
 import { FaTimes } from "react-icons/fa";
 import { useRecoilState } from "recoil";
-import { modalState } from "../../recoilAtoms";
+import { modalState } from "../../recoli/recoilAtoms";
 
 interface EditModalProps {
     children: React.ReactNode;
