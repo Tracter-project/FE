@@ -1,12 +1,12 @@
-import { useState, ChangeEvent } from "react";
 import styles from "./PostDetails.module.scss";
-// import { useNavigate, useParams } from "react-router-dom";
 import Comment from "../../components/Comment/Comment";
 import CommentView from "../../components/CommentView/CommentView";
+import { useState, ChangeEvent } from "react";
 import Title from "../../components/Title/Title";
 import DeleteButton from "../../components/DeleteButton/DeleteButton";
 import ModifyButton from "../../components/ModifyButton/ModifyButton";
 import LikeButton from "../../components/LikeButton/LikeButton";
+// import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/Button/Button";
 
 interface IPost {
@@ -20,6 +20,20 @@ interface IPost {
   date: string;
   placeImage: string;
 }
+
+const post: IPost = {
+  id: 1,
+  subject: "질문",
+  writer: "이뽀리",
+  title: "글 제목",
+  contents:
+    "내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다",
+  postLikeCount: 90,
+  commentsCount: 20,
+  date: "1일 전",
+  placeImage:
+    "https://yaimg.yanolja.com/v5/2023/07/11/16/640/64ad86a29096a7.09459065.jpg",
+};
 
 interface IComment {
   id: number;
@@ -57,6 +71,7 @@ export default function PostDetails() {
     setIsEditMode(false);
   };
 
+  // post.writer === 현재 유저 : Delete, Modify 버튼 o
   return (
     <div className={styles.postDetailsContainer}>
       <div className={styles.postContainer}>
@@ -104,6 +119,9 @@ export default function PostDetails() {
         </div>
         <div className={styles.right}>
           <div className={styles.righttop}>
+            {/* <div>
+              <Title size="h5">{post.subject}</Title>
+            </div> */}
             <div className={styles.buttons}>
               {post.writer === "이뽀리" ? (
                 <div className={styles.writerButtons}>
@@ -137,20 +155,6 @@ export default function PostDetails() {
     </div>
   );
 }
-
-const post: IPost = {
-  id: 1,
-  subject: "질문",
-  writer: "이뽀리",
-  title: "글 제목",
-  contents:
-    "내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다",
-  postLikeCount: 90,
-  commentsCount: 20,
-  date: "1일 전",
-  placeImage:
-    "https://yaimg.yanolja.com/v5/2023/07/11/16/640/64ad86a29096a7.09459065.jpg",
-};
 
 const dummyCommentList: IComment[] = [
   {
