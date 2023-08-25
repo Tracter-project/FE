@@ -1,7 +1,7 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./CommunityList.module.scss";
 import PostList from "../../components/PostList/PostList";
 import AddButton from "../../components/AddButton/AddButton";
-import { useNavigate } from "react-router-dom";
 
 interface IPost {
   id: number;
@@ -26,7 +26,7 @@ export default function CommunityList() {
       <div className={styles.addButton}>
         <AddButton onClick={handleAddButton}></AddButton>
       </div>
-      <PostList postList={dummyPostList}></PostList>{" "}
+      <PostList postList={dummyPostList}></PostList>
     </div>
   );
 }

@@ -1,9 +1,9 @@
+import { useState } from "react";
 import styles from "./CommentView.module.scss";
 import Title from "../Title/Title";
 import CheckBox from "../CheckBox/CheckBox";
 import ModifyButton from "../ModifyButton/ModifyButton";
 import DeleteButton from "../DeleteButton/DeleteButton";
-import { useState } from "react";
 
 interface NewComment {
   id: number;

@@ -1,7 +1,7 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./PostList.module.scss";
 import Title from "../Title/Title";
 import LikeButton from "../LikeButton/LikeButton";
-import { useNavigate } from "react-router-dom";
 
 interface NewPost {
   id: number;
