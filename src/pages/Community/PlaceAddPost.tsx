@@ -1,7 +1,6 @@
-import { useRecoilValue } from "recoil";
-import { useNavigate, useParams } from "react-router-dom";
 import Title from "../../components/Title/Title";
 import styles from "./PlaceAddPost.module.scss";
+import { useNavigate, useParams } from "react-router-dom";
 import PostTitleInput from "../../components/PostTitleInput/PostTitleInput";
 import PostContentInput from "../../components/PostContentInput/PostContentInput";
 import Button from "../../components/Button/Button";
