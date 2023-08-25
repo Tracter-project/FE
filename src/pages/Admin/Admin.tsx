@@ -4,7 +4,7 @@ import Title from "../../components/Title/Title";
 import AdminTable from "../../components/AdminTable/AdminTable";
 import DeleteModal from "../../components/DeleteModal/DeleteModal";
 import Button from "../../components/Button/Button";
-import TapMenu from "../../components/TapMenu/TapMenu";
+import TabButton from "../../components/TabButton/TabButton";
 import EditModal from "../../components/EditModal/EditModal";
 
 export default function Admin() {
@@ -36,7 +36,7 @@ export default function Admin() {
             <Title size="h2" className={styles.title}>
                 관리자 페이지(숙소리스트)
             </Title>
-            <TapMenu></TapMenu>
+            <TabButton></TabButton>
             <AdminTable
                 data={data}
                 // onEdit={handleEdit}

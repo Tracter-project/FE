@@ -1,0 +1,22 @@
+.tabButton {
+  width: 320px;
+  height: 48px;
+  display: flex;
+  margin: 0 auto;
+  padding: 0;
+
+
+  li {
+    width: 50%;
+    height: 100%;
+    background-color: #D9D9D9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .activeTab {
+    background-color: #4477CE;
+    color: #fff;
+  }
+}
