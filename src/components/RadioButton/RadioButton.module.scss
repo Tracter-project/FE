@@ -1,0 +1,10 @@
+.radioButton {
+  display: block;
+  margin: 5px;
+  padding: 5px;
+  cursor: pointer;
+
+  &.checked {
+    background-color: lightblue;
+  }
+}
