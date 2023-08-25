@@ -1,8 +1,11 @@
-import styles from "./HotelsDetail.module.scss";
+import styles from "./Place.module.scss";
 import Title from "../../components/Title/Title";
 import MapLink from "../../components/MapLink/MapLink";
 import Button from "../../components/Button/Button";
 import MainImage from "../../components/MainImage/MainImage";
+import Map from "../../components/Map/Map";
+import { useState } from "react";
+import Modal from "react-modal";
 
 interface MainImageItem {
   id: number;
@@ -23,7 +26,17 @@ const dummyMainImageList: MainImageItem[] = [
   },
 ];
 
-export default function HotelsDetail() {
+export default function Place() {
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+
+  const openMapModal = () => {
+    setIsMapModalOpen(true);
+  };
+
+  const closeMapModal = () => {
+    setIsMapModalOpen(false);
+  };
+
   return (
     <>
       <div className={styles.subImage}>
@@ -40,7 +53,9 @@ export default function HotelsDetail() {
             <Title size="h2" className={styles.title}>
               Hotel
             </Title>
-            <MapLink />
+            <button onClick={openMapModal}>
+              <MapLink />
+            </button>
           </div>
           <Title size="p" className={styles.subInfo}>
             인근 골프장, 식료품점/편의점, 테라스 등을 오라카이 송도파크 호텔에서
@@ -80,6 +95,25 @@ export default function HotelsDetail() {
           alt="Sub Image"
         />
       </div>
+      <Modal
+        isOpen={isMapModalOpen}
+        onRequestClose={closeMapModal}
+        contentLabel="지도 팝업"
+        className={styles.mapModal}
+        overlayClassName={styles.mapOverlay}
+        style={{
+          content: {
+            width: "1400px",
+            height: "600px",
+            left: "50%", // Move it to the horizontal center
+            top: "50%", // Move it to the horizontal center
+            transform: "translate(-50%, -50%)", // Center it precisely
+          },
+        }}
+      >
+        {/* 팝업 내용 */}
+        <Map onClose={closeMapModal} />
+      </Modal>
     </>
   );
 }
