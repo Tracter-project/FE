@@ -36,3 +36,7 @@ export const input = atom({
     key: "input",
     default: "",
 });
+export const loginInput = atom({
+    key: "loginInput",
+    default: "",
+});

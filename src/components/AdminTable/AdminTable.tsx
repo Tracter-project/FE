@@ -1,4 +1,6 @@
 import React from "react";
+import { useSetRecoilState } from "recoil";
+import { modalState } from "../../recoil/recoilAtoms";
 import Title from "../Title/Title";
 import AddButton from "../AddButton/AddButton";
 import ModifyButton from "../ModifyButton/ModifyButton";
@@ -8,8 +10,6 @@ import NewInput from "../NewInput/NewInput";
 import ToggleCheckBox from "../../components/ToggleCheckBox/ToggleCheckBox";
 import Button from "../Button/Button";
 import styles from "./AdminTable.module.scss";
-import { useSetRecoilState } from "recoil";
-import { modalState } from "../../recoli/recoilAtoms";
 
 interface AdminTableProps {
     data: {
@@ -58,7 +58,11 @@ export default function AdminTable({ data, setData }: AdminTableProps) {
                     <div className={styles.addWarp}>
                         <div className={styles.imgInput}>
                             <Title size="b">사진첨부</Title>
-                            <NewInput type="file" onChange={() => {}} />
+                            <NewInput
+                                value=""
+                                type="file"
+                                onChange={() => {}}
+                            />
                         </div>
                         <div className={styles.check}>
                             <Title size="b">지역</Title>
@@ -82,15 +86,27 @@ export default function AdminTable({ data, setData }: AdminTableProps) {
                         </div>
                         <div className={styles.input}>
                             <Title size="b">숙소명</Title>
-                            <NewInput type="text" onChange={() => {}} />
+                            <NewInput
+                                value=""
+                                type="text"
+                                onChange={() => {}}
+                            />
                         </div>
                         <div className={styles.input}>
                             <Title size="b">상세설명</Title>
-                            <NewInput type="text" onChange={() => {}} />
+                            <NewInput
+                                value=""
+                                type="text"
+                                onChange={() => {}}
+                            />
                         </div>
                         <div className={styles.input}>
                             <Title size="b">가격</Title>
-                            <NewInput type="text" onChange={() => {}} />
+                            <NewInput
+                                value=""
+                                type="text"
+                                onChange={() => {}}
+                            />
                         </div>
                     </div>
                     <Button onClick={() => {}}>확인</Button>

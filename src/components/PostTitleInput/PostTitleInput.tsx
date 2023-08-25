@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 import styles from "./PostTitleInput.module.scss";
 import { useRecoilState } from "recoil";
-import { titleInput } from "../../recoli/recoilAtoms";
+import { titleInput } from "../../recoil/recoilAtoms";
 
 export default function PostTitleInput() {
     const [postTitleInput, setPostTitleInput] = useRecoilState(titleInput);

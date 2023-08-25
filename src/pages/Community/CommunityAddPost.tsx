@@ -4,9 +4,9 @@ import PostTitleInput from "../../components/PostTitleInput/PostTitleInput";
 import PostContentInput from "../../components/PostContentInput/PostContentInput";
 import Button from "../../components/Button/Button";
 import SearchPlace from "../../components/SearchPlace/SearchPlace";
-import { titleInput } from "../../recoli/recoilAtoms";
-import { contentInput } from "../../recoli/recoilAtoms";
-import { searchPlace } from "../../recoli/recoilAtoms";
+import { titleInput } from "../../recoil/recoilAtoms";
+import { contentInput } from "../../recoil/recoilAtoms";
+import { searchPlace } from "../../recoil/recoilAtoms";
 import Title from "../../components/Title/Title";
 import styles from "./CommunityAddPost.module.scss";
 

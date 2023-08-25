@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 import styles from "./PostContentInput.module.scss";
 import { useRecoilState } from "recoil";
-import { contentInput } from "../../recoli/recoilAtoms";
+import { contentInput } from "../../recoil/recoilAtoms";
 
 export default function PostContentInput() {
     const [postContentInput, setPostContentInput] =

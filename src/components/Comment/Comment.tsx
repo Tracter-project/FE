@@ -2,7 +2,7 @@ import React, { ChangeEvent } from "react";
 import styles from "./Comment.module.scss";
 import Title from "../Title/Title";
 import { useRecoilState } from "recoil";
-import { commentInput } from "../../recoli/recoilAtoms";
+import { commentInput } from "../../recoil/recoilAtoms";
 
 interface CommentProps {
     children: React.ReactNode;

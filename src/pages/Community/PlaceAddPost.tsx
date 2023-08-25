@@ -4,8 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import PostTitleInput from "../../components/PostTitleInput/PostTitleInput";
 import PostContentInput from "../../components/PostContentInput/PostContentInput";
 import Button from "../../components/Button/Button";
-import { titleInput } from "../../recoli/recoilAtoms";
-import { contentInput } from "../../recoli/recoilAtoms";
+import { titleInput } from "../../recoil/recoilAtoms";
+import { contentInput } from "../../recoil/recoilAtoms";
 import { useRecoilValue } from "recoil";
 
 export default function PlaceAddPost() {

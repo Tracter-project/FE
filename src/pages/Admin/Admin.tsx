@@ -31,52 +31,18 @@ export default function Admin() {
         },
     ]);
 
-    //adminTable CRUD
-    // const handleEdit = (id: number) => {
-    //     //수정 로직 구현
-    //     console.log(`Edit clicked for ID ${id}`);
-    // };
-    // const handleDelete = (id: number) => {
-    //     // 삭제 로직 구현
-    //     const updatedData = data.filter((item) => item.id !== id);
-    //     setData(updatedData);
-    // };
-
-    // const handleAdd = () => {
-    //     // 추가 로직 구현
-    //     const newId = data.length + 1;
-    //     const newEntry = {
-    //         id: newId,
-    //         selected: false,
-    //         imageUrl: "URL_new",
-    //         area: "새로운 지역",
-    //         category: "새로운 카테고리",
-    //         name: "새로운 숙소",
-    //         description: "새로운 설명",
-    //         price: 200,
-    //     };
-
-    //     setData([...data, newEntry]);
-    // };
-
     return (
         <>
             <Title size="h2" className={styles.title}>
                 관리자 페이지(숙소리스트)
             </Title>
             <TapMenu></TapMenu>
-            <AdminTable
-                data={data}
-                // onEdit={handleEdit}
-                // onDelete={handleDelete}
-                // onAdd={handleAdd}
-                setData={setData}
-            ></AdminTable>
-            {/* <DeleteModal className={styles.content}>
+            <AdminTable data={data} setData={setData}></AdminTable>
+            <DeleteModal className={styles.content}>
                 <Title size="h2">숙소리스트 삭제</Title>
                 <Title size="b">숙소리스트를 삭제하시겠습니까?</Title>
                 <Button onClick={() => {}}>확인</Button>
-            </DeleteModal> */}
+            </DeleteModal>
             <EditModal className={styles.editModal}>{}</EditModal>
         </>
     );

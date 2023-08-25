@@ -4,10 +4,11 @@ import styles from "./NewInput.module.scss";
 
 interface NewInputProps {
     type: "file" | "text";
+    value: string;
     onChange: (value: string | File | null) => void;
 }
 
-export default function NewInput({ type, onChange }: NewInputProps) {
+export default function NewInput({ type, value, onChange }: NewInputProps) {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const handleFileButtonClick = () => {
@@ -34,6 +35,7 @@ export default function NewInput({ type, onChange }: NewInputProps) {
                         type="file"
                         id="fileInput"
                         className={styles.fileInput}
+                        value={value}
                         onChange={handleFileChange}
                         ref={fileInputRef}
                     />
