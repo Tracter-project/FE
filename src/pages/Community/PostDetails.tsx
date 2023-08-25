@@ -6,7 +6,7 @@ import Title from "../../components/Title/Title";
 import DeleteButton from "../../components/DeleteButton/DeleteButton";
 import ModifyButton from "../../components/ModifyButton/ModifyButton";
 import LikeButton from "../../components/LikeButton/LikeButton";
-import { useNavigate, useParams } from "react-router-dom";
+// import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/Button/Button";
 
 interface IPost {
@@ -42,12 +42,16 @@ interface IComment {
   date: string;
 }
 
+// 현재 유저 likedPosts에 있는 포스트인지 확인
+// user.likedPosts.id === 지금 Post.id랑 같으면
+const like = true;
+
 export default function PostDetails() {
   const handleDeleteBtn = (postId: number) => {
     alert(`ID ${postId} 게시글 삭제`);
   };
   const handleLikeBtn = (postId: number) => {
-    alert(`ID ${postId} 게시글 좋아요`);
+    alert(`ID ${postId}`);
   };
 
   // 수정하기
@@ -65,17 +69,6 @@ export default function PostDetails() {
   const handleSubmitBtn = () => {
     alert(`수정된제목: ${modifiedTitle}\n수정된 내용: ${modifiedContents}`);
     setIsEditMode(false);
-  };
-
-  //CommentSubmit
-  const [commentInput, setCommentInput] = useState("");
-
-  const handleCommentInput = (event: ChangeEvent<HTMLInputElement>) => {
-    setCommentInput(event.target.value);
-  };
-
-  const handleCommentSubmit = () => {
-    alert(commentInput); // api
   };
 
   // post.writer === 현재 유저 : Delete, Modify 버튼 o
@@ -142,7 +135,10 @@ export default function PostDetails() {
               ) : (
                 ""
               )}
-              <LikeButton onClick={() => handleLikeBtn(post.id)}></LikeButton>
+              <LikeButton
+                onClick={() => handleLikeBtn(post.id)}
+                like={like}
+              ></LikeButton>
             </div>
           </div>
           {post.placeImage !== "" ? (
@@ -154,13 +150,7 @@ export default function PostDetails() {
       </div>
       <div className={styles.commentContainer}>
         <CommentView commentList={dummyCommentList}></CommentView>
-        <Comment
-          commentInput={commentInput}
-          onChange={handleCommentInput}
-          onClick={handleCommentSubmit}
-        >
-          댓글 작성
-        </Comment>
+        <Comment>댓글 작성</Comment>
       </div>
     </div>
   );

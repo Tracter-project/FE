@@ -15,6 +15,10 @@
   margin: 10px 0;
   justify-content: space-between;
 
+  .left {
+    cursor: pointer;
+  }
+
   .lefttop {
     display: flex;
     justify-content: flex-start;
@@ -58,5 +62,6 @@
   .thumbnail img {
     width: 200px;
     height: 120px;
+    cursor: pointer;
   }
 }

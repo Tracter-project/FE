@@ -1,32 +1,39 @@
 import React, { ChangeEvent } from "react";
 import styles from "./Comment.module.scss";
 import Title from "../Title/Title";
+import { useRecoilState } from "recoil";
+import { commentInput } from "../../recoli/recoilAtoms";
 
 interface CommentProps {
-  children: React.ReactNode;
-  commentInput: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  onClick: () => void;
+    children: React.ReactNode;
 }
 
-export default function Comment({
-  children,
-  commentInput,
-  onClick,
-  onChange,
-}: CommentProps) {
-  return (
-    <>
-      <div className={styles.commentBox}>
-        <input
-          className={styles.commentInput}
-          value={commentInput}
-          onChange={onChange}
-        ></input>
-        <button className={styles.commentButton} onClick={onClick}>
-          <Title size="p">{children}</Title>
-        </button>
-      </div>
-    </>
-  );
+export default function Comment({ children }: CommentProps) {
+    const [commentValue, setCommentValue] = useRecoilState(commentInput);
+
+    const handleCommentValue = (event: ChangeEvent<HTMLInputElement>) => {
+        setCommentValue(event.target.value);
+    };
+
+    const handleCommentSubmit = () => {
+        alert(commentValue); // api
+    };
+
+    return (
+        <>
+            <div className={styles.commentBox}>
+                <input
+                    className={styles.commentInput}
+                    value={commentValue}
+                    onChange={handleCommentValue}
+                ></input>
+                <button
+                    className={styles.commentButton}
+                    onClick={handleCommentSubmit}
+                >
+                    <Title size="p">{children}</Title>
+                </button>
+            </div>
+        </>
+    );
 }

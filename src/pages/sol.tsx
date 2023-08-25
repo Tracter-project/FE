@@ -9,7 +9,7 @@ import PostContentInput from "../components/PostContentInput/PostContentInput";
 import SearchPlace from "../components/SearchPlace/SearchPlace";
 import PostList from "../components/PostList/PostList";
 import { useState, ChangeEvent } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 interface IPost {
   id: number;
@@ -85,10 +85,10 @@ export default function Sol() {
   };
 
   // AddButton - (1) 글 작성 페이지로 이동
-  const navigate = useNavigate();
-  const handleAddButton = () => {
-    navigate("/community/addpost");
-  };
+  // const navigate = useNavigate();
+  // const handleAddButton = () => {
+  //   navigate("/community/addpost");
+  // };
 
   // postTitleInput
   const [titleInput, setTitleInput] = useState("");
@@ -108,13 +108,24 @@ export default function Sol() {
     setSearchInput(event.target.value);
   };
 
+  // TitleInput 상태관리
+  // const [titleInput, setTitleInput] = useState("");
+  // const handleTitleInput = (event: ChangeEvent<HTMLInputElement>) => {
+  //   setTitleInput(event.target.value);
+  // };
+
+  // ContentInput 상태관리
+  // const [contentInput, setContentInput] = useState("");
+  // const handleContentInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  //   setContentInput(event.target.value);
+  // };
   return (
     <>
       {/* <LikeButton onClick={handleModifyButton}></LikeButton> */}
       {/* <AddButton onClick={handleAddButton}></AddButton> */}
       {/* <ModifyButton onClick={handleModifyButton}></ModifyButton> */}
       {/* <DeleteButton onClick={handleDeleteButton}></DeleteButton> */}
-      <CommentView commentList={dummyCommentList}></CommentView>
+      {/* <CommentView commentList={dummyCommentList}></CommentView>
       <Comment
         commentInput={commentInput}
         onChange={handleInputChange}
@@ -134,7 +145,7 @@ export default function Sol() {
         searchInput={searchInput}
         onChange={handleSearchInput}
       ></SearchPlace>
-      <PostList postList={dummyPostList}></PostList>
+      <PostList postList={dummyPostList}></PostList> */}
     </>
   );
 }
