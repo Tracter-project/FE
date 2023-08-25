@@ -9,7 +9,7 @@ import ToggleCheckBox from "../../components/ToggleCheckBox/ToggleCheckBox";
 import Button from "../Button/Button";
 import styles from "./AdminTable.module.scss";
 import { useSetRecoilState } from "recoil";
-import { modalState } from "../../recoilAtoms";
+import { modalState } from "../../recoli/recoilAtoms";
 
 interface AdminTableProps {
     data: {
