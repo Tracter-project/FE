@@ -32,15 +32,15 @@ export default function Admin() {
     ]);
 
     //adminTable CRUD
-    const handleEdit = (id: number) => {
-        //수정 로직 구현
-        console.log(`Edit clicked for ID ${id}`);
-    };
-    const handleDelete = (id: number) => {
-        // 삭제 로직 구현
-        const updatedData = data.filter((item) => item.id !== id);
-        setData(updatedData);
-    };
+    // const handleEdit = (id: number) => {
+    //     //수정 로직 구현
+    //     console.log(`Edit clicked for ID ${id}`);
+    // };
+    // const handleDelete = (id: number) => {
+    //     // 삭제 로직 구현
+    //     const updatedData = data.filter((item) => item.id !== id);
+    //     setData(updatedData);
+    // };
 
     // const handleAdd = () => {
     //     // 추가 로직 구현
@@ -67,8 +67,8 @@ export default function Admin() {
             <TapMenu></TapMenu>
             <AdminTable
                 data={data}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
+                // onEdit={handleEdit}
+                // onDelete={handleDelete}
                 // onAdd={handleAdd}
                 setData={setData}
             ></AdminTable>
