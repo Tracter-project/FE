@@ -19,7 +19,6 @@ export default function CommunityAddPost() {
   const navigate = useNavigate();
   const handleSubmit = () => {
     alert(`제목: ${newTitleInput}\n내용: ${newContentInput}`); // post api
-    alert(`${newSerachInput}`); // test
     navigate("/community/list");
   };
 

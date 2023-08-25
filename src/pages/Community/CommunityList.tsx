@@ -26,7 +26,7 @@ export default function CommunityList() {
       <div className={styles.addButton}>
         <AddButton onClick={handleAddButton}></AddButton>
       </div>
-      <PostList postList={dummyPostList}></PostList>{" "}
+      <PostList postList={dummyPostList}></PostList>
     </div>
   );
 }

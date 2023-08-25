@@ -1,5 +1,5 @@
-import styles from "./Map.module.scss";
 import React from "react";
+import styles from "./Map.module.scss";
 import Title from "../Title/Title";
 import { FaTimes } from "react-icons/fa";
 

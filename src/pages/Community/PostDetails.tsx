@@ -21,20 +21,6 @@ interface IPost {
   placeImage: string;
 }
 
-const post: IPost = {
-  id: 1,
-  subject: "질문",
-  writer: "이뽀리",
-  title: "글 제목",
-  contents:
-    "내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다",
-  postLikeCount: 90,
-  commentsCount: 20,
-  date: "1일 전",
-  placeImage:
-    "https://yaimg.yanolja.com/v5/2023/07/11/16/640/64ad86a29096a7.09459065.jpg",
-};
-
 interface IComment {
   id: number;
   writer: string;
@@ -71,7 +57,6 @@ export default function PostDetails() {
     setIsEditMode(false);
   };
 
-  // post.writer === 현재 유저 : Delete, Modify 버튼 o
   return (
     <div className={styles.postDetailsContainer}>
       <div className={styles.postContainer}>
@@ -119,9 +104,6 @@ export default function PostDetails() {
         </div>
         <div className={styles.right}>
           <div className={styles.righttop}>
-            {/* <div>
-              <Title size="h5">{post.subject}</Title>
-            </div> */}
             <div className={styles.buttons}>
               {post.writer === "이뽀리" ? (
                 <div className={styles.writerButtons}>
@@ -155,6 +137,20 @@ export default function PostDetails() {
     </div>
   );
 }
+
+const post: IPost = {
+  id: 1,
+  subject: "질문",
+  writer: "이뽀리",
+  title: "글 제목",
+  contents:
+    "내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다",
+  postLikeCount: 90,
+  commentsCount: 20,
+  date: "1일 전",
+  placeImage:
+    "https://yaimg.yanolja.com/v5/2023/07/11/16/640/64ad86a29096a7.09459065.jpg",
+};
 
 const dummyCommentList: IComment[] = [
   {
