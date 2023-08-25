@@ -14,8 +14,9 @@ export default function TbtiResult() {
                 </div>
                 <div className={styles.resultBoxP2}>
                     <Title size="p">
-                        당신은 휴식과 여유를 중요하게 생각하는 사람으로,<br /> 럭셔리한 호텔에서 편안하게 휴식을 즐기는 것이
-                        어울립니다.<br /> 풍부한 시설과 서비스로 여행을 완벽하게 즐길 수 있을 것입니다.
+                        당신은 휴식과 여유를 중요하게 생각하는 사람으로,
+                        <br /> 럭셔리한 호텔에서 편안하게 휴식을 즐기는 것이 어울립니다.
+                        <br /> 풍부한 시설과 서비스로 여행을 완벽하게 즐길 수 있을 것입니다.
                     </Title>
                 </div>
                 <div className={styles.resultButton}>
