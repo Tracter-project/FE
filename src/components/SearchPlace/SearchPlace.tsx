@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
-import styles from "./SearchPlace.module.scss";
-import { IoMdSearch } from "react-icons/io";
 import { useRecoilState } from "recoil";
+import { IoMdSearch } from "react-icons/io";
+import styles from "./SearchPlace.module.scss";
 import { searchPlace } from "../../recoilAtoms";
 
 export default function SearchPlace() {
