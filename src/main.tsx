@@ -18,9 +18,9 @@ import CommunityAddPost from './pages/Community/CommunityAddPost.tsx';
 import MyPage from './pages/MyPage/MyPage.tsx';
 import PlaceAddPost from './pages/Community/PlaceAddPost.tsx';
 import PostDetails from './pages/Community/PostDetails.tsx';
-import HotelsList from './pages/Hotels/HotelsList.tsx';
-// import HotelsDetail from './pages/HotelsDetail/HotelsDetail.tsx';
-// import HotelsMap from './pages/HotelsMap/HotelsMap.tsx';
+import Category from './pages/Category/Category.tsx';
+import Place from './pages/Place/Place.tsx';
+import PlaceMap from './pages/PlaceMap/PlaceMap.tsx';
 import Tbti from './pages/Tbti/Tbti.tsx';
 import TbtiResult from './pages/TbtiResult/TbtiResult.tsx';
 
@@ -44,11 +44,11 @@ const router = createBrowserRouter([
             { path: '/seok', element: <Seok /> },
             { path: '/place/addpost/:placeId', element: <PlaceAddPost /> },
             { path: '/community/posts/:postId', element: <PostDetails /> },
-            { path: '/hotelsList', element: <HotelsList /> },
-            // { path: '/hotelsDetail', element: <HotelsDetail /> },
-            // { path: '/hotelsMap', element: <HotelsMap /> },
+            { path: '/category', element: <Category /> },
+            { path: '/place', element: <Place /> },
+            { path: '/placeMap', element: <PlaceMap /> },
             { path: '/test', element: <Tbti /> },
-            { path: '/test/result/:categoryid', element: <TbtiResult /> },
+            { path: '/testresult', element: <TbtiResult /> },
         ],
     },
 ]);

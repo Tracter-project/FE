@@ -1,11 +1,16 @@
 import React from 'react';
 import styles from './TestButton.module.scss';
 
-export default function TestButton() {
+interface TestButtonProps {
+    onClick: () => void;
+    children: React.ReactNode;
+}
+
+export default function TestButton({ onClick, children }: TestButtonProps) {
     return (
         <div>
-            <button type="button" className={styles.selectButton}>
-                <p className={styles.text}>새로운 문화와 사람들을 경험하기 위해서</p>
+            <button type="button" className={styles.selectButton} onClick={onClick}>
+                <span className={styles.text}>{children}</span>
             </button>
         </div>
     );
