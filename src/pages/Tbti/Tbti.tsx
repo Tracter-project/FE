@@ -21,11 +21,10 @@ export default function Tbti() {
     // 예시에서 질문과 답변은 임의로 작성되었습니다.
     const questions: Question[] = [
         {
-            q: '질문1',
+            q: '당신이 여행을 가는 이유는 무엇인가요?',
             a: [
-                { text: '답변1-1', scores: [1, 0, 0, 0, 0] },
-                { text: '답변1-2', scores: [0, 1, 0, 0, 0] },
-                { text: '답변1-3', scores: [0, 0, 1, 0, 0] },
+                { text: '새로운 문화와 사람들을 경험하기 위해서', scores: [0, 0, 0, 1, 0] },
+                { text: '온전한 휴식을 즐기기 위해서', scores: [1, 0, 0, 0, 1] },
             ],
         },
         {
