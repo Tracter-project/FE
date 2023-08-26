@@ -1,0 +1,47 @@
+.commentViewWrap {
+  .commentViewHead {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: #a4a4a4 solid 1px;
+    padding: 16px;
+    margin: 10px 0;
+
+    .title {
+      position: relative;
+      top: 20px;
+    }
+
+    .icons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 14px;
+      position: relative;
+      top: 5px;
+    }
+  }
+  .commentView {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: #a4a4a4 solid 1px;
+    justify-content: space-between;
+    padding: 10px 10px 20px 10px;
+    margin: 10px 0 15px 0;
+    gap: 20px;
+
+    .checkbox {
+      margin-right: -30px;
+      margin-top: 5px;
+    }
+
+    .commentWriter {
+      width: 10%;
+    }
+    .commentContent {
+      width: 70%;
+    }
+    .commentDate {
+      color: #a4a4a4;
+    }
+  }
+}

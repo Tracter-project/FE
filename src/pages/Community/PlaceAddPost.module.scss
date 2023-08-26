@@ -1,0 +1,50 @@
+.addPostContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .addPostHead {
+    align-self: flex-start;
+  }
+
+  .placeInfo {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 40px;
+
+    img {
+      width: 220px;
+      height: 140px;
+    }
+  }
+  .checkboxWrap {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    width: 600px;
+
+    .checkbox {
+      width: 80%;
+      display: flex;
+      justify-content: flex-start;
+    }
+  }
+
+  .inputWrap {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+
+    width: 600px;
+
+    b {
+      position: relative;
+      top: 20px;
+    }
+    .inputBox {
+      width: 80%;
+    }
+  }
+}

@@ -1,0 +1,67 @@
+.header {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 99;
+  margin-bottom: 3%;
+
+  .logo {
+    width: 33.3%;
+
+    &:hover a {
+      color: #4477CE;
+    }
+  }
+
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+    .dropdown {
+      padding: 0 10px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+
+
+    p:hover>a {
+      color: #4477CE;
+
+    }
+  }
+
+  .right {
+    width: 33.3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+    p:hover a {
+      color: #4477CE;
+
+    }
+
+    .search {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+
+      .searchIcon {
+        font-size: 20px;
+      }
+
+      input {
+        border: none;
+        border-bottom: 1px solid #000;
+      }
+    }
+  }
+}
