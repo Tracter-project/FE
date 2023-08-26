@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { modalState } from "../../recoli/recoilAtoms";
 import Title from "../Title/Title";
 import AddButton from "../AddButton/AddButton";
 import ModifyButton from "../ModifyButton/ModifyButton";
@@ -8,8 +10,6 @@ import NewInput from "../NewInput/NewInput";
 import Button from "../Button/Button";
 import RadioButton from "../RadioButton/RadioButton";
 import styles from "./AdminTable.module.scss";
-import { useSetRecoilState } from "recoil";
-import { modalState } from "../../recoli/recoilAtoms";
 
 interface AdminTableProps {
     data: {

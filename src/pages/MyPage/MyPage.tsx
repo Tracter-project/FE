@@ -1,11 +1,11 @@
-import Title from "../../components/Title/Title";
-import Input from "../../components/Input/Input";
-import BorderButton from "../../components/Button/BorderButton";
 import { MdEmail } from "react-icons/md";
 import { BiSolidUser } from "react-icons/bi";
 import { AiFillLock } from "react-icons/ai";
-import styles from "./MyPage.module.scss";
+import Title from "../../components/Title/Title";
+import Input from "../../components/Input/Input";
+import BorderButton from "../../components/Button/BorderButton";
 import MyPagePlaces from "../../components/MyPagePlaces/MyPagePlaces";
+import styles from "./MyPage.module.scss";
 
 //마이페이지숙소리스트 타입
 interface MyItem {
