@@ -1,10 +1,10 @@
+import { MdEmail, MdMarkEmailRead } from "react-icons/md";
+import { AiFillLock } from "react-icons/ai";
+import { BiSolidUser } from "react-icons/bi";
 import Title from "../../components/Title/Title";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import BorderButton from "../../components/Button/BorderButton";
-import { MdEmail, MdMarkEmailRead } from "react-icons/md";
-import { AiFillLock } from "react-icons/ai";
-import { BiSolidUser } from "react-icons/bi";
 import styles from "./Register.module.scss";
 
 function Name() {

@@ -1,10 +1,10 @@
+import { MdEmail } from "react-icons/md";
+import { AiFillLock } from "react-icons/ai";
 import Title from "../../components/Title/Title";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import LocalImg from "../../components/LocalImg/LocalImg";
 import LoginImg from "../../assets/loginImg.png";
-import { MdEmail } from "react-icons/md";
-import { AiFillLock } from "react-icons/ai";
 import styles from "./Login.module.scss";
 
 export default function Login() {
