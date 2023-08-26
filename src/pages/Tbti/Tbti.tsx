@@ -1,8 +1,10 @@
+import React, { useState } from 'react';
 import TestScore from '../../components/TestScore/TestScore';
 import styles from './Tbti.module.scss';
 import Title from '../../components/Title/Title';
 import TestButton from '../../components/TestButton/TestButton';
 import TestProgress from '../../components/TestProgress/TestProgress';
+import Score from '../../components/Score/Score';
 
 //test que list
 export default function Tbti() {
@@ -45,14 +47,13 @@ export default function Tbti() {
         selectedAnswers.forEach((answer) => {
             answer.scores.forEach((score, idx) => {
                 totalScores[idx] += score;
-            });
+            }); //totalScores에 score를 하나씩 추가
         });
 
-        const maxScoreIdx = totalScores.indexOf(Math.max(...totalScores));
+        const maxScoreIdx = totalScores.indexOf(Math.max(...totalScores)); //totalScores에서 가장 큰 index 찾아서 저장
 
         return resultTexts[maxScoreIdx];
     };
-
 
     return (
         <section>
@@ -60,7 +61,7 @@ export default function Tbti() {
                 {/* Text */}
                 <div className={styles.Text}>
                     <div className={styles.score}>
-                        <TestScore />
+                        <Score />
                     </div>
                     <div>
                         <Title size="h2">테스트 문항</Title>

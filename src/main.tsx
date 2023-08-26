@@ -19,8 +19,8 @@ import MyPage from './pages/MyPage/MyPage.tsx';
 import PlaceAddPost from './pages/Community/PlaceAddPost.tsx';
 import PostDetails from './pages/Community/PostDetails.tsx';
 import HotelsList from './pages/Hotels/HotelsList.tsx';
-import HotelsDetail from './pages/HotelsDetail/HotelsDetail.tsx';
-import HotelsMap from './pages/HotelsMap/HotelsMap.tsx';
+// import HotelsDetail from './pages/HotelsDetail/HotelsDetail.tsx';
+// import HotelsMap from './pages/HotelsMap/HotelsMap.tsx';
 import Tbti from './pages/Tbti/Tbti.tsx';
 import TbtiResult from './pages/TbtiResult/TbtiResult.tsx';
 
@@ -45,8 +45,8 @@ const router = createBrowserRouter([
             { path: '/place/addpost/:placeId', element: <PlaceAddPost /> },
             { path: '/community/posts/:postId', element: <PostDetails /> },
             { path: '/hotelsList', element: <HotelsList /> },
-            { path: '/hotelsDetail', element: <HotelsDetail /> },
-            { path: '/hotelsMap', element: <HotelsMap /> },
+            // { path: '/hotelsDetail', element: <HotelsDetail /> },
+            // { path: '/hotelsMap', element: <HotelsMap /> },
             { path: '/test', element: <Tbti /> },
             { path: '/test/result/:categoryid', element: <TbtiResult /> },
         ],
