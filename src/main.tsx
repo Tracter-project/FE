@@ -21,6 +21,8 @@ import PostDetails from "./pages/Community/PostDetails.tsx";
 import Category from "./pages/Category/Category.tsx";
 import Place from "./pages/Place/Place.tsx";
 import PlaceMap from "./pages/PlaceMap/PlaceMap.tsx";
+import Tbti from "./pages/Tbti/Tbti.tsx";
+import TbtiResult from "./pages/TbtiResult/TbtiResult.tsx";
 
 const router = createBrowserRouter([
   {
@@ -42,9 +44,11 @@ const router = createBrowserRouter([
       { path: "/seok", element: <Seok /> },
       { path: "/place/addpost/:placeId", element: <PlaceAddPost /> },
       { path: "/community/posts/:postId", element: <PostDetails /> },
-      { path: "/category/:categoryId", element: <Category /> },
-      { path: "/place/:postId", element: <Place /> },
+      { path: "/category", element: <Category /> },
+      { path: "/place", element: <Place /> },
       { path: "/placeMap", element: <PlaceMap /> },
+      { path: "/test", element: <Tbti /> },
+      { path: "/testresult", element: <TbtiResult /> },
     ],
   },
 ]);

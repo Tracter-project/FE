@@ -1,8 +1,9 @@
+import {ReactNode} from 'react';
 import { atom } from "recoil";
 
 interface ModalState {
     isOpen: boolean;
-    content: React.ReactNode;
+    content: ReactNode;
 }
 export const modalState = atom<ModalState>({
     key: "modalState", // 고유한 식별자

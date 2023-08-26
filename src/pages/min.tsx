@@ -213,8 +213,8 @@ export default function Min() {
 
             <AdminTable
                 data={data}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
+                // onEdit={handleEdit}
+                // onDelete={handleDelete}
                 // onAdd={handleAdd}
                 setData={setData}
             ></AdminTable>
