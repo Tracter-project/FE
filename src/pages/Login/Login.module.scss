@@ -1,0 +1,36 @@
+.loginWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  width: 800px;
+  height: 575px;
+  margin: 0 auto;
+
+  img {
+    width: 50%;
+  }
+
+  .login {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 50%;
+
+
+    h2 {
+      color: #4477CE;
+    }
+
+    h5 {
+      color: #A5A5A5;
+      margin-top: 28px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      margin-top: 20px;
+    }
+  }
+}

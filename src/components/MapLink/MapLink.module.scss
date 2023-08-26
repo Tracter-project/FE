@@ -1,0 +1,12 @@
+.mapLink {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #608bd5;
+  padding: 10px;
+  justify-content: center;
+
+  svg {
+    margin-right: 10px;
+  }
+}

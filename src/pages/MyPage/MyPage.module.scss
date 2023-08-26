@@ -1,0 +1,53 @@
+.mypage {
+  >h2 {
+    padding-bottom: 20px;
+    border-bottom: 2px solid #000;
+    margin-top: 52px;
+    margin-bottom: 40px;
+  }
+
+  >.myPageWrap>div:nth-child(1) {
+    svg {
+      color: #000;
+    }
+
+    input {
+
+      border: 1px solid #000;
+    }
+  }
+
+  .myPageWrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 32px;
+
+    &>div {
+      width: 100%;
+    }
+
+    .name {
+      display: flex;
+      gap: 20px;
+
+      &>div {
+        width: 100%;
+      }
+
+      button {
+        width: 10%;
+      }
+    }
+  }
+
+  .myPageList {
+    display: flex;
+    gap: 20px;
+
+    &>div {
+      width: 25%;
+    }
+  }
+}

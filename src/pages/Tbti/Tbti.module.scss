@@ -1,0 +1,27 @@
+* {
+    text-align: center;
+}
+.WallPaper {
+    height: 100vh;
+    background: url(src/assets/TbtiMainPic.png) no-repeat center;
+    background-size: cover;
+    width: 100%;
+    flex-shrink: 0;
+}
+.Text {
+    .score {
+        padding-top: 60px;
+    }
+    h2 {
+        color: white;
+        padding-bottom: 20px;
+    }
+    h4 {
+        color: white;
+        font-size: 20px;
+        padding-bottom: 45px;
+    }
+}
+.questionList {
+    margin-bottom: 200px;
+}

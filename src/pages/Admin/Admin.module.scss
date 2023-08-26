@@ -1,0 +1,125 @@
+.title {
+  padding-bottom: 20px;
+  border-bottom: 2px solid #000;
+  margin-bottom: 28px;
+}
+
+
+.newInputWrap {
+  margin-bottom: 40px;
+
+  .inputBox {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+
+    button {
+      width: 20%;
+    }
+  }
+}
+
+.editedInputWrap {
+
+
+  .inputBox {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .buttonWrap {
+    width: 20%;
+    display: flex;
+    gap: 20px;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+
+  h2 {
+    margin-bottom: 50px;
+    font-weight: bold;
+  }
+
+  b {
+    margin-bottom: 40px;
+  }
+}
+
+
+
+
+.addList {
+  display: flex;
+  flex-direction: column;
+
+  margin: 0 auto;
+
+  h2 {
+    margin-bottom: 120px;
+  }
+
+  .addWarp {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    .imgInput {
+      display: flex;
+      align-items: center;
+      text-align: center;
+
+      b {
+        width: 15%;
+      }
+
+      input {
+        position: relative;
+      }
+
+      input[type=file]::file-selector-button {
+        display: none;
+
+      }
+
+    }
+
+    .check {
+      display: flex;
+      text-align: center;
+
+      b {
+        width: 15%;
+      }
+
+      .checkbox {
+        display: flex;
+        width: 100%;
+      }
+    }
+
+    .input {
+      display: flex;
+      align-items: center;
+      text-align: center;
+
+      b {
+        width: 15%;
+      }
+
+      .checkbox {
+        display: flex;
+        width: 100%;
+      }
+    }
+  }
+
+  &>button {
+    margin: 0 auto;
+    margin-top: 52px;
+  }
+}

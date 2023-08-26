@@ -1,0 +1,46 @@
+.mainBox {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  row-gap: 100px;
+  column-gap: 20px;
+  place-items: center;
+
+  .mainImage {
+    min-width: 320px;
+
+    img {
+      width: 100%;
+      height: 320px;
+    }
+
+    .mainWrap {
+      .mainTitle {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 5px;
+
+        .title {
+          font-weight: normal;
+
+          &:hover {
+            color: #608bd5;
+          }
+        }
+
+        .popularity {
+          cursor: pointer;
+          font-weight: bold;
+          color: #ff0000;
+          display: flex;
+          align-items: center;
+
+          svg {
+            width: 2em;
+            height: 2em;
+          }
+        }
+      }
+    }
+  }
+}

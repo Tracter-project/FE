@@ -1,0 +1,11 @@
+.communityListContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .addButton {
+    align-self: self-end;
+    position: relative;
+    right: 50px;
+  }
+}

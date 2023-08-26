@@ -1,0 +1,36 @@
+.title {
+  &.h1 {
+    font-size: 60px;
+    font-weight: bold;
+  }
+
+  &.h2 {
+    font-size: 40px;
+    font-weight: bold;
+  }
+
+  &.h3 {
+    font-size: 32px;
+  }
+
+  &.h4 {
+    font-size: 26px;
+  }
+
+  &.h5 {
+    font-size: 20px;
+  }
+
+  &.b {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  &.p {
+    font-size: 16px;
+  }
+
+  &.sub {
+    font-size: 12px
+  }
+}
