@@ -2,8 +2,8 @@ import Title from "../../components/Title/Title";
 import NewInput from "../../components/NewInput/NewInput";
 import EditedInput from "../../components/EditedInput/EditedInput";
 import Button from "../../components/Button/Button";
-import styles from "./Admin.module.scss";
 import TabButton from "../../components/TabButton/TabButton";
+import styles from "./Admin.module.scss";
 
 function NewInputWrap() {
     return (
