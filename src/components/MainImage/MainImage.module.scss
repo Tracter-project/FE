@@ -20,6 +20,14 @@
         align-items: center;
         margin-bottom: 5px;
 
+        .title {
+          font-weight: normal;
+
+          &:hover {
+            color: #608bd5;
+          }
+        }
+
         .popularity {
           cursor: pointer;
           font-weight: bold;
