@@ -1,0 +1,67 @@
+.postList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.postContainer {
+  width: 640px;
+  height: 220px;
+  display: flex;
+  align-items: flex-start;
+  padding: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2);
+  margin: 10px 0;
+  justify-content: space-between;
+
+  .left {
+    cursor: pointer;
+  }
+
+  .lefttop {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+
+    .writer {
+      margin-top: 2px;
+    }
+
+    .date {
+      color: #a4a4a4;
+    }
+  }
+
+  .postTitle {
+    margin-top: 30px;
+  }
+
+  .postContent {
+    margin: 10px 0 40px;
+  }
+
+  .leftbottom {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-bottom: 50px;
+    color: #a4a4a4;
+  }
+
+  .righttop {
+    display: flex;
+    justify-content: flex-end;
+
+    .likeButton {
+      position: relative;
+      bottom: 11px;
+    }
+  }
+
+  .thumbnail img {
+    width: 200px;
+    height: 120px;
+    cursor: pointer;
+  }
+}
