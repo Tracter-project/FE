@@ -13,10 +13,18 @@ import RadioButton from "../../components/RadioButton/RadioButton";
 
 const subjects = ["후기", "질문", "기타"];
 
+// Article(post)
+// interface Article {
+//   subject: string;
+//   writer: string;
+//   title: string;
+//   contents: string;
+// }
+
 export default function CommunityAddPost() {
-  const [selectedSubject, setSelectedSubject] = useState<string>("");
-  const newTitleInput = useRecoilValue(titleInput);
-  const newContentInput = useRecoilValue(contentInput);
+  const [selectedSubject, setSelectedSubject] = useState<string>(""); // subject
+  const newTitleInput = useRecoilValue(titleInput); // title
+  const newContentInput = useRecoilValue(contentInput); // contents
 
   const handleRegionChange = (subject: string) => {
     setSelectedSubject(subject);
