@@ -5,7 +5,6 @@ import MainLargeButton from "../components/Button/MainLargeButton";
 import MainButton from "../components/Button/MainButton";
 import BorderButton from "../components/Button/BorderButton";
 import Input from "../components/Input/Input";
-import CheckBox from "../components/CheckBox/CheckBox";
 import MainPopularPlaces from "../components/MainPopularPlaces/MainPopularPlaces";
 import MainNewPlaces from "../components/MainNewPlaces/MainNewPlaces";
 import AdminTable from "../components/AdminTable/AdminTable";
@@ -16,7 +15,6 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { MdEmail } from "react-icons/md";
 import LoginImg from "../assets/loginImg.png";
 import TabButton from "../components/TabButton/TabButton";
-import RadioButton from "../components/RadioButton/RadioButton";
 import AdminModal from "../components/AdminModal/AdminModal";
 
 //인기숙소리스트 타입
@@ -45,8 +43,6 @@ interface MyItem {
 }
 
 export default function Min() {
-    //checkbox 상태관리
-    const [checkBoxChecked, setCheckBoxChecked] = useState(false);
     //adminTable 상태관리
     const [data, setData] = useState([
         {
@@ -160,46 +156,6 @@ export default function Min() {
     // 시간 정렬
     dummyNewList.sort((a, b) => b.date.getTime() - a.date.getTime());
 
-    //adminTable CRUD
-    const handleEdit = (id: number) => {
-        //수정 로직 구현
-        console.log(`Edit clicked for ID ${id}`);
-    };
-    const handleDelete = (id: number) => {
-        // 삭제 로직 구현
-        const updatedData = data.filter((item) => item.id !== id);
-        setData(updatedData);
-    };
-
-    // const handleAdd = () => {
-    //     // 추가 로직 구현
-    //     const newId = data.length + 1;
-    //     const newEntry = {
-    //         id: newId,
-    //         selected: false,
-    //         imageUrl: "URL_new",
-    //         area: "새로운 지역",
-    //         category: "새로운 카테고리",
-    //         name: "새로운 숙소",
-    //         description: "새로운 설명",
-    //         price: 200,
-    //     };
-
-    //     setData([...data, newEntry]);
-    // };
-
-    // //radio
-    // const [selectedRegion, setSelectedRegion] = useState<string>("");
-    // const handleRegionChange = (region: string) => {
-    //     console.log("지역바뀜:", region);
-    //     setSelectedRegion(region);
-    // };
-
-    //체크박스예시
-    const [selectedBox, setSelectedBox] = useState<string>("");
-    const handleBoxChange = (box: string) => {
-        setSelectedBox(box);
-    };
     //AdminModal
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedRegion, setSelectedRegion] = useState("");
