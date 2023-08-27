@@ -20,6 +20,13 @@ interface IPost {
   placeImage: string;
 }
 
+// 참고용
+// UpdateArticleDTO {
+// 	id: number; // params
+// 	title: string;
+// 	contents: string;
+// }
+
 interface IComment {
   id: number;
   writer: string;
@@ -37,8 +44,8 @@ export default function PostDetails() {
 
   // 수정하기
   const [isEditMode, setIsEditMode] = useState(false);
-  const [modifiedTitle, setModifiedTitle] = useState(post.title);
-  const [modifiedContents, setModifiedContents] = useState(post.contents);
+  const [modifiedTitle, setModifiedTitle] = useState(post.title); // title
+  const [modifiedContents, setModifiedContents] = useState(post.contents); // contents
 
   const handleModifyTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setModifiedTitle(event.target.value);
@@ -88,6 +95,7 @@ export default function PostDetails() {
           ) : (
             <>
               <div className={styles.postTitle}>
+                {/* <Title size="h5">{post.subject}</Title> */}
                 <Title size="h3">{post.title}</Title>
               </div>
               <div className={styles.postContent}>
@@ -103,9 +111,6 @@ export default function PostDetails() {
         </div>
         <div className={styles.right}>
           <div className={styles.righttop}>
-            {/* <div>
-              <Title size="h5">{post.subject}</Title>
-            </div> */}
             <div className={styles.buttons}>
               {post.writer === "이뽀리" ? (
                 <div className={styles.writerButtons}>
