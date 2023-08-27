@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import MainNewPlaces from '../../components/MainNewPlaces/MainNewPlaces';
 import MainPopularPlaces from '../../components/MainPopularPlaces/MainPopularPlaces';
 import styles from './Home.module.scss';
@@ -52,6 +54,8 @@ export default function Home() {
         },
     ];
 
+    const navigate = useNavigate();
+
     return (
         <section>
             <div className={styles.first}>
@@ -104,7 +108,8 @@ export default function Home() {
                             <br /> 호캉스, 글램핑, 풀빌라, 캠핑, 카라반에 관한 정보를 제공 해드립니다.
                         </Title>
                         <div className={styles.LargeButton}>
-                        <MainLargeButton>테스트 하러가기</MainLargeButton>
+                            <MainLargeButton onClick={() => navigate('/test')}>테스트 하러가기</MainLargeButton>{' '}
+                            {/* 바로 /test로 가게 */}
                         </div>
                     </div>
                 </div>

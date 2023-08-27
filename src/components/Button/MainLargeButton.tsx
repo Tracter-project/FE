@@ -1,18 +1,18 @@
-import React from "react";
-import styles from "./Button.module.scss";
-import Title from "../Title/Title";
-import { Link } from "react-router-dom";
+import React from 'react';
+import styles from './Button.module.scss';
+import Title from '../Title/Title';
+// import { Link } from 'react-router-dom';
 
 interface ButtonProps {
     children: React.ReactNode;
 }
 
-export default function MainLargeButton({ children }: ButtonProps) {
+export default function MainLargeButton({ onClick, children }: ButtonProps) {
     return (
         <>
-            <button className={styles.mainLargeButton}>
+            <button className={styles.mainLargeButton} onClick={onClick}>
                 <Title size="h5">
-                    <Link to="/">{children}</Link>
+                    {children}
                 </Title>
             </button>
         </>
