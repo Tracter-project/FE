@@ -1,55 +1,74 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import PostTitleInput from "../../components/PostTitleInput/PostTitleInput";
 import PostContentInput from "../../components/PostContentInput/PostContentInput";
 import Button from "../../components/Button/Button";
 import SearchPlace from "../../components/SearchPlace/SearchPlace";
-import { titleInput } from "../../recoli/recoilAtoms";
+import { searchedData, titleInput } from "../../recoli/recoilAtoms";
 import { contentInput } from "../../recoli/recoilAtoms";
-import { searchPlace } from "../../recoli/recoilAtoms";
 import Title from "../../components/Title/Title";
 import styles from "./CommunityAddPost.module.scss";
-// import RoundCheckbox from "../../components/ToggleCheckBox/ToggleCheckBoxSetting";
+import RadioButton from "../../components/RadioButton/RadioButton";
+
+const subjects = ["후기", "질문", "기타"];
+
+// Article(post)
+// interface Article {
+//   subject: string;
+//   writer: string;
+//   title: string;
+//   contents: string;
+// }
 
 export default function CommunityAddPost() {
-  const newTitleInput = useRecoilValue(titleInput);
-  const newContentInput = useRecoilValue(contentInput);
-  const newSerachInput = useRecoilValue(searchPlace);
+  const [selectedSubject, setSelectedSubject] = useState<string>(""); // subject
+  const newTitleInput = useRecoilValue(titleInput); // title
+  const newContentInput = useRecoilValue(contentInput); // contents
+
+  const handleRegionChange = (subject: string) => {
+    setSelectedSubject(subject);
+  };
 
   // 작성하기 버튼
   const navigate = useNavigate();
   const handleSubmit = () => {
     alert(`제목: ${newTitleInput}\n내용: ${newContentInput}`); // post api
-    alert(`${newSerachInput}`); // test
     navigate("/community/list");
   };
 
   // searchInput에 검색된 place 불러오기
-  const place = {
-    // 예시 데이터
-    title: "00 카라반",
-    mainImage:
-      "https://yaimg.yanolja.com/v5/2023/07/11/16/640/64ad86a29096a7.09459065.jpg",
-  };
+  const searchedPlace = useRecoilValue(searchedData);
 
-  // 후기, 질문 => SearchPlace, Place MainImage, Place Title
-  // 기타 => (SearchPlace, Place MainImage, Place Title) 숨기기
   return (
     <div className={styles.addPostContainer}>
       <div className={styles.addPostHead}>
         <Title size="h2">글 작성</Title>
       </div>
-      <SearchPlace></SearchPlace>
-      <div className={styles.placeInfo}>
-        <img src={place.mainImage} alt="Place Image" />
-        <Title size="b">{place.title}</Title>
-      </div>
+
+      {selectedSubject !== "기타" && (
+        <div>
+          <SearchPlace></SearchPlace>
+          {searchedPlace.imageUrl && (
+            <div className={styles.placeInfo}>
+              <img src={searchedPlace.imageUrl} alt="Place Image" />
+              <Title size="b">{searchedPlace.title}</Title>
+            </div>
+          )}
+        </div>
+      )}
+
       <div className={styles.checkboxWrap}>
         <Title size="b">글머리</Title>
         <div className={styles.checkbox}>
-          {/* <RoundCheckbox label="후기" name="roundCheckbox1" />
-          <RoundCheckbox label="질문" name="roundCheckbox1" />
-          <RoundCheckbox label="기타" name="roundCheckbox1" /> */}
+          {subjects.map((subject) => (
+            <RadioButton
+              key={subject}
+              label={subject}
+              checked={selectedSubject === subject}
+              onChange={() => handleRegionChange(subject)}
+            />
+          ))}
         </div>
       </div>
       <div className={styles.inputWrap}>

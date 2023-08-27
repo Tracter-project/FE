@@ -22,13 +22,13 @@
   .checkboxWrap {
     display: flex;
     justify-content: flex-start;
-    gap: 20px;
     width: 600px;
+    gap: 10px;
 
     .checkbox {
-      width: 80%;
       display: flex;
-      justify-content: flex-start;
+      position: relative;
+      bottom: 9px;
     }
   }
 
