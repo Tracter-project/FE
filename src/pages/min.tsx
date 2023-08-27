@@ -17,6 +17,7 @@ import { MdEmail } from "react-icons/md";
 import LoginImg from "../assets/loginImg.png";
 import TabButton from "../components/TabButton/TabButton";
 import RadioButton from "../components/RadioButton/RadioButton";
+import AdminModal from "../components/AdminModal/AdminModal";
 
 //인기숙소리스트 타입
 interface PopularItem {
@@ -187,11 +188,34 @@ export default function Min() {
     //     setData([...data, newEntry]);
     // };
 
-    //radio
-    const [selectedRegion, setSelectedRegion] = useState<string>("");
-    const handleRegionChange = (region: string) => {
-        console.log("지역바뀜:", region);
+    // //radio
+    // const [selectedRegion, setSelectedRegion] = useState<string>("");
+    // const handleRegionChange = (region: string) => {
+    //     console.log("지역바뀜:", region);
+    //     setSelectedRegion(region);
+    // };
+
+    //체크박스예시
+    const [selectedBox, setSelectedBox] = useState<string>("");
+    const handleBoxChange = (box: string) => {
+        setSelectedBox(box);
+    };
+    //AdminModal
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedRegion, setSelectedRegion] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState("");
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleSelect = (region: string, category: string) => {
         setSelectedRegion(region);
+        setSelectedCategory(category);
     };
     return (
         <>
@@ -204,10 +228,12 @@ export default function Min() {
             <MainButton>바로가기</MainButton>
             <BorderButton>메일 발송</BorderButton>
             <Input icon={<MdEmail />} text={"이메일"} />
-            <CheckBox
-                checked={checkBoxChecked}
-                onChange={() => setCheckBoxChecked(!checkBoxChecked)}
-            ></CheckBox>
+            {/* <CheckBox
+                key={box}
+                label={box}
+                checked={setSelectedBox === box}
+                onChange={() => handleBoxChange(box)}
+            /> */}
             <MainPopularPlaces popularList={dummyPopularList} />
             <MainNewPlaces newList={dummyNewList} />
 
@@ -225,7 +251,7 @@ export default function Min() {
             ></LocalImg>
             <MyPagePlaces myList={dummyMyPageList}></MyPagePlaces>
             <TabButton></TabButton>
-            <RadioButton
+            {/* <RadioButton
                 label="경상"
                 checked={selectedRegion === "경상"}
                 onChange={() => handleRegionChange("경상")}
@@ -234,7 +260,18 @@ export default function Min() {
                 label="제주"
                 checked={selectedRegion === "제주"}
                 onChange={() => handleRegionChange("제주")}
+            /> */}
+            <button onClick={handleOpenModal}>Open Modal</button>
+            <AdminModal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                onSelect={handleSelect}
             />
+            <div>
+                Selected Region: {selectedRegion}
+                <br />
+                Selected Category: {selectedCategory}
+            </div>
         </>
     );
 }

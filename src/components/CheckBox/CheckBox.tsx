@@ -4,8 +4,9 @@ interface CheckBoxProps {
     checked: boolean;
     onChange: (checked: boolean) => void;
 }
+
 export default function CheckBox({ checked, onChange }: CheckBoxProps) {
-    const handleCheckboxChange = () => {
+    const handleChange = () => {
         onChange(!checked);
     };
     return (
@@ -14,8 +15,9 @@ export default function CheckBox({ checked, onChange }: CheckBoxProps) {
                 type="checkbox"
                 className={styles.checkBoxInput}
                 checked={checked}
-                onChange={handleCheckboxChange}
+                onChange={handleChange}
             />
+            <span className={styles.checkBoxCheckmark}></span>
         </label>
     );
 }

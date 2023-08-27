@@ -5,15 +5,16 @@
     display: flex;
     gap: 20px;
 
+    input::file-selector-button {
+      display: none;
+    }
+
     .fileInput {
       width: 80%;
       height: 48px;
       border: 1px solid #A5A5A5;
       border-radius: 10px;
       padding: 16px;
-
-
-
     }
 
     .customFileButton {
@@ -31,6 +32,11 @@
     height: 48px;
     border: 1px solid #A5A5A5;
     border-radius: 10px;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    appearance: none;
   }
 
 }
