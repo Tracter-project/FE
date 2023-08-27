@@ -3,6 +3,8 @@ import Title from "../../components/Title/Title";
 import MainImage from "../../components/MainImage/MainImage";
 import DropdownOption from "../../components/DropdownOption/DropdownOption";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios"; // axios 라이브러리를 import
 
 interface MainImageItem {
   id: number;
@@ -80,6 +82,23 @@ const dummyMainImageList: MainImageItem[] = [
 ];
 
 export default function Category() {
+  // const [categoryPlace, setCategoryPlace] = useState<MainImageItem[]>([]);
+
+  // useEffect(() => {
+  //   // 카테고리에 해당하는 숙소 데이터를 불러오는 함수
+  //   const fetchCategoryPlace = async (category: string) => {
+  //     try {
+  //       const response = await axios.get(`/places/categories/${category}`);
+  //       const data = response.data.categoryPlace;
+  //       setCategoryPlace(data);
+  //     } catch (error) {
+  //       console.error("Error fetching category place:", error);
+  //     }
+  //   };
+
+  //   const category = "서울"; // 카테고리 값에 따라 동적으로 설정할 수 있음
+  //   fetchCategoryPlace(category);
+  // }, []);
   return (
     <>
       <Title size="h2" className={styles.title}>
