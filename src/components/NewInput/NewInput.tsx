@@ -1,10 +1,11 @@
 import React, { useRef } from "react";
 import Title from "../Title/Title";
+import Button from "../Button/Button";
 import styles from "./NewInput.module.scss";
 
 interface NewInputProps {
-    type: "file" | "text";
-    onChange: (value: string | File | null) => void;
+    type: "file" | "text" | "number";
+    onChange: (value: string | File | number | null) => void;
 }
 
 export default function NewInput({ type, onChange }: NewInputProps) {
@@ -16,13 +17,21 @@ export default function NewInput({ type, onChange }: NewInputProps) {
         }
     };
 
+    //file타입
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files && event.target.files[0];
-        onChange(selectedFile);
+        onChange(selectedFile || null);
     };
 
+    //string타입
     const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
+        onChange(value);
+    };
+
+    //number타입
+    const handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.valueAsNumber;
         onChange(value);
     };
 
@@ -37,13 +46,19 @@ export default function NewInput({ type, onChange }: NewInputProps) {
                         onChange={handleFileChange}
                         ref={fileInputRef}
                     />
-                    <button
+                    <Button
                         className={styles.customFileButton}
                         onClick={handleFileButtonClick}
                     >
                         <Title size="p">파일 선택</Title>
-                    </button>
+                    </Button>
                 </div>
+            ) : type === "number" ? (
+                <input
+                    type="number"
+                    className={styles.textInput}
+                    onChange={handleNumberChange}
+                />
             ) : (
                 <input
                     type="text"
