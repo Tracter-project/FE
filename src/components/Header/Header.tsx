@@ -1,34 +1,27 @@
+import { ChangeEvent, KeyboardEvent } from "react";
+import { useRecoilState } from "recoil";
+import { Link, useNavigate } from "react-router-dom";
+import { IoMdSearch } from "react-icons/io";
 import styles from "./Header.module.scss";
 import Title from "../Title/Title";
 import DropdownOption from "../DropdownOption/DropdownOption";
-import { Link } from "react-router-dom";
-import { IoMdSearch } from "react-icons/io";
-
-// 예시 데이터, 나중에 백에서 받아오기
-const category = [
-  {
-    id: 1,
-    name: "호캉스",
-  },
-  {
-    id: 2,
-    name: "글램핑",
-  },
-  {
-    id: 3,
-    name: "풀빌라",
-  },
-  {
-    id: 4,
-    name: "게스트하우스",
-  },
-  {
-    id: 5,
-    name: "카라반",
-  },
-];
+import { headerSearchInput } from "../../recoli/recoilAtoms";
 
 export default function Header() {
+  const navigate = useNavigate();
+  const [headerSearch, setHeaderSearch] = useRecoilState(headerSearchInput);
+
+  const handleSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
+    setHeaderSearch(event.target.value);
+  };
+
+  const handleSearchKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      navigate(`/search/result`); // 검색 결과 페이지로 이동
+    }
+  };
+
   return (
     <>
       <header className={styles.header}>
@@ -80,6 +73,9 @@ export default function Header() {
                 type="text"
                 placeholder="검색어를 입력해주세요"
                 className="searchInput"
+                value={headerSearch}
+                onChange={handleSearchInput}
+                onKeyDown={handleSearchKeyPress}
               />
             </div>
           </Title>
@@ -88,3 +84,27 @@ export default function Header() {
     </>
   );
 }
+
+// 예시 데이터, 나중에 백에서 받아오기
+const category = [
+  {
+    id: 1,
+    name: "호캉스",
+  },
+  {
+    id: 2,
+    name: "글램핑",
+  },
+  {
+    id: 3,
+    name: "풀빌라",
+  },
+  {
+    id: 4,
+    name: "게스트하우스",
+  },
+  {
+    id: 5,
+    name: "카라반",
+  },
+];

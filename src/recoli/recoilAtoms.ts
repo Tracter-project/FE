@@ -52,3 +52,8 @@ export const searchedData = atom<Place>({
     title: "",
   },
 });
+
+export const headerSearchInput = atom({
+  key: "headerSearchInput",
+  default: "",
+});
