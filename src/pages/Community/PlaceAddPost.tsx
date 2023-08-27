@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import Title from "../../components/Title/Title";
@@ -7,14 +8,22 @@ import PostContentInput from "../../components/PostContentInput/PostContentInput
 import Button from "../../components/Button/Button";
 import { titleInput } from "../../recoli/recoilAtoms";
 import { contentInput } from "../../recoli/recoilAtoms";
-// import RoundCheckbox from "../../components/ToggleCheckBox/ToggleCheckBoxSetting";
+import RadioButton from "../../components/RadioButton/RadioButton";
+
+const subjects = ["후기", "질문"];
 
 export default function PlaceAddPost() {
   const params = useParams();
   const placeId = Number(params.placeId);
   console.log(placeId, typeof placeId);
+
+  const [selectedSubject, setSelectedSubject] = useState<string>("");
   const newTitleInput = useRecoilValue(titleInput);
   const newContentInput = useRecoilValue(contentInput);
+
+  const handleRegionChange = (subject: string) => {
+    setSelectedSubject(subject);
+  };
 
   // 작성하기 버튼
   const navigate = useNavigate();
@@ -44,18 +53,14 @@ export default function PlaceAddPost() {
         <div className={styles.checkboxWrap}>
           <Title size="b">글머리</Title>
           <div className={styles.checkbox}>
-            {/* <RoundCheckbox
-              label="질문"
-              name="option1"
-              checked={checkedOption1}
-              onChange={handleChange}
-            />{" "}
-            <RoundCheckbox
-              label="후기"
-              name="option2"
-              checked={checkedOption2}
-              onChange={handleChange}
-            /> */}
+            {subjects.map((subject) => (
+              <RadioButton
+                key={subject}
+                label={subject}
+                checked={selectedSubject === subject}
+                onChange={() => handleRegionChange(subject)}
+              />
+            ))}
           </div>
         </div>
         <div className={styles.inputWrap}>
