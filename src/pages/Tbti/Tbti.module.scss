@@ -24,4 +24,9 @@
 }
 .questionList {
     margin-bottom: 200px;
+    .progress {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
