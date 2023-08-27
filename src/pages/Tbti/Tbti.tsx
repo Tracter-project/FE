@@ -149,7 +149,9 @@ export default function Tbti() {
                             {answer.text}
                         </TestButton>
                     ))}
-                    <TestProgress current={current + 1} total={questions.length} />
+                    <div className={styles.progress}>
+                        <TestProgress current={current + 1} total={questions.length} />
+                    </div>
                 </div>
                 {/* Progress */}
             </div>
