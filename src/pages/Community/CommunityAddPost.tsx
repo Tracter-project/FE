@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import PostTitleInput from "../../components/PostTitleInput/PostTitleInput";
@@ -10,16 +10,9 @@ import { contentInput } from "../../recoli/recoilAtoms";
 import Title from "../../components/Title/Title";
 import styles from "./CommunityAddPost.module.scss";
 import RadioButton from "../../components/RadioButton/RadioButton";
+// import axiosRequest from "../../api";
 
 const subjects = ["후기", "질문", "기타"];
-
-// Article(post)
-// interface Article {
-//   subject: string;
-//   writer: string;
-//   title: string;
-//   contents: string;
-// }
 
 export default function CommunityAddPost() {
   const [selectedSubject, setSelectedSubject] = useState<string>(""); // subject
@@ -34,6 +27,7 @@ export default function CommunityAddPost() {
   const navigate = useNavigate();
   const handleSubmit = () => {
     alert(`제목: ${newTitleInput}\n내용: ${newContentInput}`); // post api
+
     navigate("/community/list");
   };
 
@@ -87,3 +81,26 @@ export default function CommunityAddPost() {
     </div>
   );
 }
+
+// Article(post)
+// interface Article {
+//   subject: string;
+//   writer: string;
+//   title: string;
+//   contents: string;
+// }
+
+// useEffect(() => {
+//   const submitArticle = async () => {
+//     try {
+//       await axiosRequest.requestAxios("post", "/articles", {
+//         subject: selectedSubject,
+//         writer: "", // 현재 유저 닉네임
+//         title: newTitleInput,
+//         contents: newContentInput,
+//       });
+//     } catch (e) {
+//       console.error(e);
+//     }
+//   };
+// }, []);

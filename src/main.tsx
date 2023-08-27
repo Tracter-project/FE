@@ -23,6 +23,7 @@ import Place from "./pages/Place/Place.tsx";
 import PlaceMap from "./pages/PlaceMap/PlaceMap.tsx";
 import Tbti from "./pages/Tbti/Tbti.tsx";
 import TbtiResult from "./pages/TbtiResult/TbtiResult.tsx";
+import SearchResult from "./pages/SearchResult/SearchResult.tsx";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,7 @@ const router = createBrowserRouter([
       { path: "/placeMap", element: <PlaceMap /> },
       { path: "/test", element: <Tbti /> },
       { path: "/testresult", element: <TbtiResult /> },
+      { path: "/search/result", element: <SearchResult /> },
     ],
   },
 ]);
