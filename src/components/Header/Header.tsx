@@ -18,6 +18,10 @@ export default function Header() {
   const handleSearchKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       event.preventDefault();
+      if (headerSearch === "") {
+        alert("검색어를 입력해주세요.");
+        return;
+      }
       navigate(`/search/result`); // 검색 결과 페이지로 이동
     }
   };
