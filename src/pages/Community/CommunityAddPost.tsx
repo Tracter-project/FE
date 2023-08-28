@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import PostTitleInput from "../../components/PostTitleInput/PostTitleInput";
@@ -10,11 +10,20 @@ import { contentInput } from "../../recoli/recoilAtoms";
 import Title from "../../components/Title/Title";
 import styles from "./CommunityAddPost.module.scss";
 import RadioButton from "../../components/RadioButton/RadioButton";
-// import axiosRequest from "../../api";
+import axiosRequest from "../../api";
+
+interface IArticle {
+  subject: string;
+  writer: string;
+  title: string;
+  content: string;
+  placeImage: string;
+}
 
 const subjects = ["후기", "질문", "기타"];
 
 export default function CommunityAddPost() {
+  const navigate = useNavigate();
   const [selectedSubject, setSelectedSubject] = useState<string>(""); // subject
   const newTitleInput = useRecoilValue(titleInput); // title
   const newContentInput = useRecoilValue(contentInput); // contents
@@ -23,16 +32,35 @@ export default function CommunityAddPost() {
     setSelectedSubject(subject);
   };
 
+  // searchInput에 검색된 place 불러오기
+  const searchedPlace = useRecoilValue(searchedData);
+  console.log("searchedPlace : ", searchedPlace);
+
   // 작성하기 버튼
-  const navigate = useNavigate();
-  const handleSubmit = () => {
-    alert(`제목: ${newTitleInput}\n내용: ${newContentInput}`); // post api
+  const handleSubmit = async () => {
+    try {
+      const article = {
+        subject: selectedSubject,
+        writer: "",
+        title: newTitleInput,
+        content: newContentInput,
+        placeImage: searchedPlace.mainImage,
+      };
+
+      const response = await axiosRequest.requestAxios<IArticle>(
+        "post",
+        "/articles",
+        article
+      );
+
+      console.log(response);
+      alert("게시글이 등록되었습니다.");
+    } catch (error) {
+      console.error(error);
+    }
 
     navigate("/community/list");
   };
-
-  // searchInput에 검색된 place 불러오기
-  const searchedPlace = useRecoilValue(searchedData);
 
   return (
     <div className={styles.addPostContainer}>
@@ -43,9 +71,9 @@ export default function CommunityAddPost() {
       {selectedSubject !== "기타" && (
         <div>
           <SearchPlace></SearchPlace>
-          {searchedPlace.imageUrl && (
+          {searchedPlace.mainImage && (
             <div className={styles.placeInfo}>
-              <img src={searchedPlace.imageUrl} alt="Place Image" />
+              <img src={searchedPlace.mainImage} alt="Place Image" />
               <Title size="b">{searchedPlace.title}</Title>
             </div>
           )}
@@ -81,26 +109,3 @@ export default function CommunityAddPost() {
     </div>
   );
 }
-
-// Article(post)
-// interface Article {
-//   subject: string;
-//   writer: string;
-//   title: string;
-//   contents: string;
-// }
-
-// useEffect(() => {
-//   const submitArticle = async () => {
-//     try {
-//       await axiosRequest.requestAxios("post", "/articles", {
-//         subject: selectedSubject,
-//         writer: "", // 현재 유저 닉네임
-//         title: newTitleInput,
-//         contents: newContentInput,
-//       });
-//     } catch (e) {
-//       console.error(e);
-//     }
-//   };
-// }, []);
