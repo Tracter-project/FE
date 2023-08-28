@@ -3,16 +3,16 @@ import styles from "./CommunityList.module.scss";
 import PostList from "../../components/PostList/PostList";
 import AddButton from "../../components/AddButton/AddButton";
 
-interface IPost {
+interface IArticle {
   id: number;
   subject: string;
   writer: string;
   title: string;
   contents: string;
+  placeImage: string;
   postLikeCount: number;
   commentsCount: number;
   date: string;
-  placeImage: string;
 }
 
 export default function CommunityList() {
@@ -20,6 +20,8 @@ export default function CommunityList() {
   const handleAddButton = () => {
     navigate("/community/addpost");
   };
+
+  // article 전체 조회하는 API 호출 (useEffect)
 
   return (
     <div className={styles.communityListContainer}>
@@ -31,7 +33,7 @@ export default function CommunityList() {
   );
 }
 
-const dummyPostList: IPost[] = [
+const dummyPostList: IArticle[] = [
   {
     id: 1,
     subject: "질문",

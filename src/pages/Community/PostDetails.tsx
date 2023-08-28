@@ -1,4 +1,5 @@
 import { useState, ChangeEvent } from "react";
+import { useParams } from "react-router-dom";
 import styles from "./PostDetails.module.scss";
 import Comment from "../../components/Comment/Comment";
 import CommentView from "../../components/CommentView/CommentView";
@@ -7,38 +8,34 @@ import DeleteButton from "../../components/DeleteButton/DeleteButton";
 import ModifyButton from "../../components/ModifyButton/ModifyButton";
 import LikeButton from "../../components/LikeButton/LikeButton";
 import Button from "../../components/Button/Button";
+import axiosRequest from "../../api";
 
-interface IPost {
+interface IArticle {
   id: number;
   subject: string;
   writer: string;
   title: string;
   contents: string;
-  postLikeCount: number;
-  commentsCount: number;
-  date: string;
   placeImage: string;
 }
 
-// 참고용
-// UpdateArticleDTO {
-// 	id: number; // params
-// 	title: string;
-// 	contents: string;
-// }
-
 interface IComment {
   id: number;
+  articleId: number;
   writer: string;
   comment: string;
   date: string;
 }
 
 export default function PostDetails() {
-  const handleDeleteBtn = (postId: number) => {
+  const params = useParams();
+  const postId = Number(params.postId);
+  console.log(postId, typeof postId);
+
+  const handleDeleteBtn = () => {
     alert(`ID ${postId} 게시글 삭제`);
   };
-  const handleLikeBtn = (postId: number) => {
+  const handleLikeBtn = () => {
     alert(`ID ${postId}`);
   };
 
@@ -54,8 +51,29 @@ export default function PostDetails() {
     setModifiedContents(event.target.value);
   };
 
-  const handleSubmitBtn = () => {
+  const handleSubmitBtn = async () => {
     alert(`수정된제목: ${modifiedTitle}\n수정된 내용: ${modifiedContents}`);
+
+    try {
+      const article = {
+        id: postId,
+        writer: "",
+        title: modifiedTitle,
+        content: modifiedContents,
+      };
+
+      const response = await axiosRequest.requestAxios<IArticle>(
+        "patch",
+        "/articles",
+        article
+      );
+
+      console.log(response);
+      alert("게시글이 등록되었습니다.");
+    } catch (error) {
+      console.error(error);
+    }
+
     setIsEditMode(false);
   };
 
@@ -106,7 +124,7 @@ export default function PostDetails() {
 
           <div className={styles.leftbottom}>
             <Title size="p">좋아요 {post.postLikeCount}개</Title>
-            <Title size="p">댓글 {post.commentsCount}개</Title>
+            <Title size="p">댓글 {dummyCommentList.length}개</Title>
           </div>
         </div>
         <div className={styles.right}>
@@ -118,14 +136,14 @@ export default function PostDetails() {
                     onClick={() => setIsEditMode(true)}
                   ></ModifyButton>
                   <DeleteButton
-                    onClick={() => handleDeleteBtn(post.id)}
+                    onClick={() => handleDeleteBtn()}
                   ></DeleteButton>
                 </div>
               ) : (
                 ""
               )}
               <LikeButton
-                onClick={() => handleLikeBtn(post.id)}
+                onClick={() => handleLikeBtn()}
                 like={false}
               ></LikeButton>
             </div>
@@ -145,7 +163,7 @@ export default function PostDetails() {
   );
 }
 
-const post: IPost = {
+const post: IArticle = {
   id: 1,
   subject: "질문",
   writer: "이뽀리",
@@ -153,8 +171,7 @@ const post: IPost = {
   contents:
     "내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다",
   postLikeCount: 90,
-  commentsCount: 20,
-  date: "1일 전",
+  date: new Date("2023-08-19T15:45:00").toLocaleString(),
   placeImage:
     "https://yaimg.yanolja.com/v5/2023/07/11/16/640/64ad86a29096a7.09459065.jpg",
 };

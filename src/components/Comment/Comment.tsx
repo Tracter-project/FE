@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import styles from "./Comment.module.scss";
 import Title from "../Title/Title";
@@ -17,6 +17,7 @@ export default function Comment({ children }: CommentProps) {
 
   const handleCommentSubmit = () => {
     alert(commentValue); // api
+    useEffect
   };
 
   return (
