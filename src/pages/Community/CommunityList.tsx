@@ -1,7 +1,9 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./CommunityList.module.scss";
 import PostList from "../../components/PostList/PostList";
 import AddButton from "../../components/AddButton/AddButton";
+import axiosRequest from "../../api";
 
 interface IArticle {
   id: number;
@@ -10,9 +12,8 @@ interface IArticle {
   title: string;
   contents: string;
   placeImage: string;
-  postLikeCount: number;
-  commentsCount: number;
-  date: string;
+  articleLikeCount: number;
+  comments: [];
 }
 
 export default function CommunityList() {
@@ -21,19 +22,37 @@ export default function CommunityList() {
     navigate("/community/addpost");
   };
 
-  // article 전체 조회하는 API 호출 (useEffect)
+  // article 전체 조회 API
+  // const [articleList, setArticleList] = useState<IArticle[]>([]);
+
+  // useEffect(() => {
+  //   const fetchArticleList = async () => {
+  //     try {
+  //       const response = await axiosRequest.requestAxios<IArticle[]>(
+  //         "get",
+  //         `/articles`
+  //       );
+
+  //       setArticleList(response);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   fetchArticleList();
+  // }, []);
 
   return (
     <div className={styles.communityListContainer}>
       <div className={styles.addButton}>
         <AddButton onClick={handleAddButton}></AddButton>
       </div>
-      <PostList postList={dummyPostList}></PostList>{" "}
+      <PostList postList={articleList}></PostList>{" "}
     </div>
   );
 }
 
-const dummyPostList: IArticle[] = [
+const articleList: IArticle[] = [
   {
     id: 1,
     subject: "질문",

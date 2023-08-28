@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./PostDetails.module.scss";
 import Comment from "../../components/Comment/Comment";
@@ -17,33 +17,46 @@ interface IArticle {
   title: string;
   contents: string;
   placeImage: string;
-}
-
-interface IComment {
-  id: number;
-  articleId: number;
-  writer: string;
-  comment: string;
-  date: string;
+  articleLikeCount: number;
+  comments: [];
 }
 
 export default function PostDetails() {
   const params = useParams();
-  const postId = Number(params.postId);
-  console.log(postId, typeof postId);
+  const articleId = Number(params.articleId);
+  console.log(articleId, typeof articleId);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [modifiedTitle, setModifiedTitle] = useState(article.title); // title
+  const [modifiedContents, setModifiedContents] = useState(article.contents); // contents
+
+  // 게시글 상세 조회 API
+  // const [article, setArticle] = useState<IArticle>();
+
+  // useEffect(() => {
+  //   const fetchArticleDetails = async () => {
+  //     try {
+  //       const response = await axiosRequest.requestAxios<IArticle>(
+  //         "get",
+  //         `/articles/${articleId}`
+  //       );
+
+  //       setArticle(response);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   fetchArticleDetails();
+  // }, [articleId]);
 
   const handleDeleteBtn = () => {
-    alert(`ID ${postId} 게시글 삭제`);
+    alert(`ID ${articleId} 게시글 삭제`);
   };
   const handleLikeBtn = () => {
-    alert(`ID ${postId}`);
+    alert(`ID ${articleId}`);
   };
 
   // 수정하기
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [modifiedTitle, setModifiedTitle] = useState(post.title); // title
-  const [modifiedContents, setModifiedContents] = useState(post.contents); // contents
-
   const handleModifyTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setModifiedTitle(event.target.value);
   };
@@ -55,8 +68,8 @@ export default function PostDetails() {
     alert(`수정된제목: ${modifiedTitle}\n수정된 내용: ${modifiedContents}`);
 
     try {
-      const article = {
-        id: postId,
+      const newArticle = {
+        id: articleId,
         writer: "",
         title: modifiedTitle,
         content: modifiedContents,
@@ -65,11 +78,11 @@ export default function PostDetails() {
       const response = await axiosRequest.requestAxios<IArticle>(
         "patch",
         "/articles",
-        article
+        newArticle
       );
 
       console.log(response);
-      alert("게시글이 등록되었습니다.");
+      alert("게시글이 수정되었습니다.");
     } catch (error) {
       console.error(error);
     }
@@ -87,10 +100,10 @@ export default function PostDetails() {
         <div className={styles.left}>
           <div className={styles.lefttop}>
             <div className={styles.writer}>
-              <Title size="b">{post.writer}</Title>
+              <Title size="b">{article.writer}</Title>
             </div>
             <div className={styles.date}>
-              <Title size="sub">{post.date}</Title>
+              {/* <Title size="sub">{article.date}</Title> */}
             </div>
           </div>
 
@@ -114,23 +127,23 @@ export default function PostDetails() {
             <>
               <div className={styles.postTitle}>
                 {/* <Title size="h5">{post.subject}</Title> */}
-                <Title size="h3">{post.title}</Title>
+                <Title size="h3">{article.title}</Title>
               </div>
               <div className={styles.postContent}>
-                <Title size="h5">{post.contents}</Title>
+                <Title size="h5">{article.contents}</Title>
               </div>
             </>
           )}
 
           <div className={styles.leftbottom}>
-            <Title size="p">좋아요 {post.postLikeCount}개</Title>
-            <Title size="p">댓글 {dummyCommentList.length}개</Title>
+            <Title size="p">좋아요 {article.articleLikeCount}개</Title>
+            <Title size="p">댓글 {article.comments.length}개</Title>
           </div>
         </div>
         <div className={styles.right}>
           <div className={styles.righttop}>
             <div className={styles.buttons}>
-              {post.writer === "이뽀리" ? (
+              {article.writer === "현재유저" ? (
                 <div className={styles.writerButtons}>
                   <ModifyButton
                     onClick={() => setIsEditMode(true)}
@@ -148,46 +161,50 @@ export default function PostDetails() {
               ></LikeButton>
             </div>
           </div>
-          {post.placeImage !== "" ? (
-            <img src={post.placeImage} alt="Place Imgae" />
+          {article.placeImage !== "" ? (
+            <img src={article.placeImage} alt="Place Imgae" />
           ) : (
             ""
           )}
         </div>
       </div>
+
       <div className={styles.commentContainer}>
-        <CommentView commentList={dummyCommentList}></CommentView>
-        <Comment>댓글 작성</Comment>
+        {article.comments && (
+          <CommentView
+            commentList={article.comments}
+          ></CommentView>
+        )}
+        <Comment articleId={article.id}>댓글 작성</Comment>
       </div>
     </div>
   );
 }
 
-const post: IArticle = {
+const article: IArticle = {
   id: 1,
   subject: "질문",
   writer: "이뽀리",
   title: "글 제목",
   contents:
     "내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다",
-  postLikeCount: 90,
-  date: new Date("2023-08-19T15:45:00").toLocaleString(),
+  articleLikeCount: 90,
   placeImage:
     "https://yaimg.yanolja.com/v5/2023/07/11/16/640/64ad86a29096a7.09459065.jpg",
+  // date: new Date("2023-08-19T15:45:00").toLocaleString(),
+  comments: [
+    {
+      id: 1,
+      writer: "이뽀리",
+      comment: "댓글ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ",
+      date: new Date("2023-08-19T15:45:00").toLocaleString(),
+    },
+    {
+      id: 2,
+      writer: "뽀리",
+      comment:
+        "댓글ㄹㄹㄹㄹㄹㄹㄹㄹdfasdfsdfasdㅁㅇㄴㄹㅇㄴㅁㄱㄴㄹㅁㄴㅇㄱㄴㄹㅁㄴㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄱㄴㅇㄹㅊㅁㄴㅇㄱㄴㅇㄱㄹㄹㄹ",
+      date: new Date("2023-08-19T15:45:00").toLocaleString(),
+    },
+  ],
 };
-
-const dummyCommentList: IComment[] = [
-  {
-    id: 1,
-    writer: "이뽀리",
-    comment: "댓글ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ",
-    date: new Date("2023-08-19T15:45:00").toLocaleString(),
-  },
-  {
-    id: 2,
-    writer: "뽀리",
-    comment:
-      "댓글ㄹㄹㄹㄹㄹㄹㄹㄹdfasdfsdfasdㅁㅇㄴㄹㅇㄴㅁㄱㄴㄹㅁㄴㅇㄱㄴㄹㅁㄴㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄱㄴㅇㄹㅊㅁㄴㅇㄱㄴㅇㄱㄹㄹㄹ",
-    date: new Date("2023-08-19T15:45:00").toLocaleString(),
-  },
-];
