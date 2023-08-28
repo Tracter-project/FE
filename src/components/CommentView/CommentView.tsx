@@ -5,16 +5,16 @@ import CheckBox from "../CheckBox/CheckBox";
 import ModifyButton from "../ModifyButton/ModifyButton";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import Button from "../Button/Button";
+import axiosRequest from "../../api";
 
-interface NewComment {
+interface IComment {
   id: number;
   writer: string;
   comment: string;
-  date: string;
 }
 
 interface CommentViewProps {
-  commentList: NewComment[];
+  commentList: IComment[];
 }
 
 export default function CommentView(props: CommentViewProps) {
@@ -34,8 +34,31 @@ export default function CommentView(props: CommentViewProps) {
   const handleModifyBtn = (event: ChangeEvent<HTMLInputElement>) => {
     setSelectedComment(event.target.value);
   };
-  const handleSubmitBtn = () => {
-    alert(`수정된 내용: ${selectedComment}`);
+
+  const handleSubmitBtn = async () => {
+    if (selectedCommentId !== null) {
+      alert(`수정된 내용: ${selectedComment}`);
+
+      try {
+        const newComment = {
+          id: selectedCommentId,
+          writer: "",
+          comment: selectedComment,
+        };
+
+        const response = await axiosRequest.requestAxios<IComment>(
+          "post",
+          "/comments",
+          newComment
+        );
+
+        console.log(response);
+        alert("댓글이 수정되었습니다.");
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
     setIsEditMode(false);
   };
 
@@ -54,6 +77,7 @@ export default function CommentView(props: CommentViewProps) {
           <div className={styles.title}>
             <Title size="h5">댓글</Title>
           </div>
+
           <div className={styles.icons}>
             <ModifyButton
               onClick={() => setIsEditMode(!isEditMode)}
