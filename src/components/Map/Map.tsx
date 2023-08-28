@@ -49,12 +49,16 @@ const Map: React.FC<MapProps> = ({ onClose }) => {
     <>
       <div className={styles.map}>
         <div className={styles.mapTitle}>
-          <Title size="h2">지도</Title>
+          <Title size="h3" className={styles.Title}>
+            지도
+          </Title>
           <Title size="h2">
             <FaTimes className={styles.closeBtn} onClick={onClose} />
           </Title>
         </div>
-        <div id="map" className={styles.kakaoMap}></div>
+        <div className={styles.kakaoMapWrapper}>
+          <div id="map" className={styles.kakaoMap}></div>
+        </div>
       </div>
     </>
   );
