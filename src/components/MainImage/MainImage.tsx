@@ -71,7 +71,7 @@ export default function MainImage(props: MainImageProps) {
                 </Title>
               </div>
               <Title size="b" className={styles.price}>
-                {item.price}
+                {item.price.toLocaleString()}원
               </Title>
             </div>
             {/* 좋아요 버튼 추가해야합니다 */}
