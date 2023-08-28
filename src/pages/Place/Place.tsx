@@ -51,7 +51,7 @@ export default function Place() {
         <div className={styles.subLeft}>
           <div className={styles.subTitle}>
             <Title size="h2" className={styles.title}>
-              Hotel
+              HOTEL
             </Title>
             <button onClick={openMapModal}>
               <MapLink />
@@ -71,10 +71,14 @@ export default function Place() {
           </Title>
           <div className={styles.subPlaces}>
             <Title size="h5">서울특별시</Title>
-            <Title size="h5">200000</Title>
+            <Title size="h5" className={styles.price}>
+              200,000원
+            </Title>
           </div>
-          <Button onClick={() => {}}>예매하기</Button>
-          <Button onClick={() => {}}>후기 / 질문남기기</Button>
+          <div className={styles.btnBox}>
+            <Button onClick={() => {}}>예약하기</Button>
+            <Button onClick={() => {}}>후기 / 질문남기기</Button>
+          </div>
         </div>
         <div className={styles.subRight}>
           <div className={styles.subImage}>
