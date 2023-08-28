@@ -49,9 +49,21 @@ export default function PostDetails() {
   //   fetchArticleDetails();
   // }, [articleId]);
 
-  const handleDeleteBtn = () => {
-    alert(`ID ${articleId} 게시글 삭제`);
+  const handleDeleteBtn = async () => {
+    try {
+      const response = await axiosRequest.requestAxios<number>(
+        "delete",
+        `/articles/${articleId}`,
+        { articleId }
+      );
+
+      console.log(response);
+      alert(`ID ${articleId} 게시글 삭제`);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
   const handleLikeBtn = () => {
     alert(`ID ${articleId}`);
   };
@@ -171,9 +183,7 @@ export default function PostDetails() {
 
       <div className={styles.commentContainer}>
         {article.comments && (
-          <CommentView
-            commentList={article.comments}
-          ></CommentView>
+          <CommentView commentList={article.comments}></CommentView>
         )}
         <Comment articleId={article.id}>댓글 작성</Comment>
       </div>
