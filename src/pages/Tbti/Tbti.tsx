@@ -7,6 +7,7 @@ import TestButton from '../../components/TestButton/TestButton';
 import TestProgress from '../../components/TestProgress/TestProgress';
 import Score from '../../components/Score/Score';
 
+
 //질문 목록
 export default function Tbti() {
     type Answer = {
@@ -131,29 +132,31 @@ export default function Tbti() {
         <section>
             <div className={styles.WallPaper}>
                 {/* Text */}
-                <div className={styles.Text}>
-                    <div className={styles.score}>
-                        <Score currentQuestion={current + 1} totalQuestions={questions.length} />
+                <div className={styles.All}>
+                    <div className={styles.Text}>
+                        <div className={styles.score}>
+                            <Score currentQuestion={current + 1} totalQuestions={questions.length} />
+                        </div>
+                        <div>
+                            <Title size="h2">테스트 문항</Title>
+                        </div>
+                        <div>
+                            <Title size="h4">{questions[current].q}</Title>
+                        </div>
                     </div>
-                    <div>
-                        <Title size="h2">테스트 문항</Title>
+                    {/* Select Button */}
+                    <div className={styles.questionList}>
+                        {questions[current].a.map((answer, idx) => (
+                            <TestButton key={idx} onClick={() => handleClick(answer)}>
+                                {answer.text}
+                            </TestButton>
+                        ))}
+                        <div className={styles.progress}>
+                            <TestProgress current={current + 1} total={questions.length} />
+                        </div>
                     </div>
-                    <div>
-                        <Title size="h4">{questions[current].q}</Title>
-                    </div>
+                    {/* Progress */}
                 </div>
-                {/* Select Button */}
-                <div className={styles.questionList}>
-                    {questions[current].a.map((answer, idx) => (
-                        <TestButton key={idx} onClick={() => handleClick(answer)}>
-                            {answer.text}
-                        </TestButton>
-                    ))}
-                    <div className={styles.progress}>
-                        <TestProgress current={current + 1} total={questions.length} />
-                    </div>
-                </div>
-                {/* Progress */}
             </div>
         </section>
     );

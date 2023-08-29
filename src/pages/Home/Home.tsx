@@ -69,7 +69,7 @@ export default function Home() {
                         식사도 즐기실 수 있습니다. 모든 고객은 객실 내 무료 WiFi, 커피숍/카페, 드라이클리닝/세탁 서비스
                         등을 이용하실 수 있습니다.
                     </p>
-                    <MainButton>호텔 바로가기</MainButton>
+                    <MainButton onClick={() => navigate('/category/:1')}>호텔 바로가기</MainButton>
                 </div>
                 <div className={styles.firstSecPic}>
                     <img src="src/assets/MainPic.PNG"></img>
