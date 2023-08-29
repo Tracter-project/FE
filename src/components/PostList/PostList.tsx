@@ -9,10 +9,9 @@ interface NewPost {
   writer: string;
   title: string;
   contents: string;
-  postLikeCount: number;
-  commentsCount: number;
-  date: string;
   placeImage: string;
+  articleLikeCount: number;
+  comments: [];
 }
 
 interface PostListProps {
@@ -36,7 +35,7 @@ export default function PostsList(props: PostListProps) {
                     <Title size="b">{post.writer}</Title>
                   </div>
                   <div className={styles.date}>
-                    <Title size="sub">{post.date}</Title>
+                    {/* <Title size="sub">{post.date}</Title> */}
                   </div>
                 </div>
                 <div className={styles.postTitle}>

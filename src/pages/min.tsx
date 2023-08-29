@@ -5,7 +5,6 @@ import MainLargeButton from "../components/Button/MainLargeButton";
 import MainButton from "../components/Button/MainButton";
 import BorderButton from "../components/Button/BorderButton";
 import Input from "../components/Input/Input";
-import CheckBox from "../components/CheckBox/CheckBox";
 import MainPopularPlaces from "../components/MainPopularPlaces/MainPopularPlaces";
 import MainNewPlaces from "../components/MainNewPlaces/MainNewPlaces";
 import AdminTable from "../components/AdminTable/AdminTable";
@@ -16,7 +15,7 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { MdEmail } from "react-icons/md";
 import LoginImg from "../assets/loginImg.png";
 import TabButton from "../components/TabButton/TabButton";
-import RadioButton from "../components/RadioButton/RadioButton";
+import AdminModal from "../components/AdminModal/AdminModal";
 
 //인기숙소리스트 타입
 interface PopularItem {
@@ -44,8 +43,6 @@ interface MyItem {
 }
 
 export default function Min() {
-    //checkbox 상태관리
-    const [checkBoxChecked, setCheckBoxChecked] = useState(false);
     //adminTable 상태관리
     const [data, setData] = useState([
         {
@@ -159,39 +156,22 @@ export default function Min() {
     // 시간 정렬
     dummyNewList.sort((a, b) => b.date.getTime() - a.date.getTime());
 
-    //adminTable CRUD
-    const handleEdit = (id: number) => {
-        //수정 로직 구현
-        console.log(`Edit clicked for ID ${id}`);
-    };
-    const handleDelete = (id: number) => {
-        // 삭제 로직 구현
-        const updatedData = data.filter((item) => item.id !== id);
-        setData(updatedData);
+    //AdminModal
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedRegion, setSelectedRegion] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState("");
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
     };
 
-    // const handleAdd = () => {
-    //     // 추가 로직 구현
-    //     const newId = data.length + 1;
-    //     const newEntry = {
-    //         id: newId,
-    //         selected: false,
-    //         imageUrl: "URL_new",
-    //         area: "새로운 지역",
-    //         category: "새로운 카테고리",
-    //         name: "새로운 숙소",
-    //         description: "새로운 설명",
-    //         price: 200,
-    //     };
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
 
-    //     setData([...data, newEntry]);
-    // };
-
-    //radio
-    const [selectedRegion, setSelectedRegion] = useState<string>("");
-    const handleRegionChange = (region: string) => {
-        console.log("지역바뀜:", region);
+    const handleSelect = (region: string, category: string) => {
         setSelectedRegion(region);
+        setSelectedCategory(category);
     };
     return (
         <>
@@ -204,10 +184,12 @@ export default function Min() {
             <MainButton>바로가기</MainButton>
             <BorderButton>메일 발송</BorderButton>
             <Input icon={<MdEmail />} text={"이메일"} />
-            <CheckBox
-                checked={checkBoxChecked}
-                onChange={() => setCheckBoxChecked(!checkBoxChecked)}
-            ></CheckBox>
+            {/* <CheckBox
+                key={box}
+                label={box}
+                checked={setSelectedBox === box}
+                onChange={() => handleBoxChange(box)}
+            /> */}
             <MainPopularPlaces popularList={dummyPopularList} />
             <MainNewPlaces newList={dummyNewList} />
 
@@ -225,7 +207,7 @@ export default function Min() {
             ></LocalImg>
             <MyPagePlaces myList={dummyMyPageList}></MyPagePlaces>
             <TabButton></TabButton>
-            <RadioButton
+            {/* <RadioButton
                 label="경상"
                 checked={selectedRegion === "경상"}
                 onChange={() => handleRegionChange("경상")}
@@ -234,7 +216,18 @@ export default function Min() {
                 label="제주"
                 checked={selectedRegion === "제주"}
                 onChange={() => handleRegionChange("제주")}
+            /> */}
+            <button onClick={handleOpenModal}>Open Modal</button>
+            <AdminModal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                onSelect={handleSelect}
             />
+            <div>
+                Selected Region: {selectedRegion}
+                <br />
+                Selected Category: {selectedCategory}
+            </div>
         </>
     );
 }

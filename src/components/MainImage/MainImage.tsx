@@ -51,7 +51,7 @@ export default function MainImage(props: MainImageProps) {
       <div className={styles.mainBox}>
         {sortedPopularList.map((item) => (
           <div key={item.id} className={styles.mainImage}>
-            <Link to="/place/:placeId">
+            <Link to="/place/:placeId" className={styles.Image}>
               <img src={item.imageUrl} alt={item.title} />
             </Link>
             <div className={styles.mainWrap}>
@@ -71,7 +71,7 @@ export default function MainImage(props: MainImageProps) {
                 </Title>
               </div>
               <Title size="b" className={styles.price}>
-                {item.price}
+                {item.price.toLocaleString()}원
               </Title>
             </div>
             {/* 좋아요 버튼 추가해야합니다 */}

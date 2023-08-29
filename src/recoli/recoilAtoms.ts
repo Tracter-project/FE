@@ -1,39 +1,59 @@
-import {ReactNode} from 'react';
+import { ReactNode } from "react";
 import { atom } from "recoil";
 
 interface ModalState {
-    isOpen: boolean;
-    content: ReactNode;
+  isOpen: boolean;
+  content: ReactNode;
 }
 export const modalState = atom<ModalState>({
-    key: "modalState", // 고유한 식별자
-    default: {
-        isOpen: false,
-        content: null,
-    },
+  key: "modalState", // 고유한 식별자
+  default: {
+    isOpen: false,
+    content: null,
+  },
 });
 
 export const titleInput = atom({
-    key: "titleInput",
-    default: "",
+  key: "titleInput",
+  default: "",
 });
 
 export const contentInput = atom({
-    key: "contentInput",
-    default: "",
+  key: "contentInput",
+  default: "",
 });
 
 export const searchPlace = atom({
-    key: "searchPlace",
-    default: "",
+  key: "searchPlace",
+  default: "",
 });
 
 export const commentInput = atom({
-    key: "commentInput",
-    default: "",
+  key: "commentInput",
+  default: "",
 });
 
 export const input = atom({
-    key: "input",
-    default: "",
+  key: "input",
+  default: "",
+});
+
+interface Place {
+  id: number;
+  imageUrl: string;
+  title: string;
+}
+
+export const searchedData = atom<Place>({
+  key: "searchedData",
+  default: {
+    id: 0,
+    imageUrl: "",
+    title: "",
+  },
+});
+
+export const headerSearchInput = atom({
+  key: "headerSearchInput",
+  default: "",
 });

@@ -2,8 +2,8 @@ import { useState } from "react";
 import styles from "./Admin.module.scss";
 import Title from "../../components/Title/Title";
 import AdminTable from "../../components/AdminTable/AdminTable";
-import DeleteModal from "../../components/DeleteModal/DeleteModal";
-import Button from "../../components/Button/Button";
+// import DeleteModal from "../../components/DeleteModal/DeleteModal";
+// import Button from "../../components/Button/Button";
 import TabButton from "../../components/TabButton/TabButton";
 import EditModal from "../../components/EditModal/EditModal";
 

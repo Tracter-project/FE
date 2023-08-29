@@ -3,17 +3,17 @@ import styles from './Button.module.scss';
 import Title from '../Title/Title';
 
 interface ButtonProps {
-    children: React.ReactNode;
-    onClick: () => void;
+  children: React.ReactNode;
+  onClick: () => void;
 }
 
-const testResult = () => {
-  
-};
-export default function Button({ children, onClick }: ButtonProps) {
+export default function Button({ children, onClick, className }: ButtonProps) {
     return (
         <>
-            <button className={styles.button} onClick={onClick}>
+            <button
+                className={`${className} ${styles.button}`}
+                onClick={onClick}
+            >
                 <Title size="p">{children}</Title>
             </button>
         </>
