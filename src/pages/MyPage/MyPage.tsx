@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { MdEmail } from "react-icons/md";
 import { BiSolidUser } from "react-icons/bi";
 import { AiFillLock } from "react-icons/ai";
@@ -41,25 +42,80 @@ const dummyMyPageList: MyItem[] = [
     },
 ];
 
+// interface UserInformation {
+//     email: string;
+//     nickname: string;
+//     likedPlaces: number[];
+//     role: string;
+// }
+
+// interface Place {
+//     _id: number;
+//     placeName: string;
+//     price: number;
+// }
+
 export default function MyPage() {
+    // const [userInformation, setUserInformation] = useState<UserInformation | null>(null);
+    //   const [likedPlaces, setLikedPlaces] = useState<Place[]>([]);
+
+    //   useEffect(() => {
+    //     fetchUserInformation();
+    //     fetchLikedPlaces();
+    // }, []);
+
+    // const fetchUserInformation = async () => {
+    //     try {
+    //         const response = await axiosRequest.requestAxios("get", "/users");
+    //         setUserInformation(response.userInformation);
+    //     } catch (error) {
+    //         console.error("회원 정보 조회 실패:", error);
+    //     }
+    // };
+
+    // const fetchLikedPlaces = async () => {
+    //     try {
+    //         const response = await axiosRequest.requestAxios(
+    //             "get",
+    //             "/places/all"
+    //         );
+    //         const likedPlacesData = response.totalPlace.filter((place) =>
+    //             userInformation?.likedPlaces.includes(place._id)
+    //         );
+    //         setLikedPlaces(likedPlacesData);
+    //     } catch (error) {
+    //         console.error("좋아요한 숙소 조회 실패:", error);
+    //     }
+    // };
+
     return (
         <section className={styles.mypage}>
             <Title size="h2">마이페이지</Title>
             <div className={styles.myPageWrap}>
-                <Input icon={<MdEmail />} text={"기존이메일"} />
+                <Input
+                    icon={<MdEmail />}
+                    text={"기존이메일"}
+                    onChange={() => {}}
+                />
                 <div className={styles.name}>
-                    <Input icon={<BiSolidUser />} text={"기존닉네임"} />
+                    <Input
+                        icon={<BiSolidUser />}
+                        text={"기존닉네임"}
+                        onChange={() => {}}
+                    />
                     <BorderButton>중복 확인</BorderButton>
                 </div>
                 <Input
                     icon={<AiFillLock />}
                     text={"기존비밀번호"}
                     className={styles.passwordinput}
+                    onChange={() => {}}
                 />
                 <Input
                     icon={<AiFillLock />}
                     text={"기존비밀번호 확인"}
                     className={styles.passwordinput}
+                    onChange={() => {}}
                 />
             </div>
             <Title size="h2">좋아요</Title>
