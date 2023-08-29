@@ -11,7 +11,6 @@
     }
 
     .titleWrap {
-        background-color: #fff;
         position: absolute;
         bottom: 0;
         height: 33.3%;
@@ -21,5 +20,6 @@
         justify-content: center;
         align-items: center;
         gap: 20px;
+        background-color: rgba(255, 255, 255, 0.8); //하얀배경 반투명
     }
 }
