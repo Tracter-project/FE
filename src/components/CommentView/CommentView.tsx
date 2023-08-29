@@ -63,9 +63,20 @@ export default function CommentView(props: CommentViewProps) {
   };
 
   // 댓글 삭제
-  const handleDeleteBtn = () => {
+  const handleDeleteBtn = async () => {
     if (selectedCommentId !== null) {
-      alert(`ID ${selectedCommentId} 댓글 삭제`);
+      try {
+        const response = await axiosRequest.requestAxios<number>(
+          "delete",
+          "/comments",
+          { selectedCommentId }
+        );
+
+        console.log(response);
+        alert(`ID ${selectedCommentId} 댓글 삭제`);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
