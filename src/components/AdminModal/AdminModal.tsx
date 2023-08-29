@@ -85,7 +85,10 @@ export default function AdminModal({
                     <Title size="h2">숙소 리스트 추가</Title>
                     <div className={styles.imgInput}>
                         <Title size="b">사진첨부</Title>
-                        <NewInput type="file" onChange={handleFileChange} />
+                        <NewInput
+                            type="file"
+                            onChange={() => handleFileChange(selectedFile)}
+                        />
                     </div>
                     <div className={styles.check}>
                         <Title size="b">지역</Title>
@@ -119,20 +122,25 @@ export default function AdminModal({
                         <Title size="b">숙소명</Title>
                         <NewInput
                             type="text"
-                            onChange={handleRegionNameChange}
+                            onChange={() => handleRegionNameChange(regionName)}
                         />
                     </div>
                     <div className={styles.textInput}>
                         <Title size="b">상세설명</Title>
                         <NewInput
                             type="text"
-                            onChange={handleDescriptionChange}
+                            onChange={() =>
+                                handleDescriptionChange(description)
+                            }
                         />
                     </div>
 
                     <div className={styles.textInput}>
                         <Title size="b">가격</Title>
-                        <NewInput type="number" onChange={handlePriceChange} />
+                        <NewInput
+                            type="number"
+                            onChange={() => handlePriceChange(price)}
+                        />
                     </div>
 
                     <button
