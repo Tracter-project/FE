@@ -6,6 +6,8 @@ import styles from './Home.module.scss';
 import Title from '../../components/Title/Title';
 import MainButton from '../../components/Button/MainButton';
 import MainLargeButton from '../../components/Button/MainLargeButton';
+import TestlinkButton from '../../components/Button/TestlinkButton';
+
 export default function Home() {
     const dummyPopularList1: PopularItem[] = [
         {
@@ -108,7 +110,7 @@ export default function Home() {
                             <br /> 호캉스, 글램핑, 풀빌라, 캠핑, 카라반에 관한 정보를 제공 해드립니다.
                         </Title>
                         <div className={styles.LargeButton}>
-                            <MainLargeButton onClick={() => navigate('/test')}>테스트 하러가기</MainLargeButton>{' '}
+                            <TestlinkButton onClick={() => navigate('/test')}>테스트 하러가기</TestlinkButton>{' '}
                             {/* 바로 /test로 가게 */}
                         </div>
                     </div>

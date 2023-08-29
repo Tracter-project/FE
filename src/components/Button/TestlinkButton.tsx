@@ -7,10 +7,10 @@ interface ButtonProps {
     children: React.ReactNode;
 }
 
-export default function MainLargeButton({ onClick, children }: ButtonProps) {
+export default function TestlinkButton({ onClick, children }: ButtonProps) {
     return (
         <>
-            <button className={styles.mainLargeButton} onClick={onClick}>
+            <button className={styles.testlinkButton} onClick={onClick}>
                 <Title size="h5">{children}</Title>
             </button>
         </>
