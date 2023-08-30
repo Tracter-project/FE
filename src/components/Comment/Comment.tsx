@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useEffect } from "react";
 import { useRecoilState } from "recoil";
+import { useCookies } from "react-cookie";
 import styles from "./Comment.module.scss";
 import Title from "../Title/Title";
 import { commentInput } from "../../recoli/recoilAtoms";
@@ -18,6 +19,8 @@ interface IComment {
 
 export default function Comment({ children, articleId }: CommentProps) {
   const [commentValue, setCommentValue] = useRecoilState(commentInput);
+  const [cookies] = useCookies(["token"]);
+  const token = cookies.token;
 
   const handleCommentValue = (event: ChangeEvent<HTMLInputElement>) => {
     setCommentValue(event.target.value);
@@ -25,10 +28,11 @@ export default function Comment({ children, articleId }: CommentProps) {
 
   const handleCommentSubmit = async () => {
     try {
+      console.log(articleId);
       const comment = {
         articleId: articleId,
-        writer: "뽀리",
         comment: commentValue,
+        token: token,
       };
 
       const response = await axiosRequest.requestAxios<IComment>(
