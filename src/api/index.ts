@@ -4,10 +4,8 @@ import axios from "axios";
 
 const allowMethod: string[] = ["get", "post", "put", "patch", "delete"];
 
-// axios.defaults.baseURL =
-//   process.env.REACT_APP_API_URL ?? "http://localhost:3000";
-// const API_END_POINT: string =
-//   process.env.REACT_APP_API_END_POINT ?? "http://localhost:5173";
+axios.defaults.baseURL = "http://localhost:3000/api";
+// const API_END_POINT: string = "http://localhost:3000";
 
 // 정의된 함수 시그니처에 맞게 인터페이스 생성
 interface AxiosRequest {

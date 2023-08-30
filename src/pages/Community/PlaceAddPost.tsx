@@ -41,16 +41,17 @@ export default function PlaceAddPost() {
       "https://yaimg.yanolja.com/v5/2023/07/11/16/640/64ad86a29096a7.09459065.jpg",
   };
 
-  // 작성하기 버튼
+  // 500 Error
+  // 게시글 작성 API
   const navigate = useNavigate();
   const handleSubmit = async () => {
     try {
       const article = {
         subject: selectedSubject,
-        writer: "",
+        writer: "작성자",
         title: newTitleInput,
         content: newContentInput,
-        // placeImage: place.mainImage,
+        placeImage: place.mainImage,
       };
 
       const response = await axiosRequest.requestAxios<IArticle>(

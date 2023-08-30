@@ -23,7 +23,7 @@ interface IArticle {
 const subjects = ["후기", "질문", "기타"];
 
 export default function CommunityAddPost() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [selectedSubject, setSelectedSubject] = useState<string>(""); // subject
   const newTitleInput = useRecoilValue(titleInput); // title
   const newContentInput = useRecoilValue(contentInput); // contents
@@ -36,16 +36,17 @@ export default function CommunityAddPost() {
   const searchedPlace = useRecoilValue(searchedData);
   console.log("searchedPlace : ", searchedPlace);
 
-  // 작성하기 버튼
+  // 게시글 작성 API (토큰 필요)
   const handleSubmit = async () => {
     try {
       const article = {
         subject: selectedSubject,
-        writer: "",
+        writer: "작성자",
         title: newTitleInput,
-        content: newContentInput,
+        contents: newContentInput,
         placeImage: searchedPlace.mainImage,
       };
+      console.log(article);
 
       const response = await axiosRequest.requestAxios<IArticle>(
         "post",
@@ -59,7 +60,7 @@ export default function CommunityAddPost() {
       console.error(error);
     }
 
-    navigate("/community/list");
+    // navigate("/community/list");
   };
 
   return (
