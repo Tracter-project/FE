@@ -7,6 +7,7 @@ import DeleteButton from "../DeleteButton/DeleteButton";
 import Button from "../Button/Button";
 import axiosRequest from "../../api";
 
+
 interface IComment {
   id: number;
   writer: string;
