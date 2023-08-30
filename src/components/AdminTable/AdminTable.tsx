@@ -37,6 +37,7 @@ interface AdminTableProps {
 export default function AdminTable({ data, setData }: AdminTableProps) {
     // 체크박스
     const handleCheckboxChange = (id: number) => {
+        console.log("숙소선택", id);
         const updatedData = data.map((item) =>
             item.id === id ? { ...item, selected: !item.selected } : item
         );

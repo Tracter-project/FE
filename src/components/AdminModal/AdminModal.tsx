@@ -11,7 +11,7 @@ interface AdminModalProps {
     onSelect: (
         region: string,
         category: string,
-        file: File | null,
+        file: string,
         regionName: string,
         description: string,
         price: number | null
@@ -28,7 +28,7 @@ export default function AdminModal({
 }: AdminModalProps) {
     const [selectedRegion, setSelectedRegion] = useState<string>("");
     const [selectedCategory, setSelectedCategory] = useState<string>("");
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [selectedFile, setSelectedFile] = useState<string>("");
     const [regionName, setRegionName] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [price, setPrice] = useState<number | null>(null);
@@ -40,7 +40,7 @@ export default function AdminModal({
         setSelectedCategory(category);
     };
 
-    const handleFileChange = (file: File | null) => {
+    const handleFileChange = (file: string) => {
         setSelectedFile(file);
     };
 
