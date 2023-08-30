@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState, MouseEvent } from "react";
 import { MdEmail, MdMarkEmailRead } from "react-icons/md";
 import { AiFillLock } from "react-icons/ai";
 import { BiSolidUser } from "react-icons/bi";
@@ -16,145 +17,316 @@ interface ValidationResponse {
 }
 
 export default function Register() {
-    const [nickName, setNickName] = useState<string>("");
-    const [email, setEmail] = useState<string>("");
-    const [verificationCode, setVerificationCode] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [confirmPassword, setConfirmPassword] = useState<string>("");
-    const [errorMessage, setErrorMessage] = useState<string>("");
+    //닉네임, 이메일, 이메일인증,비밀번호, 비밀번호 확인
+    const [registerForm, setRegisterForm] = useState({
+        nickName: "",
+        email: "",
+        // verificationCode: "",
+        password: "",
+        confirmPassword: "",
+    });
+    //오류 메세지
+    const [validMessage, setValidMessage] = useState({
+        nickNameMessage: "",
+        emailMessage: "",
+        // verificationCodeMessage: "",
+        passwordMessage: "",
+        confirmPasswordMessage: "",
+    });
+    //유효성 검사
+    const [isValid, setIsValid] = useState({
+        nickName: false,
+        email: false,
+        // verificationCode: false,
+        password: false,
+        confirmPassword: false,
+    });
 
-    //닉네임
-    const handleNameChange = (nickName: string) => {
-        setNickName(nickName);
-        console.log("닉네임", nickName);
-    };
-    //이메일
-    const handleEmailChange = (email: string) => {
-        setEmail(email);
-        console.log("이메일", email);
-    };
-    //인증번호
-    const handleVerificationCodeChange = (verificationCode: string) => {
-        setVerificationCode(verificationCode);
-        console.log("인증번호", verificationCode);
-    };
-    //비밀번호
-    const handlePasswordChange = (password: string) => {
-        setPassword(password);
-        console.log("비밀번호", password);
-    };
-    //비밀번호확인
-    const handleConfirmPasswordChange = (confirmPassword: string) => {
-        setConfirmPassword(confirmPassword);
-        console.log("비밀번호 확인", confirmPassword);
+    //닉네임, 이메일, 이메일인증,비밀번호, 비밀번호 확인
+    const handleChange = (name: string, value: string) => {
+        setRegisterForm({ ...registerForm, [name]: value });
+
+        // 닉네임 유효성 검사
+        if (name === "nickName") {
+            if (value === "") {
+                setValidMessage((prev) => ({
+                    ...prev,
+                    nickNameMessage: "*닉네임을 입력해주세요.",
+                }));
+                setIsValid({ ...isValid, nickName: false });
+            } else {
+                setValidMessage((prev) => ({
+                    ...prev,
+                    nickNameMessage: "",
+                }));
+                setIsValid({ ...isValid, nickName: true });
+            }
+        }
+
+        // 이메일 유효성 검사
+        if (name === "email") {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const isValidEmail = regex.test(value);
+
+            if (!isValidEmail) {
+                setValidMessage((prev) => ({
+                    ...prev,
+                    emailMessage: "*올바른 이메일 형식이 아닙니다.",
+                }));
+                setIsValid({ ...isValid, email: false });
+            } else {
+                setValidMessage((prev) => ({
+                    ...prev,
+                    emailMessage: "",
+                }));
+                setIsValid({ ...isValid, email: true });
+            }
+        }
+
+        // 비밀번호 유효성 검사
+        if (name === "password") {
+            validatePassword(value);
+        }
+
+        // 비밀번호 확인 유효성 검사
+        if (name === "confirmPassword") {
+            validateConfirmPassword(value);
+        }
+        console.log(registerForm);
     };
 
-    // const handleRegister = async () => {
-    //     setErrorMessage(""); // 기존 오류 메시지 초기화
-
-    //     if (!nickName || !email || !password || !confirmPassword) {
-    //         setErrorMessage("누락된 값이 있습니다.");
+    //닉네임중복확인 api
+    // const handleNicknameCheck = async () => {
+    //     if (registerForm.nickName === "") {
+    //         setValidMessage((prev) => ({
+    //             ...prev,
+    //             nickNameMessage: "*닉네임을 입력해주세요.",
+    //         }));
     //         return;
     //     }
-
-    //     if (!/\S+@\S+\.\S+/.test(email)) {
-    //         setErrorMessage("이메일에는 @가 있어야합니다.");
-    //         return;
-    //     }
-
-    //     if (password !== confirmPassword) {
-    //         setErrorMessage("비밀번호가 일치하지 않습니다.");
-    //         return;
-    //     }
-
-    //     if (!/(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z\d]).{6,10}$/.test(password)) {
-    //         setErrorMessage("6~10자의 영문, 숫자, 특수문자를 포함해야 합니다.");
-    //         return;
-    //     }
-
     //     try {
-    //         // API 호출: 이메일 중복 체크
-    //         const emailCheckResponse: AxiosResponse<ValidationResponse> =
-    //             await axiosRequest.requestAxios(
-    //                 "get",
-    //                 `/users/validator/email?email=${email}`
-    //             );
-    //         if (emailCheckResponse.status !== 200) {
-    //             setErrorMessage("이미 사용 중인 이메일입니다.");
-    //             return;
-    //         }
-
     //         // API 호출: 닉네임 중복 체크
-    //         const nicknameCheckResponse: AxiosResponse<ValidationResponse> =
+    //         const nicknameResponse: AxiosResponse<ValidationResponse> =
     //             await axiosRequest.requestAxios(
     //                 "get",
-    //                 `/users/validator/nickname?nickname=${nickName}`
+    //                 `/users/validator/nickname?nickname=${registerForm.nickName}`
     //             );
-    //         if (nicknameCheckResponse.status !== 200) {
-    //             setErrorMessage("이미 사용 중인 닉네임입니다.");
-    //             return;
+
+    //         if (nicknameResponse.status === 200) {
+    //             console.log(nicknameResponse.data.message); // 사용 가능한 닉네임입니다.
+    //         } else if (nicknameResponse.status === 400) {
+    //             console.log(nicknameResponse.data.message); // 이미 사용 중인 닉네임입니다.
+    //             setValidMessage((prev) => ({
+    //                 ...prev,
+    //                 nickNameMessage: "이미 사용 중인 닉네임입니다.",
+    //             }));
+    //         } else {
+    //             console.log(nicknameResponse.data.message);
     //         }
-
-    //         // API 호출: 회원가입
-    //         const registerResponse = await axiosRequest.requestAxios(
-    //             "post",
-    //             "/users",
-    //             {
-    //                 email,
-    //                 nickname: nickName,
-    //                 password,
-    //             }
-    //         );
-
-    //         // 성공 시 알림 표시 및 로그인 페이지로 이동
-    //         alert("회원가입이 완료되었습니다.");
-    //         // TODO: 로그인 페이지로 이동하는 코드 작성
     //     } catch (error) {
     //         console.error(error);
     //     }
     // };
 
+    //이메일중복확인 api
+    // const handleEmailSend = async () => {
+    //     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //     const isValidEmail = regex.test(registerForm.email);
+    //     if (!isValidEmail) {
+    //         setValidMessage((prev) => ({
+    //             ...prev,
+    //             emailMessage: "*올바른 이메일 형식이 아닙니다.",
+    //         }));
+    //         return;
+    //     }
+    //     try {
+    //         // API 호출: 이메일 중복 체크
+    //         const emailResponse: AxiosResponse<ValidationResponse> =
+    //             await axiosRequest.requestAxios(
+    //                 "get",
+    //                 `/users/validator/email?email=${registerForm.email}`
+    //             );
+    //         if (emailResponse.status === 200) {
+    //             console.log(emailResponse.data.message); // 사용 가능한 이메일입니다.
+    //             //중복 확인 성공 시 사용 가능한 이메일 처리
+    //         } else if (emailResponse.status === 400) {
+    //             console.log(emailResponse.data.message); // 이미 사용 중인 이메일입니다.
+    //             setValidMessage((prev) => ({
+    //                 ...prev,
+    //                 emailMessage: "이미 사용 중인 이메일입니다.",
+    //             }));
+    //         }
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // };
+
+    //비밀번호
+    const validatePassword = (password: string) => {
+        const regex = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{8,15}$/;
+
+        if (!regex.test(password)) {
+            setValidMessage((prev) => ({
+                ...prev,
+                passwordMessage:
+                    "*숫자, 영문, 특수문자를 포함하여 최소 8자를 입력해주세요.",
+            }));
+            setIsValid({ ...isValid, password: false });
+        } else {
+            setValidMessage((prev) => ({
+                ...prev,
+                passwordMessage: "",
+            }));
+            setIsValid({ ...isValid, password: true });
+        }
+    };
+
+    //비밀번호 확인
+    const validateConfirmPassword = (confirmPassword: string) => {
+        if (confirmPassword !== registerForm.password) {
+            setValidMessage((prev) => ({
+                ...prev,
+                confirmPasswordMessage: "*비밀번호가 일치하지 않습니다.",
+            }));
+            setIsValid({ ...isValid, confirmPassword: false });
+        } else {
+            setValidMessage((prev) => ({
+                ...prev,
+                confirmPasswordMessage: "",
+            }));
+            setIsValid({ ...isValid, confirmPassword: true });
+        }
+    };
+
+    const navigate = useNavigate();
+    //회원가입
+    const handleRegister = async (e?: MouseEvent) => {
+        if (e) {
+            e.preventDefault();
+        }
+        if (
+            !isValid.nickName ||
+            !isValid.email ||
+            !isValid.password ||
+            !isValid.confirmPassword
+        ) {
+            return console.log(isValid);
+        }
+
+        try {
+            // API 호출: 회원가입
+            const registerData = {
+                email: registerForm.email,
+                password: registerForm.password,
+                nickname: registerForm.nickName,
+            };
+            const registerResponse: AxiosResponse<ValidationResponse> =
+                await axiosRequest.requestAxios("post", "/users", registerData);
+            console.log(registerResponse);
+            if (registerResponse.status === 201) {
+                console.log(registerResponse.data.message); // 가입 완료
+                console.log("회원가입 응답:", registerResponse);
+                // 성공 시 알림 표시 및 로그인 페이지로 이동
+                alert("회원가입이 완료되었습니다.");
+                navigate("/login");
+            } else if (registerResponse.status === 400) {
+                console.log(registerResponse.data.message);
+            } else if (registerResponse.status === 409) {
+                console.log(registerResponse.data.message);
+                if (
+                    registerResponse.data.message.includes(
+                        "이미 사용 중인 이메일"
+                    )
+                ) {
+                    setValidMessage((prev) => ({
+                        ...prev,
+                        emailMessage: "이미 사용 중인 이메일입니다.",
+                    }));
+                }
+                if (
+                    registerResponse.data.message.includes(
+                        "이미 사용 중인 닉네임"
+                    )
+                ) {
+                    setValidMessage((prev) => ({
+                        ...prev,
+                        nickNameMessage: "이미 사용 중인 닉네임입니다.",
+                    }));
+                }
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
-        <form className={styles.registerWrap}>
+        <div className={styles.registerWrap}>
             <Title size="h2">Tracter</Title>
             <Title size="h5">회원가입</Title>
             <div className={styles.name}>
                 <Input
                     icon={<BiSolidUser />}
                     text={"닉네임"}
-                    onChange={handleNameChange}
+                    value={registerForm.nickName}
+                    onChange={(value) => handleChange("nickName", value)}
                 />
-                <BorderButton>중복확인</BorderButton>
+                {/* <BorderButton onClick={() => {}}>중복확인</BorderButton> */}
             </div>
+            {isValid.nickName === false && (
+                <p className={styles.errorMessage}>
+                    {validMessage.nickNameMessage}
+                </p>
+            )}
             <div className={styles.mail}>
                 <Input
                     icon={<MdEmail />}
                     text={"이메일"}
-                    onChange={handleEmailChange}
+                    value={registerForm.email}
+                    onChange={(value) => handleChange("email", value)}
                 />
-                <BorderButton>메일발송</BorderButton>
+                {/* <BorderButton onClick={() => {}}>중복확인</BorderButton> */}
             </div>
-            <div className={styles.emailConfirmation}>
+            {isValid.email === false && (
+                <p className={styles.errorMessage}>
+                    {validMessage.emailMessage}
+                </p>
+            )}
+            {/* <div className={styles.emailConfirmation}>
                 <Input
                     icon={<MdMarkEmailRead />}
                     text={"인증번호"}
-                    onChange={handleVerificationCodeChange}
+                    value={registerForm.verificationCode}
+                    onChange={(value) =>
+                        handleChange("verificationCode", value)
+                    }
                 />
                 <BorderButton>인증하기</BorderButton>
-            </div>
+            </div> */}
             <Input
                 icon={<AiFillLock />}
                 text={"비밀번호"}
                 className={styles.passwordinput}
-                onChange={handlePasswordChange}
+                value={registerForm.password}
+                onChange={(value) => handleChange("password", value)}
             />
+            {isValid.password === false && (
+                <p className={styles.errorMessage}>
+                    {validMessage.passwordMessage}
+                </p>
+            )}
             <Input
                 icon={<AiFillLock />}
                 text={"비밀번호 확인"}
                 className={styles.passwordinput}
-                onChange={handleConfirmPasswordChange}
+                value={registerForm.confirmPassword}
+                onChange={(value) => handleChange("confirmPassword", value)}
             />
-            <Button onClick={() => {}}>가입하기</Button>
-        </form>
+            {isValid.confirmPassword === false && (
+                <p className={styles.errorMessage}>
+                    {validMessage.confirmPasswordMessage}
+                </p>
+            )}
+            <Button onClick={handleRegister}>가입하기</Button>
+        </div>
     );
 }

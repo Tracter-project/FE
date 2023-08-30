@@ -5,7 +5,7 @@ import styles from "./NewInput.module.scss";
 
 interface NewInputProps {
     type: "file" | "text" | "number";
-    onChange: (value: string | File | number | null) => void;
+    onChange: (value: string | number | null) => void;
 }
 
 export default function NewInput({ type, onChange }: NewInputProps) {
@@ -19,8 +19,8 @@ export default function NewInput({ type, onChange }: NewInputProps) {
 
     //file타입
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const selectedFile = event.target.files && event.target.files[0];
-        onChange(selectedFile || null);
+        const value = event.target.value;
+        onChange(value);
     };
 
     //string타입
