@@ -32,7 +32,7 @@ const axiosRequest: AxiosRequest = {
                 data,
             });
             console.log(response);
-            return response.data as T;
+            return response as T;
         } catch (error) {
             console.log(error);
             throw error;
