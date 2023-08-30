@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { useState } from "react";
 import { MdEmail } from "react-icons/md";
 import { AiFillLock } from "react-icons/ai";
 import { Link } from "react-router-dom";
@@ -10,17 +12,19 @@ import Button from "../../components/Button/Button";
 import LocalImg from "../../components/LocalImg/LocalImg";
 import LoginImg from "../../assets/loginImg.png";
 import styles from "./Login.module.scss";
-import { useState } from "react";
 
 interface LoginResponse {
     status: number;
     message: string;
+    token: string;
     Authorization?: string;
 }
 export default function Login() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [errorMessage, setErrorMessage] = useState<string>("");
+    const navigate = useNavigate();
+    const [cookies, setCookie] = useCookies(["token"]);
 
     const handleEmailChange = (email: string) => {
         setEmail(email);
@@ -30,7 +34,7 @@ export default function Login() {
         setPassword(password);
         console.log("비밀번호", password);
     };
-    const navigate = useNavigate();
+
     const handleLogin = async () => {
         setErrorMessage("");
 
@@ -44,10 +48,11 @@ export default function Login() {
                     email,
                     password,
                 });
+            console.log(loginResponse);
             if (loginResponse.status === 201) {
-                const token = loginResponse.data.Authorization ?? "";
-                // 토큰을 localStorage에 저장
-                localStorage.setItem("token", token);
+                const token = loginResponse.data.token;
+                setCookie("token", token, { maxAge: 7 * 24 * 60 * 60 });
+                console.log(loginResponse.data.token);
                 alert("로그인 성공");
                 console.log("로그인 성공");
                 navigate("/"); // 메인페이지로 이동

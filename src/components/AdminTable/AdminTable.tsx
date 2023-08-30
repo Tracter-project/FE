@@ -79,7 +79,6 @@ export default function AdminTable({ data, setData }: AdminTableProps) {
                 "/admin/places",
                 {
                     placeIds: selectedIds,
-                    // 추가적인 수정 데이터들을 보내주세요
                 }
             );
             console.log("숙소 수정 성공:", response);
