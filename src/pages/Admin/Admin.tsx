@@ -21,8 +21,9 @@ interface Place {
 interface PlaceResponse {
     status: number;
     message: string;
-    totalPlace: Place[]; // Place 타입의 배열을 예상
-    // 다른 필드들도 정의해야 함
+    data: {
+        places: Place[];
+    };
 }
 export default function Admin() {
     // const [data, setData] = useState([
@@ -52,10 +53,12 @@ export default function Admin() {
     useEffect(() => {
         // 전체 숙소 데이터 조회하는 API 호출
         async function fetchPlaces() {
+            console.log("tt");
             try {
                 const placesResponse: PlaceResponse =
                     await axiosRequest.requestAxios("get", "/places/all");
-                setData(placesResponse.totalPlace); // 서버 응답에서 실제 숙소 데이터를 추출하여 설정
+                setData(placesResponse.data.places);
+                console.log("전체조회", placesResponse.data.places);
             } catch (error) {
                 console.error(error);
             }

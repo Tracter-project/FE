@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
 import axiosRequest from "../../api";
 import Title from "../Title/Title";
 import AddButton from "../AddButton/AddButton";
@@ -70,6 +71,9 @@ export default function AdminTable({ data, setData }: AdminTableProps) {
             .map((item) => item.id);
         setSelectedIds(selected);
     }, [data]);
+
+    const [cookies] = useCookies(["token"]);
+    const token = cookies.token;
     // 숙소 수정 요청
     const handleEdit = async () => {
         // 선택한 숙소들의 아이디 리스트(selectedIds)를 활용하여 API 호출
@@ -79,13 +83,12 @@ export default function AdminTable({ data, setData }: AdminTableProps) {
                 "/admin/places",
                 {
                     placeIds: selectedIds,
+                    token: token,
                 }
             );
             console.log("숙소 수정 성공:", response);
-            // 수정 성공 시 처리
         } catch (error) {
             console.error("숙소 수정 실패:", error);
-            // 에러 처리
         }
     };
 
@@ -101,10 +104,8 @@ export default function AdminTable({ data, setData }: AdminTableProps) {
                 }
             );
             console.log("숙소 삭제 성공:", response);
-            // 삭제 성공 시 처리
         } catch (error) {
             console.error("숙소 삭제 실패:", error);
-            // 에러 처리
         }
     };
     return (
@@ -170,7 +171,7 @@ export default function AdminTable({ data, setData }: AdminTableProps) {
             <AdminModal
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
-                onSelect={handleSelect}
+                onSelect={() => handleSelect}
             />
         </>
     );
