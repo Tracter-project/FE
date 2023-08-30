@@ -1,5 +1,6 @@
 import { useState, useEffect, ChangeEvent } from "react";
 import { useParams } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import styles from "./PostDetails.module.scss";
 import Comment from "../../components/Comment/Comment";
 import CommentView from "../../components/CommentView/CommentView";
@@ -22,33 +23,35 @@ interface IArticle {
 }
 
 export default function PostDetails() {
+  const [cookies] = useCookies(["token"]);
+  const token = cookies.token;
+
   const params = useParams();
-  const articleId = Number(params.articleId);
-  console.log(articleId, typeof articleId);
+  const articleId = params.postId;
+  const [article, setArticle] = useState<IArticle | null>(null);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [modifiedTitle, setModifiedTitle] = useState(article.title); // title
-  const [modifiedContents, setModifiedContents] = useState(article.contents); // contents
 
+  // 500 Error
   // 게시글 상세 조회 API
-  // const [article, setArticle] = useState<IArticle>();
+  useEffect(() => {
+    const fetchArticleDetails = async () => {
+      try {
+        console.log("parmas: ", articleId);
+        const response = await axiosRequest.requestAxios<IArticle>(
+          "get",
+          `/articles/${articleId}`
+        );
 
-  // useEffect(() => {
-  //   const fetchArticleDetails = async () => {
-  //     try {
-  //       const response = await axiosRequest.requestAxios<IArticle>(
-  //         "get",
-  //         `/articles/${articleId}`
-  //       );
+        setArticle(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  //       setArticle(response);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
+    fetchArticleDetails();
+  }, [articleId]);
 
-  //   fetchArticleDetails();
-  // }, [articleId]);
-
+  // 게시글 삭제 API
   const handleDeleteBtn = async () => {
     try {
       const response = await axiosRequest.requestAxios<number>(
@@ -64,11 +67,32 @@ export default function PostDetails() {
     }
   };
 
-  const handleLikeBtn = () => {
-    alert(`ID ${articleId}`);
+  // 게시글 좋아요
+  const handleLikeBtn = async () => {
+    alert(`ID ${articleId} 게시글 좋아요`);
+    // try {
+    //   const likedArticle = {
+    //     article: articleId,
+    //     like: ,
+    //     // token
+    //   };
+
+    //   const response = await axiosRequest.requestAxios<IArticle>(
+    //     "post",
+    //     "/articles/likes", >> 백엔드 경로 수정 필요함,
+    //     likedArticle
+    //   );
+
+    //   console.log(response);
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
-  // 수정하기
+  // 게시글 수정 API
+  const [modifiedTitle, setModifiedTitle] = useState(""); // title
+  const [modifiedContents, setModifiedContents] = useState(""); // contents
+
   const handleModifyTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setModifiedTitle(event.target.value);
   };
@@ -108,113 +132,118 @@ export default function PostDetails() {
   // const like = true;
   return (
     <div className={styles.postDetailsContainer}>
-      <div className={styles.postContainer}>
-        <div className={styles.left}>
-          <div className={styles.lefttop}>
-            <div className={styles.writer}>
-              <Title size="b">{article.writer}</Title>
-            </div>
-            <div className={styles.date}>
-              {/* <Title size="sub">{article.date}</Title> */}
-            </div>
-          </div>
-
-          {isEditMode ? (
-            <div className={styles.editMode}>
-              <div className={styles.postTitle}>
-                <input value={modifiedTitle} onChange={handleModifyTitle} />
-              </div>
-              <div className={styles.postContent}>
-                <textarea
-                  value={modifiedContents}
-                  onChange={handleModifyContent}
-                />
-              </div>
-              <div className={styles.submitButton}>
-                <Button onClick={() => setIsEditMode(false)}>취소</Button>
-                <Button onClick={handleSubmitBtn}>수정하기</Button>
-              </div>
-            </div>
-          ) : (
-            <>
-              <div className={styles.postTitle}>
-                {/* <Title size="h5">{post.subject}</Title> */}
-                <Title size="h3">{article.title}</Title>
-              </div>
-              <div className={styles.postContent}>
-                <Title size="h5">{article.contents}</Title>
-              </div>
-            </>
-          )}
-
-          <div className={styles.leftbottom}>
-            <Title size="p">좋아요 {article.articleLikeCount}개</Title>
-            <Title size="p">댓글 {article.comments.length}개</Title>
-          </div>
-        </div>
-        <div className={styles.right}>
-          <div className={styles.righttop}>
-            <div className={styles.buttons}>
-              {article.writer === "현재유저" ? (
-                <div className={styles.writerButtons}>
-                  <ModifyButton
-                    onClick={() => setIsEditMode(true)}
-                  ></ModifyButton>
-                  <DeleteButton
-                    onClick={() => handleDeleteBtn()}
-                  ></DeleteButton>
+      {article ? (
+        <>
+          <div className={styles.postContainer}>
+            <div className={styles.left}>
+              <div className={styles.lefttop}>
+                <div className={styles.writer}>
+                  <Title size="b">{article.writer}</Title>
                 </div>
+                <div className={styles.date}>
+                  {/* <Title size="sub">{article.date}</Title> */}
+                </div>
+              </div>
+
+              {isEditMode ? (
+                <div className={styles.editMode}>
+                  <div className={styles.postTitle}>
+                    <input value={article.title} onChange={handleModifyTitle} />
+                  </div>
+                  <div className={styles.postContent}>
+                    <textarea
+                      value={article.contents}
+                      onChange={handleModifyContent}
+                    />
+                  </div>
+                  <div className={styles.submitButton}>
+                    <Button onClick={() => setIsEditMode(false)}>취소</Button>
+                    <Button onClick={handleSubmitBtn}>수정하기</Button>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className={styles.postTitle}>
+                    {/* <Title size="h5">{post.subject}</Title> */}
+                    <Title size="h3">{article.title}</Title>
+                  </div>
+                  <div className={styles.postContent}>
+                    <Title size="h5">{article.contents}</Title>
+                  </div>
+                </>
+              )}
+
+              <div className={styles.leftbottom}>
+                <Title size="p">좋아요 {article.articleLikeCount}개</Title>
+                <Title size="p">댓글 {article.comments.length}개</Title>
+              </div>
+            </div>
+            <div className={styles.right}>
+              <div className={styles.righttop}>
+                <div className={styles.buttons}>
+                  {article.writer === "현재유저" ? (
+                    <div className={styles.writerButtons}>
+                      <ModifyButton
+                        onClick={() => setIsEditMode(true)}
+                      ></ModifyButton>
+                      <DeleteButton
+                        onClick={() => handleDeleteBtn()}
+                      ></DeleteButton>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  <LikeButton
+                    onClick={() => handleLikeBtn()}
+                    like={false}
+                  ></LikeButton>
+                </div>
+              </div>
+              {article.placeImage !== "" ? (
+                <img src={article.placeImage} alt="Place Imgae" />
               ) : (
                 ""
               )}
-              <LikeButton
-                onClick={() => handleLikeBtn()}
-                like={false}
-              ></LikeButton>
             </div>
           </div>
-          {article.placeImage !== "" ? (
-            <img src={article.placeImage} alt="Place Imgae" />
-          ) : (
-            ""
-          )}
-        </div>
-      </div>
-
-      <div className={styles.commentContainer}>
-        {article.comments && (
-          <CommentView commentList={article.comments}></CommentView>
-        )}
-        <Comment articleId={article.id}>댓글 작성</Comment>
-      </div>
+          <div className={styles.commentContainer}>
+            {article.comments && (
+              <CommentView commentList={article.comments}></CommentView>
+            )}
+            <Comment articleId={articleId}>댓글 작성</Comment>
+          </div>{" "}
+        </>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 }
 
-const article: IArticle = {
-  id: 1,
-  subject: "질문",
-  writer: "이뽀리",
-  title: "글 제목",
-  contents:
-    "내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다",
-  articleLikeCount: 90,
-  placeImage:
-    "https://yaimg.yanolja.com/v5/2023/07/11/16/640/64ad86a29096a7.09459065.jpg",
-  // date: new Date("2023-08-19T15:45:00").toLocaleString(),
-  comments: [
-    {
-      id: 1,
-      writer: "이뽀리",
-      comment: "댓글ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ",
-      date: new Date("2023-08-19T15:45:00").toLocaleString(),
-    },
-    {
-      id: 2,
-      writer: "뽀리",
-      comment:
-        "댓글ㄹㄹㄹㄹㄹㄹㄹㄹdfasdfsdfasdㅁㅇㄴㄹㅇㄴㅁㄱㄴㄹㅁㄴㅇㄱㄴㄹㅁㄴㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄱㄴㅇㄹㅊㅁㄴㅇㄱㄴㅇㄱㄹㄹㄹ",
-      date: new Date("2023-08-19T15:45:00").toLocaleString(),
-    },
-  ],
-};
+// const article: IArticle = {
+//   id: 1,
+//   subject: "질문",
+//   writer: "이뽀리",
+//   title: "글 제목",
+//   contents:
+//     "내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다",
+//   articleLikeCount: 90,
+//   placeImage:
+//     "https://yaimg.yanolja.com/v5/2023/07/11/16/640/64ad86a29096a7.09459065.jpg",
+//   // date: new Date("2023-08-19T15:45:00").toLocaleString(),
+//   comments: [
+//     {
+//       id: 1,
+//       writer: "이뽀리",
+//       comment: "댓글ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ",
+//       date: new Date("2023-08-19T15:45:00").toLocaleString(),
+//     },
+//     {
+//       id: 2,
+//       writer: "뽀리",
+//       comment:
+//         "댓글ㄹㄹㄹㄹㄹㄹㄹㄹdfasdfsdfasdㅁㅇㄴㄹㅇㄴㅁㄱㄴㄹㅁㄴㅇㄱㄴㄹㅁㄴㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄱㄴㅇㄹㅊㅁㄴㅇㄱㄴㅇㄱㄹㄹㄹ",
+//       date: new Date("2023-08-19T15:45:00").toLocaleString(),
+//     },
+//   ],
+// };

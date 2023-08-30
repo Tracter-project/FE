@@ -27,7 +27,7 @@ export default function Comment({ children, articleId }: CommentProps) {
     try {
       const comment = {
         articleId: articleId,
-        writer: "",
+        writer: "뽀리",
         comment: commentValue,
       };
 
