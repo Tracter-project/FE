@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 import axiosRequest from "../../api";
 import Title from "../Title/Title";
 import RadioButton from "../RadioButton/RadioButton";
@@ -9,21 +10,21 @@ import styles from "./AdminModal.module.scss";
 interface ApiResponse {
     status: number;
     message: string;
-    data: {
-        fileUrl: string; // 실제 응답에 맞게 수정
-    };
 }
 
 interface AdminModalProps {
     isOpen: boolean;
     onClose: () => void;
     onSelect: (
-        region: string,
-        category: string,
-        file: string,
-        regionName: string,
+        placeName: string,
+        price: number | null,
         description: string,
-        price: number | null
+        category: string,
+        region: string,
+        bannerImage: string,
+        mainImage: string,
+        detailImage: string,
+        bookingURL: string
     ) => void;
 }
 
@@ -36,51 +37,61 @@ export default function AdminModal({
     onSelect,
 }: AdminModalProps) {
     const [formData, setFormData] = useState({
-        selectedRegion: "",
-        selectedCategory: "",
-        selectedFile: "",
-        regionName: "",
-        description: "",
+        placeName: "",
         price: null,
+        description: "",
+        category: "",
+        region: "",
+        bannerImage: "",
+        mainImage: "",
+        detailImage: "",
+        bookingURL: "",
     });
 
     const handleChange = (field: string, value: string | number | null) => {
         setFormData((prevData) => ({ ...prevData, [field]: value }));
     };
-
+    const [cookies] = useCookies(["token"]);
+    const token = cookies.token;
     const handleConfirm = async () => {
+        console.log(formData);
         try {
+            // API 호출: 숙소 추가
             const response = await axiosRequest.requestAxios<ApiResponse>(
                 "post",
-                "/admin/places", // 실제 API 엔드포인트로 수정
+                "/admin/places",
                 {
-                    placeName: formData.regionName,
+                    placeName: formData.placeName,
                     price: formData.price,
                     description: formData.description,
-                    category: formData.selectedCategory,
-                    region: formData.selectedRegion,
-                    mainImage: formData.selectedFile,
-                    // bannerImage: formData.bannerImage,
-                    // detailImage: formData.detailImage,
-                    // bookingURL: formData.bookingURL,
+                    category: formData.category,
+                    region: formData.region,
+                    bannerImage: formData.bannerImage,
+                    mainImage: formData.mainImage,
+                    detailImage: formData.detailImage,
+                    bookingURL: formData.bookingURL,
+                    token: token,
                 }
             );
-
             if (response.status === 201) {
                 console.log("숙소 등록 성공");
-                // 여기서 선택한 데이터를 부모 컴포넌트로 전달
                 onSelect(
-                    formData.selectedRegion,
-                    formData.selectedCategory,
-                    response.data.fileUrl, // 이 부분은 실제 API 응답에 맞게 수정
-                    formData.regionName,
+                    formData.placeName,
+                    formData.price,
                     formData.description,
-                    formData.price
+                    formData.category,
+                    formData.region,
+                    formData.bannerImage,
+                    formData.mainImage,
+                    formData.detailImage,
+                    formData.bookingURL
                 );
+                console.log("숙소 추가", formData);
             } else {
                 console.log("숙소 등록 실패");
             }
         } catch (error) {
+            console.log("에러", formData);
             console.error("API 호출 오류:", error);
         }
         onClose();
@@ -95,57 +106,20 @@ export default function AdminModal({
                         <FaTimes className={styles.closeBtn} />
                     </button>
                     <Title size="h2">숙소 리스트 추가</Title>
-                    <div className={styles.imgInput}>
-                        <Title size="b">사진첨부</Title>
-                        <NewInput
-                            type="file"
-                            onChange={(file) =>
-                                handleChange("selectedFile", file)
-                            }
-                        />
-                    </div>
-                    <div className={styles.check}>
-                        <Title size="b">지역</Title>
-                        <div className={styles.radio}>
-                            {regions.map((region) => (
-                                <RadioButton
-                                    key={region}
-                                    label={region}
-                                    checked={formData.selectedRegion === region}
-                                    onChange={() =>
-                                        handleChange("selectedRegion", region)
-                                    }
-                                />
-                            ))}
-                        </div>
-                    </div>
-                    <div className={styles.check}>
-                        <Title size="b">카테고리</Title>
-                        <div className={styles.radio}>
-                            {categories.map((category) => (
-                                <RadioButton
-                                    key={category}
-                                    label={category}
-                                    checked={
-                                        formData.selectedCategory === category
-                                    }
-                                    onChange={() =>
-                                        handleChange(
-                                            "selectedCategory",
-                                            category
-                                        )
-                                    }
-                                />
-                            ))}
-                        </div>
-                    </div>
                     <div className={styles.textInput}>
                         <Title size="b">숙소명</Title>
                         <NewInput
                             type="text"
-                            onChange={(regionName) =>
-                                handleChange("regionName", regionName)
+                            onChange={(placeName) =>
+                                handleChange("placeName", placeName)
                             }
+                        />
+                    </div>
+                    <div className={styles.textInput}>
+                        <Title size="b">가격</Title>
+                        <NewInput
+                            type="number"
+                            onChange={(price) => handleChange("price", price)}
                         />
                     </div>
                     <div className={styles.textInput}>
@@ -157,12 +131,70 @@ export default function AdminModal({
                             }
                         />
                     </div>
-
+                    <div className={styles.check}>
+                        <Title size="b">카테고리</Title>
+                        <div className={styles.radio}>
+                            {categories.map((category) => (
+                                <RadioButton
+                                    key={category}
+                                    label={category}
+                                    checked={formData.category === category}
+                                    onChange={() =>
+                                        handleChange("category", category)
+                                    }
+                                />
+                            ))}
+                        </div>
+                    </div>
+                    <div className={styles.check}>
+                        <Title size="b">지역</Title>
+                        <div className={styles.radio}>
+                            {regions.map((region) => (
+                                <RadioButton
+                                    key={region}
+                                    label={region}
+                                    checked={formData.region === region}
+                                    onChange={() =>
+                                        handleChange("region", region)
+                                    }
+                                />
+                            ))}
+                        </div>
+                    </div>
                     <div className={styles.textInput}>
-                        <Title size="b">가격</Title>
+                        <Title size="b">배너이미지</Title>
                         <NewInput
-                            type="number"
-                            onChange={(price) => handleChange("price", price)}
+                            type="text"
+                            onChange={(bannerImage) =>
+                                handleChange("bannerImage", bannerImage)
+                            }
+                        />
+                    </div>
+                    <div className={styles.textInput}>
+                        <Title size="b">메인이미지</Title>
+                        <NewInput
+                            type="text"
+                            onChange={(mainImage) =>
+                                handleChange("mainImage", mainImage)
+                            }
+                        />
+                    </div>
+                    <div className={styles.textInput}>
+                        <Title size="b">상세이미지</Title>
+                        <NewInput
+                            type="text"
+                            onChange={(detailImage) =>
+                                handleChange("detailImage", detailImage)
+                            }
+                        />
+                    </div>
+                    <div className={styles.textInput}>
+                        <Title size="b">예매링크</Title>
+                        <NewInput
+                            type="text"
+                            onChange={(bookingURL) =>
+                                handleChange("bookingURL", bookingURL)
+                            }
                         />
                     </div>
 
