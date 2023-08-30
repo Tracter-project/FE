@@ -1,9 +1,18 @@
 import React, { useState } from "react";
+import axiosRequest from "../../api";
 import Title from "../Title/Title";
 import RadioButton from "../RadioButton/RadioButton";
 import NewInput from "../NewInput/NewInput";
 import { FaTimes } from "react-icons/fa";
 import styles from "./AdminModal.module.scss";
+
+interface ApiResponse {
+    status: number;
+    message: string;
+    data: {
+        fileUrl: string; // 실제 응답에 맞게 수정
+    };
+}
 
 interface AdminModalProps {
     isOpen: boolean;
@@ -11,7 +20,7 @@ interface AdminModalProps {
     onSelect: (
         region: string,
         category: string,
-        file: File | null,
+        file: string,
         regionName: string,
         description: string,
         price: number | null
@@ -26,51 +35,54 @@ export default function AdminModal({
     onClose,
     onSelect,
 }: AdminModalProps) {
-    const [selectedRegion, setSelectedRegion] = useState<string>("");
-    const [selectedCategory, setSelectedCategory] = useState<string>("");
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [regionName, setRegionName] = useState<string>("");
-    const [description, setDescription] = useState<string>("");
-    const [price, setPrice] = useState<number | null>(null);
+    const [formData, setFormData] = useState({
+        selectedRegion: "",
+        selectedCategory: "",
+        selectedFile: "",
+        regionName: "",
+        description: "",
+        price: null,
+    });
 
-    const handleRegionChange = (region: string) => {
-        setSelectedRegion(region);
-    };
-    const handleCategoryChange = (category: string) => {
-        setSelectedCategory(category);
-    };
-
-    const handleFileChange = (file: File | null) => {
-        setSelectedFile(file);
+    const handleChange = (field: string, value: string | number | null) => {
+        setFormData((prevData) => ({ ...prevData, [field]: value }));
     };
 
-    const handleRegionNameChange = (text: string) => {
-        setRegionName(text);
-    };
+    const handleConfirm = async () => {
+        try {
+            const response = await axiosRequest.requestAxios<ApiResponse>(
+                "post",
+                "/admin/places", // 실제 API 엔드포인트로 수정
+                {
+                    placeName: formData.regionName,
+                    price: formData.price,
+                    description: formData.description,
+                    category: formData.selectedCategory,
+                    region: formData.selectedRegion,
+                    mainImage: formData.selectedFile,
+                    // bannerImage: formData.bannerImage,
+                    // detailImage: formData.detailImage,
+                    // bookingURL: formData.bookingURL,
+                }
+            );
 
-    const handleDescriptionChange = (text: string) => {
-        setDescription(text);
-    };
-
-    const handlePriceChange = (value: number | null) => {
-        setPrice(value);
-    };
-
-    const handleConfirm = () => {
-        console.log("지역", selectedRegion);
-        console.log("카테고리", selectedCategory);
-        console.log("파일", selectedFile);
-        console.log("숙소명", regionName);
-        console.log("상세설명", description);
-        console.log("가격", price);
-        onSelect(
-            selectedRegion,
-            selectedCategory,
-            selectedFile,
-            regionName,
-            description,
-            price
-        );
+            if (response.status === 201) {
+                console.log("숙소 등록 성공");
+                // 여기서 선택한 데이터를 부모 컴포넌트로 전달
+                onSelect(
+                    formData.selectedRegion,
+                    formData.selectedCategory,
+                    response.data.fileUrl, // 이 부분은 실제 API 응답에 맞게 수정
+                    formData.regionName,
+                    formData.description,
+                    formData.price
+                );
+            } else {
+                console.log("숙소 등록 실패");
+            }
+        } catch (error) {
+            console.error("API 호출 오류:", error);
+        }
         onClose();
     };
 
@@ -87,7 +99,9 @@ export default function AdminModal({
                         <Title size="b">사진첨부</Title>
                         <NewInput
                             type="file"
-                            onChange={() => handleFileChange(selectedFile)}
+                            onChange={(file) =>
+                                handleChange("selectedFile", file)
+                            }
                         />
                     </div>
                     <div className={styles.check}>
@@ -97,8 +111,10 @@ export default function AdminModal({
                                 <RadioButton
                                     key={region}
                                     label={region}
-                                    checked={selectedRegion === region}
-                                    onChange={() => handleRegionChange(region)}
+                                    checked={formData.selectedRegion === region}
+                                    onChange={() =>
+                                        handleChange("selectedRegion", region)
+                                    }
                                 />
                             ))}
                         </div>
@@ -110,9 +126,14 @@ export default function AdminModal({
                                 <RadioButton
                                     key={category}
                                     label={category}
-                                    checked={selectedCategory === category}
+                                    checked={
+                                        formData.selectedCategory === category
+                                    }
                                     onChange={() =>
-                                        handleCategoryChange(category)
+                                        handleChange(
+                                            "selectedCategory",
+                                            category
+                                        )
                                     }
                                 />
                             ))}
@@ -122,15 +143,17 @@ export default function AdminModal({
                         <Title size="b">숙소명</Title>
                         <NewInput
                             type="text"
-                            onChange={() => handleRegionNameChange(regionName)}
+                            onChange={(regionName) =>
+                                handleChange("regionName", regionName)
+                            }
                         />
                     </div>
                     <div className={styles.textInput}>
                         <Title size="b">상세설명</Title>
                         <NewInput
                             type="text"
-                            onChange={() =>
-                                handleDescriptionChange(description)
+                            onChange={(description) =>
+                                handleChange("description", description)
                             }
                         />
                     </div>
@@ -139,7 +162,7 @@ export default function AdminModal({
                         <Title size="b">가격</Title>
                         <NewInput
                             type="number"
-                            onChange={() => handlePriceChange(price)}
+                            onChange={(price) => handleChange("price", price)}
                         />
                     </div>
 

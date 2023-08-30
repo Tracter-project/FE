@@ -4,12 +4,13 @@ import Title from "../Title/Title";
 
 interface BorderButtonProps {
     children: React.ReactNode;
+    onClick: () => void;
 }
 
-export default function BorderButton({ children }: BorderButtonProps) {
+export default function BorderButton({ children, onClick }: BorderButtonProps) {
     return (
         <>
-            <button className={styles.borderbutton}>
+            <button className={styles.borderbutton} onClick={onClick}>
                 <Title size="p">{children}</Title>
             </button>
         </>
