@@ -82,7 +82,7 @@ export default function PostDetails() {
     };
 
     fetchArticleDetails();
-  }, [isEditMode]);
+  }, [articleId, isEditMode]);
 
   // 게시글 삭제 API
   const handleDeleteBtn = async () => {
