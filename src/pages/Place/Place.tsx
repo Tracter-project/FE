@@ -4,8 +4,9 @@ import MapLink from "../../components/MapLink/MapLink";
 import Button from "../../components/Button/Button";
 import MainImage from "../../components/MainImage/MainImage";
 import Map from "../../components/Map/Map";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Modal from "react-modal";
+import axiosRequest from "../../api";
 
 interface MainImageItem {
   id: number;
@@ -15,16 +16,16 @@ interface MainImageItem {
   price: number; // 가격
 }
 
-const dummyMainImageList: MainImageItem[] = [
-  {
-    id: 1,
-    imageUrl:
-      "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
-    title: "서울 호텔",
-    price: 200000,
-    popularity: 900,
-  },
-];
+// const dummyMainImageList: MainImageItem[] = [
+//   {
+//     id: 1,
+//     imageUrl:
+//       "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
+//     title: "서울 호텔",
+//     price: 200000,
+//     popularity: 900,
+//   },
+// ];
 
 export default function Place() {
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
@@ -37,12 +38,29 @@ export default function Place() {
     setIsMapModalOpen(false);
   };
 
+  const [mainImageList, setMainImageList] = useState<MainImageItem[]>([]);
+
+  useEffect(() => {
+    const fetchMainImageList = async () => {
+      try {
+        const response = await axiosRequest.requestAxios<MainImageItem[]>(
+          "get",
+          "/api/places/main-images" // Correct URL based on your router setup
+        );
+        setMainImageList(response);
+      } catch (error) {
+        console.error("Error fetching main images:", error);
+      }
+    };
+
+    fetchMainImageList();
+  }, []);
   return (
     <>
       <div className={styles.subImage}>
         <img
           src={
-            "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png"
+            "https://cdn.pixabay.com/photo/2023/06/17/16/22/woman-8070373_1280.jpg"
           }
           alt="Sub Image"
         />
@@ -81,14 +99,15 @@ export default function Place() {
           </div>
         </div>
         <div className={styles.subRight}>
-          <div className={styles.subImage}>
+          <MainImage MainImageList={mainImageList} />
+          {/* <div className={styles.subImage}>
             <img
               src={
                 "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png"
               }
               alt="Sub Image"
             />
-          </div>
+          </div> */}
         </div>
       </div>
       <div className={styles.subImage}>

@@ -2,9 +2,9 @@ import styles from "./Category.module.scss";
 import Title from "../../components/Title/Title";
 import MainImage from "../../components/MainImage/MainImage";
 import DropdownOption from "../../components/DropdownOption/DropdownOption";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios"; // axios 라이브러리를 import
+import axiosRequest from "../../api"; // axios 라이브러리를 import
 
 interface MainImageItem {
   id: number;
@@ -14,91 +14,93 @@ interface MainImageItem {
   price: number; // 가격
 }
 
-const dummyMainImageList: MainImageItem[] = [
-  {
-    id: 1,
-    imageUrl:
-      "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
-    title: "서울 호텔",
-    price: 200000,
-    popularity: 900,
-  },
-  {
-    id: 2,
-    imageUrl:
-      "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
-    title: "제주 호텔",
-    price: 200000,
-    popularity: 800,
-  },
-  {
-    id: 3,
-    imageUrl:
-      "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
-    title: "부산 호텔",
-    price: 200000,
-    popularity: 700,
-  },
-  {
-    id: 4,
-    imageUrl:
-      "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
-    title: "강원 호텔",
-    price: 200000,
-    popularity: 600,
-  },
-  {
-    id: 5,
-    imageUrl:
-      "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
-    title: "서울 호텔",
-    price: 200000,
-    popularity: 900,
-  },
-  {
-    id: 6,
-    imageUrl:
-      "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
-    title: "제주 호텔",
-    price: 200000,
-    popularity: 800,
-  },
-  {
-    id: 7,
-    imageUrl:
-      "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
-    title: "부산 호텔",
-    price: 200000,
-    popularity: 700,
-  },
-  {
-    id: 8,
-    imageUrl:
-      "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
-    title: "강원 호텔",
-    price: 200000,
-    popularity: 600,
-  },
-];
-
 export default function Category() {
-  // const [categoryPlace, setCategoryPlace] = useState<MainImageItem[]>([]);
+  const [imageList, setImageList] = useState<MainImageItem[]>([
+    // {
+    //   id: 1,
+    //   imageUrl:
+    //     "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
+    //   title: "부산 호텔",
+    //   price: 120000,
+    //   popularity: 600,
+    // },
+    // {
+    //   id: 2,
+    //   imageUrl:
+    //     "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
+    //   title: "강원 호텔",
+    //   price: 140000,
+    //   popularity: 600,
+    // },
+    // {
+    //   id: 3,
+    //   imageUrl:
+    //     "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
+    //   title: "인천 호텔",
+    //   price: 110000,
+    //   popularity: 600,
+    // },
+    // {
+    //   id: 4,
+    //   imageUrl:
+    //     "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
+    //   title: "창원 호텔",
+    //   price: 130000,
+    //   popularity: 600,
+    // },
+    // {
+    //   id: 5,
+    //   imageUrl:
+    //     "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
+    //   title: "서울 호텔",
+    //   price: 240000,
+    //   popularity: 600,
+    // },
+    // {
+    //   id: 6,
+    //   imageUrl:
+    //     "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
+    //   title: "강원 호텔",
+    //   price: 120000,
+    //   popularity: 600,
+    // },
+    // {
+    //   id: 7,
+    //   imageUrl:
+    //     "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
+    //   title: "전주 호텔",
+    //   price: 120000,
+    //   popularity: 600,
+    // },
+    // {
+    //   id: 8,
+    //   imageUrl:
+    //     "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
+    //   title: "논산 호텔",
+    //   price: 140000,
+    //   popularity: 600,
+    // },
+  ]);
+  const params = useParams();
+  const categoryId = params.categoryId.replace(":", "");
+  console.log(categoryId, typeof categoryId);
+  useEffect(() => {
+    const fetchCategoryImages = async () => {
+      try {
+        const response = await axiosRequest.requestAxios<MainImageItem[]>(
+          "get",
+          `/places/categories/1` // Correct URL based on your router setup
+        );
 
-  // useEffect(() => {
-  //   // 카테고리에 해당하는 숙소 데이터를 불러오는 함수
-  //   const fetchCategoryPlace = async (category: string) => {
-  //     try {
-  //       const response = await axios.get(`/places/categories/${category}`);
-  //       const data = response.data.categoryPlace;
-  //       setCategoryPlace(data);
-  //     } catch (error) {
-  //       console.error("Error fetching category place:", error);
-  //     }
-  //   };
+        setImageList(response);
+      } catch (error) {
+        console.error("Error fetching category images:", error);
+      }
+    };
 
-  //   const category = "서울"; // 카테고리 값에 따라 동적으로 설정할 수 있음
-  //   fetchCategoryPlace(category);
-  // }, []);
+    fetchCategoryImages();
+  }, []);
+
   return (
     <>
       <Title size="h2" className={styles.title}>
@@ -116,7 +118,25 @@ export default function Category() {
           </div>
         </DropdownOption>
       </div>
-      <MainImage MainImageList={dummyMainImageList} />
+      <MainImage MainImageList={imageList} />
     </>
   );
 }
+
+// const [categoryPlace, setCategoryPlace] = useState<MainImageItem[]>([]);
+
+// useEffect(() => {
+//   // 카테고리에 해당하는 숙소 데이터를 불러오는 함수
+//   const fetchCategoryPlace = async (category: string) => {
+//     try {
+//       const response = await axios.get(`/places/categories/${category}`);
+//       const data = response.data.categoryPlace;
+//       setCategoryPlace(data);
+//     } catch (error) {
+//       console.error("Error fetching category place:", error);
+//     }
+//   };
+
+//   const category = "서울"; // 카테고리 값에 따라 동적으로 설정할 수 있음
+//   fetchCategoryPlace(category);
+// }, []);
