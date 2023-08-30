@@ -1,17 +1,20 @@
+import { useEffect } from "react";
 import { ChangeEvent, KeyboardEvent } from "react";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 import { useRecoilState } from "recoil";
 import { Link, useNavigate } from "react-router-dom";
 import { IoMdSearch } from "react-icons/io";
-import styles from "./Header.module.scss";
+import { headerSearchInput } from "../../recoli/recoilAtoms";
 import Title from "../Title/Title";
 import DropdownOption from "../DropdownOption/DropdownOption";
-import { headerSearchInput } from "../../recoli/recoilAtoms";
+import styles from "./Header.module.scss";
 
 export default function Header() {
     const navigate = useNavigate();
     const [headerSearch, setHeaderSearch] = useRecoilState(headerSearchInput);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [cookies, setCookie, removeCookie] = useCookies(["token"]); // 토큰 쿠키 이름
 
     const handleSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
         setHeaderSearch(event.target.value);
@@ -28,6 +31,14 @@ export default function Header() {
         }
     };
 
+    useEffect(() => {
+        if (cookies.token) {
+            setIsLoggedIn(true);
+        } else {
+            setIsLoggedIn(false);
+        }
+    }, [cookies.token]);
+
     const handleLoginClick = () => {
         // 로그인 버튼 클릭 시 로그인 페이지로 이동
         navigate("/login");
@@ -36,8 +47,8 @@ export default function Header() {
     const handleLogoutClick = () => {
         // 로그아웃 버튼 클릭 시 로그아웃 처리 및 홈페이지로 이동
         setIsLoggedIn(false); // 로그아웃 상태로 변경
-        localStorage.removeItem("token"); // 로그아웃 시 토큰 삭제
-        navigate("/"); // 홈페이지로 이동
+        removeCookie("token"); // 로그아웃 시 토큰 쿠키 삭제
+        navigate("/");
     };
 
     return (
@@ -80,17 +91,19 @@ export default function Header() {
                 <div className={styles.right}>
                     {isLoggedIn ? (
                         <>
+                            <button onClick={handleLogoutClick}>
+                                <Title size="p">로그아웃</Title>
+                            </button>
+
                             <Title size="p">
-                                <button onClick={handleLogoutClick}>
-                                    로그아웃
-                                </button>
+                                <Link to="/mypage">마이페이지</Link>
                             </Title>
                         </>
                     ) : (
                         <>
-                            <Title size="p">
-                                <Link to="/login">로그인</Link>
-                            </Title>
+                            <button onClick={handleLoginClick}>
+                                <Title size="p">로그인</Title>
+                            </button>
                         </>
                     )}
                     <Title size="p">
