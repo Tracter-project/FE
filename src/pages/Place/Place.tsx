@@ -45,7 +45,7 @@ export default function Place() {
       try {
         const response = await axiosRequest.requestAxios<MainImageItem[]>(
           "get",
-          "/api/places/main-images" // Correct URL based on your router setup
+          "/places/main-images" // Correct URL based on your router setup
         );
         setMainImageList(response);
       } catch (error) {
@@ -60,7 +60,7 @@ export default function Place() {
       <div className={styles.subImage}>
         <img
           src={
-            "https://cdn.pixabay.com/photo/2023/06/17/16/22/woman-8070373_1280.jpg"
+            "https://cdn.pixabay.com/photo/2019/07/25/17/09/camp-4363073_1280.png"
           }
           alt="Sub Image"
         />
@@ -100,14 +100,14 @@ export default function Place() {
         </div>
         <div className={styles.subRight}>
           <MainImage MainImageList={mainImageList} />
-          {/* <div className={styles.subImage}>
+          <div className={styles.subImage}>
             <img
               src={
                 "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png"
               }
               alt="Sub Image"
             />
-          </div> */}
+          </div>
         </div>
       </div>
       <div className={styles.subImage}>
