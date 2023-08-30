@@ -223,6 +223,7 @@ export default function Register() {
             const registerResponse: AxiosResponse<ValidationResponse> =
                 await axiosRequest.requestAxios("post", "/users", registerData);
             console.log(registerResponse);
+
             if (registerResponse.status === 201) {
                 console.log(registerResponse.data.message); // 가입 완료
                 console.log("회원가입 응답:", registerResponse);
@@ -233,6 +234,7 @@ export default function Register() {
                 console.log(registerResponse.data.message);
             } else if (registerResponse.status === 409) {
                 console.log(registerResponse.data.message);
+
                 if (
                     registerResponse.data.message.includes(
                         "이미 사용 중인 이메일"
