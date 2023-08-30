@@ -41,6 +41,7 @@ export default function SearchPlace() {
           `/places/all`
         );
 
+        console.log("res ", response);
         setPlaceList(response);
       } catch (error) {
         console.error(error);

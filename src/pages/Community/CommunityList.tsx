@@ -34,7 +34,7 @@ export default function CommunityList() {
           `/articles`
         );
 
-        const sortedResponse = response.sort((a, b) => {
+        const sortedResponse = response.data.sort((a, b) => {
           const createdAtA = new Date(a.createdAt);
           const createdAtB = new Date(b.createdAt);
           return createdAtB.getTime() - createdAtA.getTime();

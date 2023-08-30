@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import { useRecoilValue } from "recoil";
 import PostTitleInput from "../../components/PostTitleInput/PostTitleInput";
 import PostContentInput from "../../components/PostContentInput/PostContentInput";
@@ -23,6 +24,9 @@ interface IArticle {
 const subjects = ["후기", "질문", "기타"];
 
 export default function CommunityAddPost() {
+  const [cookies] = useCookies(["token"]);
+  const token = cookies.token;
+
   // const navigate = useNavigate();
   const [selectedSubject, setSelectedSubject] = useState<string>(""); // subject
   const newTitleInput = useRecoilValue(titleInput); // title
@@ -36,17 +40,18 @@ export default function CommunityAddPost() {
   const searchedPlace = useRecoilValue(searchedData);
   console.log("searchedPlace : ", searchedPlace);
 
-  // 게시글 작성 API (토큰 필요)
+  // 게시글 작성 API
+  // 500 Error 유효하지 않은 토큰
   const handleSubmit = async () => {
     try {
+      console.log(token);
       const article = {
         subject: selectedSubject,
-        writer: "작성자",
         title: newTitleInput,
         contents: newContentInput,
         placeImage: searchedPlace.mainImage,
+        token: token,
       };
-      console.log(article);
 
       const response = await axiosRequest.requestAxios<IArticle>(
         "post",
@@ -54,7 +59,6 @@ export default function CommunityAddPost() {
         article
       );
 
-      console.log(response);
       alert("게시글이 등록되었습니다.");
     } catch (error) {
       console.error(error);

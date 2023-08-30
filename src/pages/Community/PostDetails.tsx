@@ -1,5 +1,6 @@
 import { useState, useEffect, ChangeEvent } from "react";
 import { useParams } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import styles from "./PostDetails.module.scss";
 import Comment from "../../components/Comment/Comment";
 import CommentView from "../../components/CommentView/CommentView";
@@ -22,10 +23,11 @@ interface IArticle {
 }
 
 export default function PostDetails() {
-  // const articleId: number = 1;
+  const [cookies] = useCookies(["token"]);
+  const token = cookies.token;
+
   const params = useParams();
   const articleId = params.postId;
-  console.log(articleId, typeof articleId);
   const [article, setArticle] = useState<IArticle | null>(null);
   const [isEditMode, setIsEditMode] = useState(false);
 
@@ -34,7 +36,7 @@ export default function PostDetails() {
   useEffect(() => {
     const fetchArticleDetails = async () => {
       try {
-        console.log("API", articleId);
+        console.log("parmas: ", articleId);
         const response = await axiosRequest.requestAxios<IArticle>(
           "get",
           `/articles/${articleId}`
@@ -47,8 +49,9 @@ export default function PostDetails() {
     };
 
     fetchArticleDetails();
-  }, [article]);
+  }, [articleId]);
 
+  // 게시글 삭제 API
   const handleDeleteBtn = async () => {
     try {
       const response = await axiosRequest.requestAxios<number>(
@@ -64,11 +67,29 @@ export default function PostDetails() {
     }
   };
 
-  const handleLikeBtn = () => {
-    alert(`ID ${articleId}`);
+  // 게시글 좋아요
+  const handleLikeBtn = async () => {
+    alert(`ID ${articleId} 게시글 좋아요`);
+    // try {
+    //   const likedArticle = {
+    //     article: articleId,
+    //     like: ,
+    //     // token
+    //   };
+
+    //   const response = await axiosRequest.requestAxios<IArticle>(
+    //     "post",
+    //     "/articles/likes", >> 백엔드 경로 수정 필요함,
+    //     likedArticle
+    //   );
+
+    //   console.log(response);
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
-  // 수정하기;
+  // 게시글 수정 API
   const [modifiedTitle, setModifiedTitle] = useState(""); // title
   const [modifiedContents, setModifiedContents] = useState(""); // contents
 
@@ -113,7 +134,6 @@ export default function PostDetails() {
     <div className={styles.postDetailsContainer}>
       {article ? (
         <>
-          {" "}
           <div className={styles.postContainer}>
             <div className={styles.left}>
               <div className={styles.lefttop}>

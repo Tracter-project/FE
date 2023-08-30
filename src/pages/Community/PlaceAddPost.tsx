@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import { useRecoilValue } from "recoil";
 import Title from "../../components/Title/Title";
 import styles from "./PlaceAddPost.module.scss";
@@ -22,6 +23,9 @@ interface IArticle {
 const subjects = ["후기", "질문"];
 
 export default function PlaceAddPost() {
+  const [cookies] = useCookies(["token"]);
+  const token = cookies.token;
+
   const params = useParams();
   const placeId = Number(params.placeId);
   console.log(placeId, typeof placeId);
@@ -48,10 +52,10 @@ export default function PlaceAddPost() {
     try {
       const article = {
         subject: selectedSubject,
-        writer: "작성자",
         title: newTitleInput,
         content: newContentInput,
         placeImage: place.mainImage,
+        token: token,
       };
 
       const response = await axiosRequest.requestAxios<IArticle>(
