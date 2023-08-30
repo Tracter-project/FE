@@ -11,10 +11,17 @@ interface IComment {
   id: number;
   writer: string;
   comment: string;
+  createdAt: Date;
 }
 
 interface CommentViewProps {
   commentList: IComment[];
+}
+
+function formatDate(date: Date): string {
+  date = new Date(date);
+
+  return date.toLocaleDateString();
 }
 
 export default function CommentView(props: CommentViewProps) {
@@ -133,7 +140,7 @@ export default function CommentView(props: CommentViewProps) {
             )}
 
             <div className={styles.commentDate}>
-              <Title size="sub">{comment.date}</Title>
+              <Title size="sub">{formatDate(comment.createdAt)}</Title>
             </div>
           </div>
         ))}
