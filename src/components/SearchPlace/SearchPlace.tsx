@@ -55,7 +55,7 @@ export default function SearchPlace() {
     setSearchInput(event.target.value);
   };
 
-  const searched = placeList.filter((item) =>
+  const searched = placeLists.filter((item) =>
     item.placeName.includes(searchInput)
   );
 
@@ -94,53 +94,53 @@ export default function SearchPlace() {
   );
 }
 
-// const placeList: ISearchPlace[] = [
-//   {
-//     id: 1,
-//     mainImage:
-//       "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
-//     title: "서울 123 호텔",
-//   },
-//   {
-//     id: 2,
-//     mainImage:
-//       "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
-//     title: "제주 호텔",
-//   },
-//   {
-//     id: 3,
-//     mainImage:
-//       "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
-//     title: "부산 호텔",
-//   },
-//   {
-//     id: 4,
-//     mainImage:
-//       "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
-//     title: "강원 호텔",
-//   },
-//   {
-//     id: 5,
-//     mainImage:
-//       "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
-//     title: "서울 456 호텔",
-//   },
-//   {
-//     id: 6,
-//     mainImage:
-//       "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
-//     title: "제주 호텔3",
-//   },
-//   {
-//     id: 7,
-//     mainImage:
-//       "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
-//     title: "부산 호텔1",
-//   },
-//   {
-//     id: 8,
-//     mainImage:
-//       "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
-//     title: "강원 호텔2",
-//   },
-// ];
+const placeLists: ISearchPlace[] = [
+  {
+    id: 1,
+    mainImage:
+      "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
+    placeName: "서울 123 호텔",
+  },
+  {
+    id: 2,
+    mainImage:
+      "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
+    placeName: "제주 호텔",
+  },
+  {
+    id: 3,
+    mainImage:
+      "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
+    placeName: "부산 호텔",
+  },
+  {
+    id: 4,
+    mainImage:
+      "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
+    placeName: "강원 호텔",
+  },
+  {
+    id: 5,
+    mainImage:
+      "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
+    placeName: "서울 456 호텔",
+  },
+  {
+    id: 6,
+    mainImage:
+      "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
+    placeName: "제주 호텔3",
+  },
+  {
+    id: 7,
+    mainImage:
+      "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
+    placeName: "부산 호텔1",
+  },
+  {
+    id: 8,
+    mainImage:
+      "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
+    placeName: "강원 호텔2",
+  },
+];

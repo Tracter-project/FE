@@ -20,21 +20,50 @@ interface IArticle {
   placeImage: string;
   articleLikeCount: number;
   comments: [];
+  createdAt: Date;
+}
+
+function formatDate(date: Date): string {
+  date = new Date(date);
+  const now = new Date();
+  const diffTime = now.getTime() - date.getTime();
+  const diffMinutes = Math.floor(diffTime / (1000 * 60));
+
+  if (diffMinutes < 1) {
+    return "방금 전";
+  } else if (diffMinutes < 60) {
+    return `${diffMinutes}분 전`;
+  }
+
+  const diffHours = Math.floor(diffMinutes / 60);
+  if (diffHours < 24) {
+    return `${diffHours}시간 전`;
+  }
+
+  const diffDays = Math.floor(diffHours / 24);
+  if (diffDays === 1) {
+    return "1일 전";
+  } else if (diffDays > 1) {
+    return `${diffDays}일 전`;
+  }
+
+  return date.toLocaleDateString();
 }
 
 export default function PostDetails() {
   const [cookies] = useCookies(["token"]);
   const token = cookies.token;
-
   const params = useParams();
   const articleId = params.postId;
   const [article, setArticle] = useState<IArticle | null>(null);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [modifiedTitle, setModifiedTitle] = useState(); // title
+  const [modifiedContents, setModifiedContents] = useState(""); // contents
 
-  // 500 Error
   // 게시글 상세 조회 API
   useEffect(() => {
     const fetchArticleDetails = async () => {
+      console.log("api");
       try {
         console.log("parmas: ", articleId);
         const response = await axiosRequest.requestAxios<IArticle>(
@@ -42,14 +71,18 @@ export default function PostDetails() {
           `/articles/${articleId}`
         );
 
-        setArticle(response);
+        console.log(response);
+        setArticle(response.data);
+        setModifiedTitle(response.data.title);
+        setModifiedContents(response.data.contents);
+        console.log("article: ", article);
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchArticleDetails();
-  }, [articleId]);
+  }, [isEditMode]);
 
   // 게시글 삭제 API
   const handleDeleteBtn = async () => {
@@ -57,7 +90,7 @@ export default function PostDetails() {
       const response = await axiosRequest.requestAxios<number>(
         "delete",
         `/articles/${articleId}`,
-        { articleId }
+        { id: articleId, token: token }
       );
 
       console.log(response);
@@ -71,16 +104,14 @@ export default function PostDetails() {
   const handleLikeBtn = async () => {
     alert(`ID ${articleId} 게시글 좋아요`);
     // try {
-    //   const likedArticle = {
-    //     article: articleId,
-    //     like: ,
-    //     // token
-    //   };
-
     //   const response = await axiosRequest.requestAxios<IArticle>(
     //     "post",
-    //     "/articles/likes", >> 백엔드 경로 수정 필요함,
-    //     likedArticle
+    //     "/articles/likes", // 백엔드 경로 수정 필요함,
+    //     {
+    //       token: token,
+    //       article: articleId,
+    //       // like: ,
+    //     }
     //   );
 
     //   console.log(response);
@@ -90,30 +121,25 @@ export default function PostDetails() {
   };
 
   // 게시글 수정 API
-  const [modifiedTitle, setModifiedTitle] = useState(""); // title
-  const [modifiedContents, setModifiedContents] = useState(""); // contents
-
   const handleModifyTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setModifiedTitle(event.target.value);
   };
-  const handleModifyContent = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleModifyContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setModifiedContents(event.target.value);
   };
 
   const handleSubmitBtn = async () => {
-    alert(`수정된제목: ${modifiedTitle}\n수정된 내용: ${modifiedContents}`);
-
     try {
       const newArticle = {
         id: articleId,
-        writer: "",
         title: modifiedTitle,
-        content: modifiedContents,
+        contents: modifiedContents,
+        token: token,
       };
 
       const response = await axiosRequest.requestAxios<IArticle>(
         "patch",
-        "/articles",
+        `/articles/${articleId}`,
         newArticle
       );
 
@@ -126,10 +152,6 @@ export default function PostDetails() {
     setIsEditMode(false);
   };
 
-  // post.writer === 현재 유저 : Delete, Modify 버튼 o
-  // 현재 유저 likedPosts에 있는 포스트인지 확인
-  // user.likedPosts.id === 지금 Post.id랑 같으면
-  // const like = true;
   return (
     <div className={styles.postDetailsContainer}>
       {article ? (
@@ -141,19 +163,19 @@ export default function PostDetails() {
                   <Title size="b">{article.writer}</Title>
                 </div>
                 <div className={styles.date}>
-                  {/* <Title size="sub">{article.date}</Title> */}
+                  <Title size="sub">{formatDate(article.createdAt)}</Title>
                 </div>
               </div>
 
               {isEditMode ? (
                 <div className={styles.editMode}>
                   <div className={styles.postTitle}>
-                    <input value={article.title} onChange={handleModifyTitle} />
+                    <input value={modifiedTitle} onChange={handleModifyTitle} />
                   </div>
                   <div className={styles.postContent}>
                     <textarea
-                      value={article.contents}
-                      onChange={handleModifyContent}
+                      value={modifiedContents}
+                      onChange={handleModifyContents}
                     />
                   </div>
                   <div className={styles.submitButton}>
@@ -164,7 +186,6 @@ export default function PostDetails() {
               ) : (
                 <>
                   <div className={styles.postTitle}>
-                    {/* <Title size="h5">{post.subject}</Title> */}
                     <Title size="h3">{article.title}</Title>
                   </div>
                   <div className={styles.postContent}>
@@ -175,24 +196,24 @@ export default function PostDetails() {
 
               <div className={styles.leftbottom}>
                 <Title size="p">좋아요 {article.articleLikeCount}개</Title>
-                <Title size="p">댓글 {article.comments.length}개</Title>
+                {/* <Title size="p">댓글 {article.comments.length}개</Title> */}
               </div>
             </div>
             <div className={styles.right}>
               <div className={styles.righttop}>
                 <div className={styles.buttons}>
-                  {article.writer === "현재유저" ? (
-                    <div className={styles.writerButtons}>
-                      <ModifyButton
-                        onClick={() => setIsEditMode(true)}
-                      ></ModifyButton>
-                      <DeleteButton
-                        onClick={() => handleDeleteBtn()}
-                      ></DeleteButton>
-                    </div>
-                  ) : (
+                  {/* {article.writer === "" ? ( */}
+                  <div className={styles.writerButtons}>
+                    <ModifyButton
+                      onClick={() => setIsEditMode(true)}
+                    ></ModifyButton>
+                    <DeleteButton
+                      onClick={() => handleDeleteBtn()}
+                    ></DeleteButton>
+                  </div>
+                  {/* ) : (
                     ""
-                  )}
+                  )} */}
                   <LikeButton
                     onClick={() => handleLikeBtn()}
                     like={false}
@@ -211,39 +232,11 @@ export default function PostDetails() {
               <CommentView commentList={article.comments}></CommentView>
             )}
             <Comment articleId={articleId}>댓글 작성</Comment>
-          </div>{" "}
+          </div>
         </>
       ) : (
-        <p>Loading...</p>
+        <Title size="p">Loading...</Title>
       )}
     </div>
   );
 }
-
-// const article: IArticle = {
-//   id: 1,
-//   subject: "질문",
-//   writer: "이뽀리",
-//   title: "글 제목",
-//   contents:
-//     "내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다",
-//   articleLikeCount: 90,
-//   placeImage:
-//     "https://yaimg.yanolja.com/v5/2023/07/11/16/640/64ad86a29096a7.09459065.jpg",
-//   // date: new Date("2023-08-19T15:45:00").toLocaleString(),
-//   comments: [
-//     {
-//       id: 1,
-//       writer: "이뽀리",
-//       comment: "댓글ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ",
-//       date: new Date("2023-08-19T15:45:00").toLocaleString(),
-//     },
-//     {
-//       id: 2,
-//       writer: "뽀리",
-//       comment:
-//         "댓글ㄹㄹㄹㄹㄹㄹㄹㄹdfasdfsdfasdㅁㅇㄴㄹㅇㄴㅁㄱㄴㄹㅁㄴㅇㄱㄴㄹㅁㄴㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄱㄴㅇㄹㅊㅁㄴㅇㄱㄴㅇㄱㄹㄹㄹ",
-//       date: new Date("2023-08-19T15:45:00").toLocaleString(),
-//     },
-//   ],
-// };
