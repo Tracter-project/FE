@@ -40,7 +40,7 @@ export default function TbtiResult() {
                         <Title size="h2">결과내용</Title>
                     </div>
                     <div className={styles.resultBoxP}>
-                        <Title size="p">{result}</Title>
+                        <Title size="h3">{result}</Title>
                     </div>
                     <div className={styles.resultBoxP2}>
                         <Title size="p">
