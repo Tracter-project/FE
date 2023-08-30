@@ -5,6 +5,7 @@ import DropdownOption from "../../components/DropdownOption/DropdownOption";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axiosRequest from "../../api"; // axios 라이브러리를 import
+import { AxiosResponse } from "axios";
 
 interface MainImageItem {
   id: number;
@@ -12,6 +13,17 @@ interface MainImageItem {
   title: string;
   popularity: number;
   price: number; // 가격
+}
+
+interface Category {
+  id: number;
+  categoryName: string;
+}
+
+interface CategoryRspons {
+  status: number;
+  message: string;
+  category: Category[];
 }
 
 export default function Category() {
@@ -82,14 +94,40 @@ export default function Category() {
     // },
   ]);
   const params = useParams();
-  const categoryId = params.categoryId.replace(":", "");
+  const [categories, setCategories] = useState<Category[]>([]);
+  useEffect(() => {
+    console.log("전체조회다", categories);
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const categoryResponse: AxiosResponse<CategoryRspons> =
+        await axiosRequest.requestAxios("get", "/categories");
+      console.log("카테고리", categoryResponse.data);
+      setCategories(categoryResponse.data);
+      console.log("카테고리 조회 성공");
+    } catch (error) {
+      console.error("카테고리 조회 실패:", error);
+    }
+  };
+
+  let categoryId = params.categoryId.replace(":", "");
+  categoryId = Number(categoryId);
   console.log(categoryId, typeof categoryId);
+  let categoryName = "";
+  categories.map((category) => {
+    if (category.id === categoryId) {
+      categoryName = category.categoryName;
+    }
+  });
+
   useEffect(() => {
     const fetchCategoryImages = async () => {
       try {
         const response = await axiosRequest.requestAxios<MainImageItem[]>(
           "get",
-          `/places/categories/1` // Correct URL based on your router setup
+          `/places/categories/호캉스` // Correct URL based on your router setup
         );
 
         setImageList(response);
