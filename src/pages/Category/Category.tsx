@@ -23,7 +23,6 @@ interface Category {
 export default function Category() {
   const params = useParams();
   const categoryId = Number(params.categoryId);
-  let categoryName = "";
   console.log(categoryId, typeof categoryId);
   const [imageList, setImageList] = useState<MainImageItem[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -43,8 +42,6 @@ export default function Category() {
       } catch (error) {
         console.error("카테고리 조회 실패:", error);
       }
-
-      console.log(categoryName);
     };
 
     fetchCategories();
