@@ -12,15 +12,15 @@ interface LocationState {
 const getResultPath = (result: string) => {
     switch (result) {
         case '호캉스':
-            return '/category/:1';
+            return '/category/1';
         case '글램핑':
-            return '/category/:2';
+            return '/category/2';
         case '카라반':
-            return '/category/:3';
+            return '/category/5';
         case '게스트하우스':
-            return '/category/:4';
+            return '/category/4';
         case '풀빌라':
-            return '/category/:5';
+            return '/category/3';
         default:
             throw new Error('Invalid result');
     }
