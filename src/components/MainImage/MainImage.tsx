@@ -51,7 +51,7 @@ export default function MainImage(props: MainImageProps) {
       <div className={styles.mainBox}>
         {sortedPopularList.map((item) => (
           <div key={item.id} className={styles.mainImage}>
-            <Link to="/place/:placeId" className={styles.Image}>
+            <Link to={`/place/${item.id}`} className={styles.Image}>
               <img src={item.mainImage} alt={item.placeName} />
             </Link>
             <div className={styles.mainWrap}>
