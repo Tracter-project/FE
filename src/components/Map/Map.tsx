@@ -1,7 +1,7 @@
 import styles from "./Map.module.scss";
 import React, { useEffect } from "react";
 import Title from "../Title/Title";
-import { FaTimes } from "react-icons/fa";
+import { FaWindowClose } from "react-icons/fa";
 
 declare global {
   interface Window {
@@ -53,7 +53,11 @@ const Map: React.FC<MapProps> = ({ onClose }) => {
             지도
           </Title>
           <Title size="h2">
-            <FaTimes className={styles.closeBtn} onClick={onClose} />
+            <FaWindowClose
+              size={40}
+              className={styles.closeBtn}
+              onClick={onClose}
+            />
           </Title>
         </div>
         <div className={styles.kakaoMapWrapper}>

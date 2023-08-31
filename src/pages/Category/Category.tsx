@@ -87,11 +87,11 @@ export default function Category() {
         <Title size="h2">{selectedCategoryName}</Title>
         <DropdownOption title="전체" className={styles.dropdown}>
           <div className={styles.dropdownContent}>
-            <Link to="/">서울</Link>
-            <Link to="/">강원</Link>
-            <Link to="/">전라</Link>
-            <Link to="/">경상</Link>
-            <Link to="/">제주</Link>
+            <Link to={`/category/${categoryId}/서울`}>서울</Link>
+            <Link to={`/category/${categoryId}/강원`}>강원</Link>
+            <Link to={`/category/${categoryId}/전라`}>전라</Link>
+            <Link to={`/category/${categoryId}/경상`}>경상</Link>
+            <Link to={`/category/${categoryId}/제주`}>제주</Link>
           </div>
         </DropdownOption>
       </div>
