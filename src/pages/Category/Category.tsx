@@ -76,7 +76,7 @@ export default function Category() {
     };
 
     fetchCategoryImages();
-  }, [categoryName]);
+  }, []);
 
   return (
     <>
