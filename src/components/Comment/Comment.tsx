@@ -28,7 +28,7 @@ export default function Comment({ children, articleId }: CommentProps) {
 
   const handleCommentSubmit = async () => {
     try {
-      console.log("등록 id", articleId);
+      console.log("등록 게시글 id", articleId);
       const comment = {
         articleId: articleId,
         comment: commentValue,

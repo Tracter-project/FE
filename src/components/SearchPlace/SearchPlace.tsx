@@ -5,6 +5,7 @@ import styles from "./SearchPlace.module.scss";
 import { searchPlace } from "../../recoli/recoilAtoms";
 import { searchedData } from "../../recoli/recoilAtoms";
 import axiosRequest from "../../api";
+import { AxiosResponse } from "axios";
 
 interface ISearchedPlace {
   id: number;
@@ -34,10 +35,10 @@ export default function SearchPlace() {
   useEffect(() => {
     const fetchPlaceList = async () => {
       try {
-        const response = await axiosRequest.requestAxios<IPlace[]>(
+       const response = await axiosRequest.requestAxios(
           "get",
           `/places/all`
-        );
+        ) as AxiosResponse<IPlace[]>;
 
         console.log("숙소 전체 res ", response);
         setPlaceList(response.data);

@@ -34,8 +34,10 @@ export default function CommunityList() {
   useEffect(() => {
     const fetchArticleList = async () => {
       try {
-        const response: AxiosResponse<ArticleResponse> =
-          await axiosRequest.requestAxios("get", `/articles`);
+        const response = (await axiosRequest.requestAxios(
+          "get",
+          `/articles`
+        )) as AxiosResponse<IArticle[]>;
 
         const sortedResponse = response.data.sort((a: any, b: any) => {
           const createdAtA = new Date(a.createdAt);
