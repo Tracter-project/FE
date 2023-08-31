@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useRecoilValue } from "recoil";
@@ -12,24 +12,30 @@ import Title from "../../components/Title/Title";
 import styles from "./CommunityAddPost.module.scss";
 import RadioButton from "../../components/RadioButton/RadioButton";
 import axiosRequest from "../../api";
+import { AxiosResponse } from "axios";
 
-interface IArticle {
-  subject: string;
-  writer: string;
-  title: string;
-  content: string;
-  placeImage: string;
+// interface IArticle {
+//   subject: string;
+//   writer: string;
+//   title: string;
+//   content: string;
+//   placeImage: string;
+// }
+
+interface ArticleResponse {
+  status: number;
+  message: string;
 }
 
 const subjects = ["후기", "질문", "기타"];
 
 export default function CommunityAddPost() {
+  const navigate = useNavigate();
   const [cookies] = useCookies(["token"]);
   const token = cookies.token;
   const [selectedSubject, setSelectedSubject] = useState<string>(""); // subject
   const newTitleInput = useRecoilValue(titleInput); // title
   const newContentInput = useRecoilValue(contentInput); // contents
-  // const navigate = useNavigate();
 
   const handleRegionChange = (subject: string) => {
     setSelectedSubject(subject);
@@ -51,18 +57,16 @@ export default function CommunityAddPost() {
         token: token,
       };
 
-      const response = await axiosRequest.requestAxios<IArticle>(
-        "post",
-        "/articles",
-        article
-      );
+      const response: AxiosResponse<ArticleResponse> =
+        await axiosRequest.requestAxios("post", "/articles", article);
 
+      console.log(response);
       alert("게시글이 등록되었습니다.");
     } catch (error) {
       console.error(error);
     }
 
-    // navigate("/community/list");
+    navigate("/community/list");
   };
 
   return (
@@ -77,7 +81,7 @@ export default function CommunityAddPost() {
           {searchedPlace.mainImage && (
             <div className={styles.placeInfo}>
               <img src={searchedPlace.mainImage} alt="Place Image" />
-              <Title size="b">{searchedPlace.title}</Title>
+              <Title size="b">{searchedPlace.placeName}</Title>
             </div>
           )}
         </div>

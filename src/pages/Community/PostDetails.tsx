@@ -19,7 +19,6 @@ interface IArticle {
   contents: string;
   placeImage: string;
   articleLikeCount: number;
-  comments: [];
   createdAt: Date;
 }
 
@@ -64,7 +63,7 @@ export default function PostDetails() {
   const params = useParams();
   const articleId = Number(params.postId);
   const [article, setArticle] = useState<IArticle | null>(null);
-  const [comments, setComments] = useState<IComment | null>(null);
+  const [commentList, setCommentList] = useState<IComment[]>([]);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [modifiedTitle, setModifiedTitle] = useState<string>(""); // title
   const [modifiedContents, setModifiedContents] = useState<string>(""); // contents
@@ -86,15 +85,13 @@ export default function PostDetails() {
           setModifiedContents(response.data.article.contents);
           console.log("article: ", article);
         }
-
-        console.log("셋팅후", article);
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchArticleDetails();
-  }, [articleId]);
+  }, [isEditMode]);
 
   // 게시글 삭제 API
   const handleDeleteBtn = async () => {
@@ -108,16 +105,42 @@ export default function PostDetails() {
       console.log(response);
       alert(`ID ${articleId} 게시글 삭제`);
     } catch (error) {
+      alert("작성자만 삭제할 수 있습니다.");
       console.error(error);
     }
   };
 
-  // 게시글 수정 API
   const handleModifyTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setModifiedTitle(event.target.value);
   };
   const handleModifyContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setModifiedContents(event.target.value);
+  };
+
+  // 게시글 수정 API
+  const handleSubmitBtn = async () => {
+    try {
+      const newArticle = {
+        id: articleId,
+        title: modifiedTitle,
+        contents: modifiedContents,
+        token: token,
+      };
+
+      const response = await axiosRequest.requestAxios<IArticle>(
+        "patch",
+        `/articles/${articleId}`,
+        newArticle
+      );
+
+      console.log(response);
+      alert("게시글이 수정되었습니다.");
+    } catch (error) {
+      alert("작성자만 수정이 가능합니다.");
+      console.error(error);
+    }
+
+    setIsEditMode(false);
   };
 
   // 게시글 좋아요
@@ -146,15 +169,15 @@ export default function PostDetails() {
       console.log("api");
       try {
         console.log("댓글 조회 articleId: ", articleId);
-        const response = await axiosRequest.requestAxios<IComment>(
+        const response = await axiosRequest.requestAxios<IComment[]>(
           "get",
           `/comments`,
           { articleId }
         );
 
         console.log(response);
-        setComments(response.data);
-        console.log("comments: ", comments);
+        setCommentList(response.data);
+        console.log("comments: ", commentList);
       } catch (error) {
         console.error(error);
       }
@@ -162,30 +185,6 @@ export default function PostDetails() {
 
     fetchArticleDetails();
   }, []);
-
-  const handleSubmitBtn = async () => {
-    try {
-      const newArticle = {
-        id: articleId,
-        title: modifiedTitle,
-        contents: modifiedContents,
-        token: token,
-      };
-
-      const response = await axiosRequest.requestAxios<IArticle>(
-        "patch",
-        `/articles/${articleId}`,
-        newArticle
-      );
-
-      console.log(response);
-      alert("게시글이 수정되었습니다.");
-    } catch (error) {
-      console.error(error);
-    }
-
-    setIsEditMode(false);
-  };
 
   return (
     <div className={styles.postDetailsContainer}>
@@ -260,7 +259,7 @@ export default function PostDetails() {
             </div>
           </div>
           <div className={styles.commentContainer}>
-            {/* {comments && <CommentView commentList={comments}></CommentView>} */}
+            <CommentView commentList={commentList}></CommentView>
             <Comment articleId={articleId}>댓글 작성</Comment>
           </div>
         </>

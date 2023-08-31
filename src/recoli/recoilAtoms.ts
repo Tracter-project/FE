@@ -40,7 +40,7 @@ export const input = atom<string>({
 
 interface SearchedPlace {
   id: number;
-  title: string;
+  placeName: string;
   mainImage: string;
 }
 
@@ -48,7 +48,7 @@ export const searchedData = atom<SearchedPlace>({
   key: "searchedData",
   default: {
     id: 0,
-    title: "",
+    placeName: "",
     mainImage: "",
   },
 });

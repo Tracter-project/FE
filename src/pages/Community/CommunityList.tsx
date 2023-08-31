@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { AxiosResponse } from "axios";
 import styles from "./CommunityList.module.scss";
 import PostList from "../../components/PostList/PostList";
 import AddButton from "../../components/AddButton/AddButton";
@@ -14,7 +15,12 @@ interface IArticle {
   placeImage: string;
   articleLikeCount: number;
   createdAt: Date;
-  comments: [];
+}
+
+interface ArticleResponse {
+  status: number;
+  message: string;
+  data: IArticle[];
 }
 
 export default function CommunityList() {
@@ -28,12 +34,10 @@ export default function CommunityList() {
   useEffect(() => {
     const fetchArticleList = async () => {
       try {
-        const response = await axiosRequest.requestAxios<IArticle[]>(
-          "get",
-          `/articles`
-        );
+        const response: AxiosResponse<ArticleResponse> =
+          await axiosRequest.requestAxios("get", `/articles`);
 
-        const sortedResponse = response.data.sort((a, b) => {
+        const sortedResponse = response.data.sort((a: any, b: any) => {
           const createdAtA = new Date(a.createdAt);
           const createdAtB = new Date(b.createdAt);
           return createdAtB.getTime() - createdAtA.getTime();

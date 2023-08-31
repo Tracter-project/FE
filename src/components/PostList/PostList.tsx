@@ -12,7 +12,6 @@ interface NewPost {
   placeImage: string;
   articleLikeCount: number;
   createdAt: Date;
-  comments: [];
 }
 
 interface PostListProps {
@@ -50,7 +49,6 @@ export default function PostsList(props: PostListProps) {
   const { postList } = props;
   const maxLength: number = 25;
 
-  // API 나오면 추가 : 현재 유저 likedPosts 목록에 있으면 liked = true;
   return (
     <>
       <div className={styles.postList}>
