@@ -54,8 +54,8 @@ const dummyMyPageList: MyItem[] = [
 // }
 
 export default function MyPage() {
-    const [nickname, setNickname] = useState('');
-    const [password, setPassword] = useState('');
+    const [nickname, setNickname] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
 
     //로그인 된 정보 불러옴
     useEffect(() => {
@@ -73,7 +73,7 @@ export default function MyPage() {
     }, []);
 
     //닉네임 중복 검사
-    const checkNickname = async () => {
+    const checkNickname = async (): Promise<void> => {
         try {
             const response = await axios.get('/users/validator/nickname', { params: { nickname } });
 
@@ -88,7 +88,7 @@ export default function MyPage() {
     };
 
     //닉네임, 패스워드 변경
-    const handleUpdate = async () => {
+    const handleUpdate = async (): Promise<void> => {
         try {
             const response = await axios.patch('/users', { nickname, password });
 
@@ -103,7 +103,7 @@ export default function MyPage() {
     };
 
     //회원 탈퇴
-    const handleDelete = async () => {
+    const handleDelete = async (): Promise<void> => {
         if (window.confirm('정말 탈퇴 하시겠습니까?')) {
             try {
                 const response = await axios.delete('/users');
@@ -125,7 +125,12 @@ export default function MyPage() {
             <div className={styles.myPageWrap}>
                 <Input icon={<MdEmail />} text={'기존이메일'} onChange={() => {}} />
                 <div className={styles.name}>
-                    <Input icon={<BiSolidUser />} text={'기존닉네임'} onChange={(e) => setNickname(e.target.value)} />
+                    <Input
+                        icon={<BiSolidUser />}
+                        text={'기존닉네임'}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNickname(e.target.value)}
+                        value={nickname}
+                    />
                     <BorderButton onClick={checkNickname}>중복 확인</BorderButton>
                 </div>
                 <Input
@@ -133,13 +138,13 @@ export default function MyPage() {
                     text={'기존비밀번호'}
                     type="password"
                     className={styles.passwordinput}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                 />
                 <Input
                     icon={<AiFillLock />}
                     text={'기존비밀번호 확인'}
                     className={styles.passwordinput}
-                    onChange={() => {}}
+                    value={password}
                 />
                 <div className={styles.mypageButton}>
                     <MypageButton onClick={handleUpdate}>정보 변경</MypageButton>
