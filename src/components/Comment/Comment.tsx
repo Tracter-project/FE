@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect } from "react";
+import React, { ChangeEvent } from "react";
 import { useRecoilState } from "recoil";
 import { useCookies } from "react-cookie";
 import styles from "./Comment.module.scss";
@@ -28,7 +28,7 @@ export default function Comment({ children, articleId }: CommentProps) {
 
   const handleCommentSubmit = async () => {
     try {
-      console.log(articleId);
+      console.log("등록 게시글 id", articleId);
       const comment = {
         articleId: articleId,
         comment: commentValue,

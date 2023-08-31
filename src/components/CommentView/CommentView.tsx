@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from "react";
+import { useCookies } from "react-cookie";
 import styles from "./CommentView.module.scss";
 import Title from "../Title/Title";
 import CheckBox from "../CheckBox/CheckBox";
@@ -7,10 +8,10 @@ import DeleteButton from "../DeleteButton/DeleteButton";
 import Button from "../Button/Button";
 import axiosRequest from "../../api";
 
-
 interface IComment {
   id: number;
   writer: string;
+  articleId: number;
   comment: string;
   createdAt: Date;
 }
@@ -30,8 +31,10 @@ export default function CommentView(props: CommentViewProps) {
   const [selectedCommentId, setSelectedCommentId] = useState<number | null>(
     null
   );
-  const [selectedComment, setSelectedComment] = useState("");
-  const [isEditMode, setIsEditMode] = useState(false);
+  const [selectedComment, setSelectedComment] = useState<string>("");
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [cookies] = useCookies(["token"]);
+  const token = cookies.token;
 
   const handleCheckboxChange = (commentId: number, comment: string) => {
     setSelectedCommentId(commentId === selectedCommentId ? null : commentId);
@@ -45,13 +48,11 @@ export default function CommentView(props: CommentViewProps) {
 
   const handleSubmitBtn = async () => {
     if (selectedCommentId !== null) {
-      alert(`수정된 내용: ${selectedComment}`);
-
       try {
         const newComment = {
           id: selectedCommentId,
-          writer: "",
           comment: selectedComment,
+          token: token,
         };
 
         const response = await axiosRequest.requestAxios<IComment>(
@@ -63,6 +64,7 @@ export default function CommentView(props: CommentViewProps) {
         console.log(response);
         alert("댓글이 수정되었습니다.");
       } catch (error) {
+        alert("작성자만 수정이 가능합니다.")
         console.error(error);
       }
     }
@@ -77,7 +79,7 @@ export default function CommentView(props: CommentViewProps) {
         const response = await axiosRequest.requestAxios<number>(
           "delete",
           "/comments",
-          { selectedCommentId }
+          { id: selectedCommentId, token: token }
         );
 
         console.log(response);
@@ -88,7 +90,6 @@ export default function CommentView(props: CommentViewProps) {
     }
   };
 
-  // 체크박스 : comment.writer === 현재 유저일 경우에만 보이게
   return (
     <>
       <div className={styles.commentViewWrap}>
@@ -106,18 +107,18 @@ export default function CommentView(props: CommentViewProps) {
         </div>
         {commentList.map((comment) => (
           <div className={styles.commentView} key={comment.id}>
-            {comment.writer === "뽀리" ? (
-              <div className={styles.checkbox}>
-                <CheckBox
-                  checked={comment.id === selectedCommentId}
-                  onChange={() =>
-                    handleCheckboxChange(comment.id, comment.comment)
-                  }
-                />
-              </div>
-            ) : (
+            {/* {comment.writer === "뽀리" ? ( */}
+            <div className={styles.checkbox}>
+              <CheckBox
+                checked={comment.id === selectedCommentId}
+                onChange={() =>
+                  handleCheckboxChange(comment.id, comment.comment)
+                }
+              />
+            </div>
+            {/* ) : (
               ""
-            )}
+            )} */}
             <div className={styles.commentWriter}>
               <Title size="h5">{comment.writer}</Title>
             </div>
