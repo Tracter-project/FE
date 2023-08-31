@@ -72,7 +72,6 @@ export default function PostDetails() {
   const params = useParams();
   const articleId = Number(params.postId);
   const [article, setArticle] = useState<IData | null>(null);
-  // const [commentList, setCommentList] = useState<IData | null>(null);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [modifiedTitle, setModifiedTitle] = useState<string>(""); // title
   const [modifiedContents, setModifiedContents] = useState<string>(""); // contents
@@ -80,9 +79,7 @@ export default function PostDetails() {
   // 게시글 상세 조회 API
   useEffect(() => {
     const fetchArticleDetails = async () => {
-      console.log("api");
       try {
-        console.log("parmas: ", articleId);
         const response = await axiosRequest.requestAxios<IResponse>(
           "get",
           `/articles/${articleId}`
@@ -99,7 +96,7 @@ export default function PostDetails() {
     };
 
     fetchArticleDetails();
-  }, [articleId, isEditMode]);
+  }, [articleId, article, isEditMode]);
 
   // 게시글 삭제 API
   const handleDeleteBtn = async () => {
@@ -110,7 +107,6 @@ export default function PostDetails() {
         { id: articleId, token: token }
       );
 
-      console.log(response);
       alert(`ID ${articleId} 게시글 삭제`);
     } catch (error) {
       alert("작성자만 삭제가 가능합니다.");
@@ -142,7 +138,6 @@ export default function PostDetails() {
           newArticle
         );
 
-        console.log(response);
         alert("게시글이 수정되었습니다.");
       } else {
         alert("수정할 내용을 입력해주세요.");
@@ -157,22 +152,20 @@ export default function PostDetails() {
 
   // 게시글 좋아요
   // const handleLikeBtn = async () => {
-  //   alert(`ID ${articleId} 게시글 좋아요`);
-  // try {
-  //   const response = await axiosRequest.requestAxios<IData>(
-  //     "post",
-  //     "/articles/likes", // 백엔드 경로 수정 필요함,
-  //     {
-  //       token: token,
-  //       article: articleId,
-  //       // like: ,
-  //     }
-  //   );
-
-  //   console.log(response);
-  // } catch (error) {
-  //   console.error(error);
-  // }
+  //   try {
+  //     const response = await axiosRequest.requestAxios<IResponse>(
+  //       "post",
+  //       "/articles/likes",
+  //       {
+  //         token: token,
+  //         article: articleId,
+  //         like: true,
+  //       }
+  //     );
+  //     alert(`ID ${articleId} 게시글 좋아요`);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
   // };
 
   return (
