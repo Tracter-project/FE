@@ -1,5 +1,6 @@
-import Title from "../Title/Title";
-import styles from "./MainNewPlaces.module.scss";
+import { useNavigate } from 'react-router-dom';
+import Title from '../Title/Title';
+import styles from './MainNewPlaces.module.scss';
 
 interface NewItem {
     id: number;
@@ -15,11 +16,16 @@ interface MainNewPlacesProps {
 
 export default function MainNewPlaces(props: MainNewPlacesProps) {
     const { newList } = props;
+    const navigate = useNavigate();
+
+    const handleClick = (id: number) => {
+        navigate(`/category/${id}`);
+    };
 
     return (
         <>
             {newList.map((item) => (
-                <div key={item.id} className={styles.newPlaces}>
+                <div key={item.id} className={styles.newPlaces} onClick={() => handleClick(item.id)}>
                     <img src={item.imageUrl} alt={item.title} />
                     <div className={styles.titleWrap}>
                         <Title size="h5">{item.title}</Title>
