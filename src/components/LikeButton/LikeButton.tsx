@@ -3,12 +3,11 @@ import styles from "./LikeButton.module.scss";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 interface LikeButtonProps {
-  like: boolean;
   onClick: () => void;
 }
 
-export default function LikeButton({ onClick, like }: LikeButtonProps) {
-  const [liked, setLiked] = useState<boolean>(like);
+export default function LikeButton({ onClick }: LikeButtonProps) {
+  const [liked, setLiked] = useState<boolean>(true);
 
   const handleLikeClick = () => {
     setLiked(!liked);

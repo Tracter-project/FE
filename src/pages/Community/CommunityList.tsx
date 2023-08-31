@@ -17,12 +17,6 @@ interface IArticle {
   createdAt: Date;
 }
 
-// interface ArticleResponse {
-//   status: number;
-//   message: string;
-//   data: IArticle[];
-// }
-
 export default function CommunityList() {
   const [articleList, setArticleList] = useState<IArticle[]>([]);
   const navigate = useNavigate();
@@ -39,11 +33,13 @@ export default function CommunityList() {
           `/articles`
         )) as AxiosResponse<IArticle[]>;
 
-        const sortedResponse = response.data.sort((a: any, b: any) => {
-          const createdAtA = new Date(a.createdAt);
-          const createdAtB = new Date(b.createdAt);
-          return createdAtB.getTime() - createdAtA.getTime();
-        });
+        const sortedResponse = response.data.sort(
+          (a: IArticle, b: IArticle) => {
+            const createdAtA = new Date(a.createdAt);
+            const createdAtB = new Date(b.createdAt);
+            return createdAtB.getTime() - createdAtA.getTime();
+          }
+        );
 
         setArticleList(sortedResponse);
       } catch (error) {

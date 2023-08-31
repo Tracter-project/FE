@@ -86,7 +86,7 @@ export default function PostsList(props: PostListProps) {
                     <Title size="h5">{post.subject}</Title>
                   </div>
                   <div className={styles.likeButton}>
-                    <LikeButton onClick={() => {}} like={false}></LikeButton>
+                    <LikeButton onClick={() => {}}></LikeButton>
                   </div>
                 </div>
                 <div className={styles.thumbnail}>

@@ -12,19 +12,13 @@ import Title from "../../components/Title/Title";
 import styles from "./CommunityAddPost.module.scss";
 import RadioButton from "../../components/RadioButton/RadioButton";
 import axiosRequest from "../../api";
-import { AxiosResponse } from "axios";
 
-// interface IArticle {
-//   subject: string;
-//   writer: string;
-//   title: string;
-//   content: string;
-//   placeImage: string;
-// }
-
-interface ArticleResponse {
-  status: number;
-  message: string;
+interface IArticle {
+  subject: string;
+  writer: string;
+  title: string;
+  content: string;
+  placeImage: string;
 }
 
 const subjects = ["후기", "질문", "기타"];
@@ -48,7 +42,6 @@ export default function CommunityAddPost() {
   // 게시글 작성 API
   const handleSubmit = async () => {
     try {
-      console.log(token);
       const article = {
         subject: selectedSubject,
         title: newTitleInput,
@@ -57,8 +50,11 @@ export default function CommunityAddPost() {
         token: token,
       };
 
-      const response: AxiosResponse<ArticleResponse> =
-        await axiosRequest.requestAxios("post", "/articles", article);
+      const response = await axiosRequest.requestAxios<IArticle>(
+        "post",
+        "/articles",
+        article
+      );
 
       console.log(response);
       alert("게시글이 등록되었습니다.");

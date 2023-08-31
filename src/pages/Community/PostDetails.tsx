@@ -260,7 +260,7 @@ export default function PostDetails() {
                   {/* ) : (
                     ""
                   )} */}
-                  <LikeButton onClick={() => {}} like={false}></LikeButton>
+                  <LikeButton onClick={() => {}}></LikeButton>
                 </div>
               </div>
               {article.article.placeImage !== "" ? (
