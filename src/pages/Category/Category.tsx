@@ -20,71 +20,74 @@ interface Category {
   categoryName: string;
 }
 
-interface CategoryRspons {
-  status: number;
-  message: string;
-  category: Category[];
-}
-
 export default function Category() {
-  const [imageList, setImageList] = useState<MainImageItem[]>([]);
-
   const params = useParams();
+  const categoryId = Number(params.categoryId);
+  let categoryName = "";
+  console.log(categoryId, typeof categoryId);
+  const [imageList, setImageList] = useState<MainImageItem[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [selectedCategoryName, setSelectedCategoryName] = useState<string>("");
+
   useEffect(() => {
     console.log("전체조회다", categories);
+    const fetchCategories = async () => {
+      try {
+        const categoryResponse: AxiosResponse = await axiosRequest.requestAxios(
+          "get",
+          "/categories"
+        );
+
+        setCategories(categoryResponse.data);
+        console.log("카테고리", categoryResponse.data);
+      } catch (error) {
+        console.error("카테고리 조회 실패:", error);
+      }
+
+      console.log(categoryName);
+    };
+
     fetchCategories();
   }, []);
 
-  const fetchCategories = async () => {
-    try {
-      const categoryResponse: AxiosResponse<CategoryRspons> =
-        await axiosRequest.requestAxios("get", "/categories");
-      console.log("카테고리", categoryResponse.data);
-      setCategories(categoryResponse.data);
-      console.log("카테고리 조회 성공");
-    } catch (error) {
-      console.error("카테고리 조회 실패:", error);
+  useEffect(() => {
+    console.log("이름찾기");
+    const selectedCategory = categories.find(
+      (category) => category.id === categoryId
+    );
+
+    if (selectedCategory) {
+      setSelectedCategoryName(selectedCategory.categoryName);
+      console.log(selectedCategory.categoryName);
     }
-  };
-
-  let categoryId = params.categoryId;
-  categoryId = Number(categoryId);
-  console.log(categoryId, typeof categoryId);
-
-  let categoryName = "";
-  categories.map((category) => {
-    if (category.id === categoryId) {
-      categoryName = category.categoryName;
-    }
-  });
-
-  console.log(categoryName);
+  }, [categoryId, categories]);
 
   useEffect(() => {
     const fetchCategoryImages = async () => {
       try {
-        const response = await axiosRequest.requestAxios<MainImageItem[]>(
-          "get",
-          `/places/categories/${categoryName}` // Correct URL based on your router setup
-        );
+        if (selectedCategoryName) {
+          const response = await axiosRequest.requestAxios<MainImageItem[]>(
+            "get",
+            `/places/categories/${selectedCategoryName}`
+          );
 
-        setImageList(response.data);
+          setImageList(response.data);
+        }
       } catch (error) {
         console.error("Error fetching category images:", error);
       }
     };
 
     fetchCategoryImages();
-  }, []);
+  }, [selectedCategoryName]);
 
   return (
     <>
       <Title size="h2" className={styles.title}>
-        Category ({categoryName})
+        Category ({selectedCategoryName})
       </Title>
       <div className={styles.categoryTitle}>
-        <Title size="h2">{categoryName}</Title>
+        <Title size="h2">{selectedCategoryName}</Title>
         <DropdownOption title="전체" className={styles.dropdown}>
           <div className={styles.dropdownContent}>
             <Link to="/">서울</Link>
@@ -99,21 +102,3 @@ export default function Category() {
     </>
   );
 }
-
-// const [categoryPlace, setCategoryPlace] = useState<MainImageItem[]>([]);
-
-// useEffect(() => {
-//   // 카테고리에 해당하는 숙소 데이터를 불러오는 함수
-//   const fetchCategoryPlace = async (category: string) => {
-//     try {
-//       const response = await axios.get(`/places/categories/${category}`);
-//       const data = response.data.categoryPlace;
-//       setCategoryPlace(data);
-//     } catch (error) {
-//       console.error("Error fetching category place:", error);
-//     }
-//   };
-
-//   const category = "서울"; // 카테고리 값에 따라 동적으로 설정할 수 있음
-//   fetchCategoryPlace(category);
-// }, []);
