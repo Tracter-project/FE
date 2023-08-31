@@ -21,7 +21,11 @@ interface IArticle {
 }
 
 interface IResponse {
-  data: IPlace;
+  data: IData;
+}
+
+interface IData {
+  place: IPlace;
 }
 
 interface IPlace {
@@ -46,7 +50,7 @@ export default function PlaceAddPost() {
   const params = useParams();
   const placeId = Number(params.placeId);
 
-  const [place, setPlace] = useState<IPlace | null>(null);
+  const [place, setPlace] = useState<IData | null>(null);
   const [selectedSubject, setSelectedSubject] = useState<string>("");
   const newTitleInput = useRecoilValue(titleInput);
   const newContentInput = useRecoilValue(contentInput);
@@ -65,9 +69,7 @@ export default function PlaceAddPost() {
           `/places/${placeId}`
         );
 
-        if (response.data) {
-          setPlace(response.data);
-        }
+        setPlace(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -83,8 +85,8 @@ export default function PlaceAddPost() {
         const article = {
           subject: selectedSubject,
           title: newTitleInput,
-          content: newContentInput,
-          placeImage: place?.mainImage,
+          contents: newContentInput,
+          placeImage: place?.place.mainImage,
           token: token,
         };
 
@@ -112,8 +114,8 @@ export default function PlaceAddPost() {
           <Title size="h2">글 작성</Title>
         </div>
         <div className={styles.placeInfo}>
-          <img src={place?.mainImage} alt="Place Image" />
-          <Title size="b">{place?.placeName}</Title>
+          <img src={place?.place.mainImage} alt="Place Image" />
+          <Title size="b">{place?.place.placeName}</Title>
         </div>
         <div className={styles.checkboxWrap}>
           <Title size="b">글머리</Title>
