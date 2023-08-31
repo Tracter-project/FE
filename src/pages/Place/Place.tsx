@@ -10,6 +10,14 @@ import Modal from "react-modal";
 import axiosRequest from "../../api";
 import { AxiosResponse } from "axios";
 
+interface IResponse {
+  data: IData;
+}
+
+interface IData {
+  place: MainImageItem;
+}
+
 interface MainImageItem {
   id: number;
   mainImage: string;
@@ -19,31 +27,11 @@ interface MainImageItem {
   price: number; // 가격
 }
 
-interface Category {
-  id: number;
-  categoryName: string;
-}
-
-interface CategoryRspons {
-  status: number;
-  message: string;
-  category: Category[];
-}
-
-// const dummyMainImageList: MainImageItem[] = [
-//   {
-//     id: 1,
-//     imageUrl:
-//       "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
-//     title: "서울 호텔",
-//     price: 200000,
-//     popularity: 900,
-//   },
-// ];
-
 export default function Place() {
+  const params = useParams();
+  const placeId = Number(params.placeId);
+  const [imageInfo, setImageInfo] = useState<IData | null>(null);
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
-  const [imageInfo, setImageInfo] = useState<MainImageItem | null>(null);
 
   const openMapModal = () => {
     setIsMapModalOpen(true);
@@ -53,15 +41,14 @@ export default function Place() {
     setIsMapModalOpen(false);
   };
 
-  const params = useParams();
-  const placeId = Number(params.placeId);
-
   useEffect(() => {
     const fetchPlaceInfo = async () => {
       try {
         console.log(placeId);
-        const response: AxiosResponse<MainImageItem> =
-          await axiosRequest.requestAxios("get", `/places/${placeId}`);
+        const response = await axiosRequest.requestAxios<IResponse>(
+          "get",
+          `/places/${placeId}`
+        );
 
         setImageInfo(response.data);
       } catch (error) {
@@ -70,7 +57,7 @@ export default function Place() {
     };
 
     fetchPlaceInfo();
-  }, [placeId]);
+  }, []);
 
   return (
     <>

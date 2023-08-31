@@ -13,7 +13,7 @@ import styles from "./Header.module.scss";
 export default function Header() {
   const navigate = useNavigate();
   const [headerSearch, setHeaderSearch] = useRecoilState(headerSearchInput);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [cookies, setCookie, removeCookie] = useCookies(["token"]); // 토큰 쿠키 이름
 
   const handleSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -109,19 +109,17 @@ export default function Header() {
           <Title size="p">
             <Link to="/community/list">커뮤니티</Link>
           </Title>
-          <Title size="p">
-            <div className={styles.search}>
-              <IoMdSearch className={styles.searchIcon} />
-              <input
-                type="text"
-                placeholder="검색어를 입력해주세요"
-                className="searchInput"
-                value={headerSearch}
-                onChange={handleSearchInput}
-                onKeyDown={handleSearchKeyPress}
-              />
-            </div>
-          </Title>
+          <div className={styles.search}>
+            <IoMdSearch className={styles.searchIcon} />
+            <input
+              type="text"
+              placeholder="검색어를 입력해주세요"
+              className="searchInput"
+              value={headerSearch}
+              onChange={handleSearchInput}
+              onKeyDown={handleSearchKeyPress}
+            />
+          </div>
         </div>
       </header>
     </>

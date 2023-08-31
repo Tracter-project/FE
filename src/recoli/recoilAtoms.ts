@@ -13,47 +13,47 @@ export const modalState = atom<ModalState>({
   },
 });
 
-export const titleInput = atom({
+export const titleInput = atom<string>({
   key: "titleInput",
   default: "",
 });
 
-export const contentInput = atom({
+export const contentInput = atom<string>({
   key: "contentInput",
   default: "",
 });
 
-export const searchPlace = atom({
+export const searchPlace = atom<string>({
   key: "searchPlace",
   default: "",
 });
 
-export const commentInput = atom({
+export const commentInput = atom<string>({
   key: "commentInput",
   default: "",
 });
 
-export const input = atom({
+export const input = atom<string>({
   key: "input",
   default: "",
 });
 
-interface Place {
+interface SearchedPlace {
   id: number;
-  title: string;
+  placeName: string;
   mainImage: string;
 }
 
-export const searchedData = atom<Place>({
+export const searchedData = atom<SearchedPlace>({
   key: "searchedData",
   default: {
     id: 0,
-    title: "",
+    placeName: "",
     mainImage: "",
   },
 });
 
-export const headerSearchInput = atom({
+export const headerSearchInput = atom<string>({
   key: "headerSearchInput",
   default: "",
 });
