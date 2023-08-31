@@ -13,7 +13,7 @@ interface Category {
     _id: number;
     categoryName: string;
 }
-interface CategoryRspons {
+interface CategoryResponse {
     status: number;
     message: string;
     category: Category[];
@@ -31,10 +31,10 @@ export default function AdminCategory() {
 
     const fetchCategories = async () => {
         try {
-            const categoryResponse: AxiosResponse<CategoryRspons> =
+            const categoryResponse: AxiosResponse<CategoryResponse> =
                 await axiosRequest.requestAxios("get", "/categories");
             console.log("카테고리", categoryResponse.data);
-            setCategories(categoryResponse.data);
+            setCategories(categoryResponse.data.category);
             console.log("카테고리 조회 성공");
         } catch (error) {
             console.error("카테고리 조회 실패:", error);
@@ -79,7 +79,7 @@ export default function AdminCategory() {
         if (newCategory) {
             console.log("추가합시다", newCategory);
             try {
-                const categoryResponse: AxiosResponse<CategoryRspons> =
+                const categoryResponse: AxiosResponse<CategoryResponse> =
                     await axiosRequest.requestAxios(
                         "post",
                         "/admin/categories",
