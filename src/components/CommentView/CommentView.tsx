@@ -56,15 +56,14 @@ export default function CommentView(props: CommentViewProps) {
         };
 
         const response = await axiosRequest.requestAxios<IComment>(
-          "post",
+          "patch",
           "/comments",
           newComment
         );
 
-        console.log(response);
         alert("댓글이 수정되었습니다.");
       } catch (error) {
-        alert("작성자만 수정이 가능합니다.")
+        alert("작성자만 수정이 가능합니다.");
         console.error(error);
       }
     }
@@ -82,9 +81,9 @@ export default function CommentView(props: CommentViewProps) {
           { id: selectedCommentId, token: token }
         );
 
-        console.log(response);
         alert(`ID ${selectedCommentId} 댓글 삭제`);
       } catch (error) {
+        alert("작성자만 삭제가 가능합니다.");
         console.error(error);
       }
     }

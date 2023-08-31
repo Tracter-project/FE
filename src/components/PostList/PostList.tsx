@@ -47,7 +47,7 @@ function formatDate(date: Date): string {
 
 export default function PostsList(props: PostListProps) {
   const { postList } = props;
-  const maxLength: number = 25;
+  const maxLength: number = 15;
 
   return (
     <>
@@ -64,7 +64,7 @@ export default function PostsList(props: PostListProps) {
                     <Title size="sub">{formatDate(post.createdAt)}</Title>
                   </div>
                 </div>
-                <div className={styles.postTitle}>
+                <div key={post.id} className={styles.postTitle}>
                   <Title size="h5">{post.title}</Title>
                 </div>
                 <div className={styles.postContent}>
@@ -77,7 +77,11 @@ export default function PostsList(props: PostListProps) {
 
                 <div className={styles.leftbottom}>
                   <Title size="p">좋아요 {post.articleLikeCount}개</Title>
-                  {/* <Title size="p">댓글 {post.comments.length}개</Title> */}
+                  {/* {post.comments ? (
+                    <Title size="p">댓글 {post.comments.length}개</Title>
+                  ) : (
+                    <></>
+                  )} */}
                 </div>
               </div>
               <div className={styles.right}>
