@@ -53,11 +53,13 @@ export default function Place() {
     setIsMapModalOpen(false);
   };
 
-  const { placeId } = useParams<{ placeId: string }>(); // Get placeId from URL
+  const params = useParams();
+  const placeId = Number(params.placeId);
 
   useEffect(() => {
     const fetchPlaceInfo = async () => {
       try {
+        console.log(placeId);
         const response: AxiosResponse<MainImageItem> =
           await axiosRequest.requestAxios("get", `/places/${placeId}`);
 
