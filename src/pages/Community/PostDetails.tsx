@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import styles from "./PostDetails.module.scss";
 import Comment from "../../components/Comment/Comment";
-// import CommentView from "../../components/CommentView/CommentView";
+import CommentView from "../../components/CommentView/CommentView";
 import Title from "../../components/Title/Title";
 import DeleteButton from "../../components/DeleteButton/DeleteButton";
 import ModifyButton from "../../components/ModifyButton/ModifyButton";
@@ -17,6 +17,7 @@ interface IResponse {
 
 interface IData {
   article: IArticle;
+  comment: [IComment];
 }
 
 interface IArticle {
@@ -30,13 +31,13 @@ interface IArticle {
   createdAt: Date;
 }
 
-// interface IComment {
-//   id: number;
-//   writer: string;
-//   articleId: number;
-//   comment: string;
-//   createdAt: Date;
-// }
+interface IComment {
+  id: number;
+  writer: string;
+  articleId: number;
+  comment: string;
+  createdAt: Date;
+}
 
 function formatDate(date: Date): string {
   date = new Date(date);
@@ -71,7 +72,7 @@ export default function PostDetails() {
   const params = useParams();
   const articleId = Number(params.postId);
   const [article, setArticle] = useState<IData | null>(null);
-  // const [commentList, setCommentList] = useState<IComment[]>([]);
+  // const [commentList, setCommentList] = useState<IData | null>(null);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [modifiedTitle, setModifiedTitle] = useState<string>(""); // title
   const [modifiedContents, setModifiedContents] = useState<string>(""); // contents
@@ -174,29 +175,6 @@ export default function PostDetails() {
   // }
   // };
 
-  // 댓글 조회
-  // useEffect(() => {
-  //   const fetchArticleDetails = async () => {
-  //     console.log("api");
-  //     try {
-  //       console.log("댓글 조회 articleId: ", articleId);
-  //       const response = await axiosRequest.requestAxios<IComment[]>(
-  //         "get",
-  //         `/comments`,
-  //         { articleId }
-  //       );
-
-  //       console.log(response);
-  //       setCommentList(response.data);
-  //       console.log("comments: ", commentList);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchArticleDetails();
-  // }, []);
-
   return (
     <div className={styles.postDetailsContainer}>
       {article ? (
@@ -245,7 +223,7 @@ export default function PostDetails() {
                 <Title size="p">
                   좋아요 {article.article.articleLikeCount}개
                 </Title>
-                {/* <Title size="p">댓글 {article.comments.length}개</Title> */}
+                <Title size="p">댓글 {article.comment.length}개</Title>
               </div>
             </div>
             <div className={styles.right}>
@@ -274,7 +252,7 @@ export default function PostDetails() {
             </div>
           </div>
           <div className={styles.commentContainer}>
-            {/* <CommentView commentList={commentList}></CommentView> */}
+            <CommentView commentList={article.comment}></CommentView>
             <Comment articleId={articleId}>댓글 작성</Comment>
           </div>
         </>

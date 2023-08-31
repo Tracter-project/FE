@@ -48,8 +48,6 @@ export default function CommentView(props: CommentViewProps) {
 
   const handleSubmitBtn = async () => {
     if (selectedCommentId !== null) {
-      alert(`수정된 내용: ${selectedComment}`);
-
       try {
         const newComment = {
           id: selectedCommentId,
@@ -66,6 +64,7 @@ export default function CommentView(props: CommentViewProps) {
         console.log(response);
         alert("댓글이 수정되었습니다.");
       } catch (error) {
+        alert("작성자만 수정이 가능합니다.")
         console.error(error);
       }
     }
