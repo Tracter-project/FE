@@ -42,27 +42,36 @@ export default function CommunityAddPost() {
   // 게시글 작성 API
   const handleSubmit = async () => {
     try {
-      const article = {
-        subject: selectedSubject,
-        title: newTitleInput,
-        contents: newContentInput,
-        placeImage: searchedPlace.mainImage,
-        token: token,
-      };
+      if (selectedSubject && newTitleInput && newContentInput) {
+        if (selectedSubject !== "기타" && !searchedPlace.mainImage) {
+          alert("후기 또는 질문을 남길 숙소를 선택해주세요.");
 
-      const response = await axiosRequest.requestAxios<IArticle>(
-        "post",
-        "/articles",
-        article
-      );
+          return;
+        }
 
-      console.log(response);
-      alert("게시글이 등록되었습니다.");
+        const article = {
+          subject: selectedSubject,
+          title: newTitleInput,
+          contents: newContentInput,
+          placeImage: searchedPlace.mainImage,
+          token: token,
+        };
+
+        const response = await axiosRequest.requestAxios<IArticle>(
+          "post",
+          "/articles",
+          article
+        );
+
+        console.log(response);
+        alert("게시글이 등록되었습니다.");
+        navigate("/community/list");
+      } else {
+        alert("모든 내용이 입력 되었는지 확인해주세요.");
+      }
     } catch (error) {
       console.error(error);
     }
-
-    navigate("/community/list");
   };
 
   return (

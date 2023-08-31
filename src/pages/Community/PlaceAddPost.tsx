@@ -79,27 +79,30 @@ export default function PlaceAddPost() {
   const navigate = useNavigate();
   const handleSubmit = async () => {
     try {
-      const article = {
-        subject: selectedSubject,
-        title: newTitleInput,
-        content: newContentInput,
-        placeImage: place?.mainImage,
-        token: token,
-      };
+      if (selectedSubject && newTitleInput && newContentInput) {
+        const article = {
+          subject: selectedSubject,
+          title: newTitleInput,
+          content: newContentInput,
+          placeImage: place?.mainImage,
+          token: token,
+        };
 
-      const response = await axiosRequest.requestAxios<IArticle>(
-        "post",
-        "/articles",
-        article
-      );
+        const response = await axiosRequest.requestAxios<IArticle>(
+          "post",
+          "/articles",
+          article
+        );
 
-      console.log(response);
-      alert("게시글이 등록되었습니다.");
+        console.log(response);
+        alert("게시글이 등록되었습니다.");
+        navigate("/community/list");
+      } else {
+        alert("모든 내용이 입력 되었는지 확인해주세요.");
+      }
     } catch (error) {
       console.error(error);
     }
-
-    navigate("/community/list");
   };
 
   return (

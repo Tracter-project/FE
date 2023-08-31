@@ -91,7 +91,6 @@ export default function PostDetails() {
           setArticle(response.data);
           setModifiedTitle(response.data.article.title);
           setModifiedContents(response.data.article.contents);
-          console.log("article: ", article);
         }
       } catch (error) {
         console.error(error);
@@ -113,7 +112,7 @@ export default function PostDetails() {
       console.log(response);
       alert(`ID ${articleId} 게시글 삭제`);
     } catch (error) {
-      alert("작성자만 삭제할 수 있습니다.");
+      alert("작성자만 삭제가 가능합니다.");
       console.error(error);
     }
   };
@@ -128,21 +127,25 @@ export default function PostDetails() {
   // 게시글 수정 API
   const handleSubmitBtn = async () => {
     try {
-      const newArticle = {
-        id: articleId,
-        title: modifiedTitle,
-        contents: modifiedContents,
-        token: token,
-      };
+      if (modifiedTitle !== "" && modifiedContents !== "") {
+        const newArticle = {
+          id: articleId,
+          title: modifiedTitle,
+          contents: modifiedContents,
+          token: token,
+        };
 
-      const response = await axiosRequest.requestAxios<IData>(
-        "patch",
-        `/articles/${articleId}`,
-        newArticle
-      );
+        const response = await axiosRequest.requestAxios<IData>(
+          "patch",
+          `/articles/${articleId}`,
+          newArticle
+        );
 
-      console.log(response);
-      alert("게시글이 수정되었습니다.");
+        console.log(response);
+        alert("게시글이 수정되었습니다.");
+      } else {
+        alert("수정할 내용을 입력해주세요.");
+      }
     } catch (error) {
       alert("작성자만 수정이 가능합니다.");
       console.error(error);
