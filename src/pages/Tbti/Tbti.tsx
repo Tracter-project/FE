@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import TestScore from '../../components/TestScore/TestScore';
 import styles from './Tbti.module.scss';
 import Title from '../../components/Title/Title';
 import TestButton from '../../components/TestButton/TestButton';
@@ -111,11 +110,11 @@ export default function Tbti() {
     };
 
     //score에 진행중인 질문 목록 표시
-    const [current, setCurrent] = useState(0); //score
+    const [current, setCurrent] = useState<number>(0); //score
     const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>([]);
 
     //결과 나오고 TestResult페이지로 넘기기
-    const navigate = useNavigate();
+    const navigate = useNavigate() as (to: string, options?: { state: { result: string } }) => void;
 
     const handleClick = (answer: Answer) => {
         setSelectedAnswers([...selectedAnswers, answer]);
