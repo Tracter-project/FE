@@ -109,19 +109,17 @@ export default function Header() {
           <Title size="p">
             <Link to="/community/list">커뮤니티</Link>
           </Title>
-          <Title size="p">
-            <div className={styles.search}>
-              <IoMdSearch className={styles.searchIcon} />
-              <input
-                type="text"
-                placeholder="검색어를 입력해주세요"
-                className="searchInput"
-                value={headerSearch}
-                onChange={handleSearchInput}
-                onKeyDown={handleSearchKeyPress}
-              />
-            </div>
-          </Title>
+          <div className={styles.search}>
+            <IoMdSearch className={styles.searchIcon} />
+            <input
+              type="text"
+              placeholder="검색어를 입력해주세요"
+              className="searchInput"
+              value={headerSearch}
+              onChange={handleSearchInput}
+              onKeyDown={handleSearchKeyPress}
+            />
+          </div>
         </div>
       </header>
     </>
