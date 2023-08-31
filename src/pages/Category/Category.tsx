@@ -45,7 +45,7 @@ export default function Category() {
     };
 
     fetchCategories();
-  }, []);
+  }, [categoryId, categories]);
 
   useEffect(() => {
     console.log("이름찾기");

@@ -23,6 +23,14 @@ interface IArticle {
   createdAt: Date;
 }
 
+interface IComment {
+  id: number;
+  writer: string;
+  articleId: number;
+  comment: string;
+  createdAt: Date;
+}
+
 function formatDate(date: Date): string {
   date = new Date(date);
   const now = new Date();
@@ -54,11 +62,12 @@ export default function PostDetails() {
   const [cookies] = useCookies(["token"]);
   const token = cookies.token;
   const params = useParams();
-  const articleId = params.postId;
+  const articleId = Number(params.postId);
   const [article, setArticle] = useState<IArticle | null>(null);
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [modifiedTitle, setModifiedTitle] = useState(); // title
-  const [modifiedContents, setModifiedContents] = useState(""); // contents
+  const [comments, setComments] = useState<IComment | null>(null);
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [modifiedTitle, setModifiedTitle] = useState<string>(""); // title
+  const [modifiedContents, setModifiedContents] = useState<string>(""); // contents
 
   // 게시글 상세 조회 API
   useEffect(() => {
@@ -71,18 +80,21 @@ export default function PostDetails() {
           `/articles/${articleId}`
         );
 
-        console.log(response);
-        setArticle(response.data);
-        setModifiedTitle(response.data.title);
-        setModifiedContents(response.data.contents);
-        console.log("article: ", article);
+        if (response.data) {
+          setArticle(response.data.article);
+          setModifiedTitle(response.data.article.title);
+          setModifiedContents(response.data.article.contents);
+          console.log("article: ", article);
+        }
+
+        console.log("셋팅후", article);
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchArticleDetails();
-  }, [articleId, isEditMode]);
+  }, [articleId]);
 
   // 게시글 삭제 API
   const handleDeleteBtn = async () => {
@@ -100,26 +112,6 @@ export default function PostDetails() {
     }
   };
 
-  // 게시글 좋아요
-  const handleLikeBtn = async () => {
-    alert(`ID ${articleId} 게시글 좋아요`);
-    // try {
-    //   const response = await axiosRequest.requestAxios<IArticle>(
-    //     "post",
-    //     "/articles/likes", // 백엔드 경로 수정 필요함,
-    //     {
-    //       token: token,
-    //       article: articleId,
-    //       // like: ,
-    //     }
-    //   );
-
-    //   console.log(response);
-    // } catch (error) {
-    //   console.error(error);
-    // }
-  };
-
   // 게시글 수정 API
   const handleModifyTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setModifiedTitle(event.target.value);
@@ -127,6 +119,49 @@ export default function PostDetails() {
   const handleModifyContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setModifiedContents(event.target.value);
   };
+
+  // 게시글 좋아요
+  // const handleLikeBtn = async () => {
+  //   alert(`ID ${articleId} 게시글 좋아요`);
+  // try {
+  //   const response = await axiosRequest.requestAxios<IArticle>(
+  //     "post",
+  //     "/articles/likes", // 백엔드 경로 수정 필요함,
+  //     {
+  //       token: token,
+  //       article: articleId,
+  //       // like: ,
+  //     }
+  //   );
+
+  //   console.log(response);
+  // } catch (error) {
+  //   console.error(error);
+  // }
+  // };
+
+  // 댓글 조회
+  useEffect(() => {
+    const fetchArticleDetails = async () => {
+      console.log("api");
+      try {
+        console.log("댓글 조회 articleId: ", articleId);
+        const response = await axiosRequest.requestAxios<IComment>(
+          "get",
+          `/comments`,
+          { articleId }
+        );
+
+        console.log(response);
+        setComments(response.data);
+        console.log("comments: ", comments);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchArticleDetails();
+  }, []);
 
   const handleSubmitBtn = async () => {
     try {
@@ -214,10 +249,7 @@ export default function PostDetails() {
                   {/* ) : (
                     ""
                   )} */}
-                  <LikeButton
-                    onClick={() => handleLikeBtn()}
-                    like={false}
-                  ></LikeButton>
+                  <LikeButton onClick={() => {}} like={false}></LikeButton>
                 </div>
               </div>
               {article.placeImage !== "" ? (
@@ -228,14 +260,14 @@ export default function PostDetails() {
             </div>
           </div>
           <div className={styles.commentContainer}>
-            {article.comments && (
-              <CommentView commentList={article.comments}></CommentView>
-            )}
+            {/* {comments && <CommentView commentList={comments}></CommentView>} */}
             <Comment articleId={articleId}>댓글 작성</Comment>
           </div>
         </>
       ) : (
-        <Title size="p">Loading...</Title>
+        <div>
+          <Title size="p">Loading...</Title>
+        </div>
       )}
     </div>
   );

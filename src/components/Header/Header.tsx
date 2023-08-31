@@ -13,7 +13,7 @@ import styles from "./Header.module.scss";
 export default function Header() {
   const navigate = useNavigate();
   const [headerSearch, setHeaderSearch] = useRecoilState(headerSearchInput);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [cookies, setCookie, removeCookie] = useCookies(["token"]); // 토큰 쿠키 이름
 
   const handleSearchInput = (event: ChangeEvent<HTMLInputElement>) => {

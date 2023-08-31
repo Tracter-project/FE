@@ -26,11 +26,10 @@ const subjects = ["후기", "질문", "기타"];
 export default function CommunityAddPost() {
   const [cookies] = useCookies(["token"]);
   const token = cookies.token;
-
-  // const navigate = useNavigate();
   const [selectedSubject, setSelectedSubject] = useState<string>(""); // subject
   const newTitleInput = useRecoilValue(titleInput); // title
   const newContentInput = useRecoilValue(contentInput); // contents
+  // const navigate = useNavigate();
 
   const handleRegionChange = (subject: string) => {
     setSelectedSubject(subject);
@@ -41,7 +40,6 @@ export default function CommunityAddPost() {
   console.log("searchedPlace : ", searchedPlace);
 
   // 게시글 작성 API
-  // 500 Error 유효하지 않은 토큰
   const handleSubmit = async () => {
     try {
       console.log(token);

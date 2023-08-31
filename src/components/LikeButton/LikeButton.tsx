@@ -8,7 +8,7 @@ interface LikeButtonProps {
 }
 
 export default function LikeButton({ onClick, like }: LikeButtonProps) {
-  const [liked, setLiked] = useState(like);
+  const [liked, setLiked] = useState<boolean>(like);
 
   const handleLikeClick = () => {
     setLiked(!liked);

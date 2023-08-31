@@ -23,15 +23,15 @@ interface IArticle {
 const subjects = ["후기", "질문"];
 
 export default function PlaceAddPost() {
+  const [selectedSubject, setSelectedSubject] = useState<string>("");
+  const newTitleInput = useRecoilValue(titleInput);
+  const newContentInput = useRecoilValue(contentInput);
   const [cookies] = useCookies(["token"]);
   const token = cookies.token;
 
   const params = useParams();
   const placeId = Number(params.placeId);
   console.log(placeId, typeof placeId);
-  const [selectedSubject, setSelectedSubject] = useState<string>(""); // selectedSubject === subject
-  const newTitleInput = useRecoilValue(titleInput); // title
-  const newContentInput = useRecoilValue(contentInput); // contents
 
   const handleSubjectChange = (subject: string) => {
     setSelectedSubject(subject);
@@ -45,7 +45,6 @@ export default function PlaceAddPost() {
       "https://yaimg.yanolja.com/v5/2023/07/11/16/640/64ad86a29096a7.09459065.jpg",
   };
 
-  // 500 Error
   // 게시글 작성 API
   const navigate = useNavigate();
   const handleSubmit = async () => {
