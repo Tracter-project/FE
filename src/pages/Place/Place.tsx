@@ -5,15 +5,29 @@ import Button from "../../components/Button/Button";
 import MainImage from "../../components/MainImage/MainImage";
 import Map from "../../components/Map/Map";
 import { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import Modal from "react-modal";
 import axiosRequest from "../../api";
+import { AxiosResponse } from "axios";
 
 interface MainImageItem {
   id: number;
-  imageUrl: string;
-  title: string;
-  popularity: number;
+  mainImage: string;
+  detailImage: string;
+  placeName: string;
+  placeLikeCount: number;
   price: number; // 가격
+}
+
+interface Category {
+  id: number;
+  categoryName: string;
+}
+
+interface CategoryRspons {
+  status: number;
+  message: string;
+  category: Category[];
 }
 
 // const dummyMainImageList: MainImageItem[] = [
@@ -29,6 +43,7 @@ interface MainImageItem {
 
 export default function Place() {
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+  const [imageInfo, setImageInfo] = useState<MainImageItem | null>(null);
 
   const openMapModal = () => {
     setIsMapModalOpen(true);
@@ -38,23 +53,23 @@ export default function Place() {
     setIsMapModalOpen(false);
   };
 
-  const [mainImageList, setMainImageList] = useState<MainImageItem[]>([]);
+  const { placeId } = useParams<{ placeId: string }>(); // Get placeId from URL
 
   useEffect(() => {
-    const fetchMainImageList = async () => {
+    const fetchPlaceInfo = async () => {
       try {
-        const response = await axiosRequest.requestAxios<MainImageItem[]>(
-          "get",
-          "/places/main-images" // Correct URL based on your router setup
-        );
-        setMainImageList(response);
+        const response: AxiosResponse<MainImageItem> =
+          await axiosRequest.requestAxios("get", `/places/${placeId}`);
+
+        setImageInfo(response.data);
       } catch (error) {
-        console.error("Error fetching main images:", error);
+        console.error("Error fetching place info:", error);
       }
     };
 
-    fetchMainImageList();
-  }, []);
+    fetchPlaceInfo();
+  }, [placeId]);
+
   return (
     <>
       <div className={styles.subImage}>
@@ -68,9 +83,7 @@ export default function Place() {
       <div className={styles.subBox}>
         <div className={styles.subLeft}>
           <div className={styles.subTitle}>
-            <Title size="h2" className={styles.title}>
-              HOTEL
-            </Title>
+            {imageInfo?.placeName}
             <button onClick={openMapModal}>
               <MapLink />
             </button>
@@ -90,7 +103,7 @@ export default function Place() {
           <div className={styles.subPlaces}>
             <Title size="h5">서울특별시</Title>
             <Title size="h5" className={styles.price}>
-              200,000원
+              {imageInfo?.price}
             </Title>
           </div>
           <div className={styles.btnBox}>
@@ -99,7 +112,6 @@ export default function Place() {
           </div>
         </div>
         <div className={styles.subRight}>
-          <MainImage MainImageList={mainImageList} />
           <div className={styles.subImage}>
             <img
               src={

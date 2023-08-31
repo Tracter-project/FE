@@ -27,72 +27,8 @@ interface CategoryRspons {
 }
 
 export default function Category() {
-  const [imageList, setImageList] = useState<MainImageItem[]>([
-    // {
-    //   id: 1,
-    //   imageUrl:
-    //     "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
-    //   title: "부산 호텔",
-    //   price: 120000,
-    //   popularity: 600,
-    // },
-    // {
-    //   id: 2,
-    //   imageUrl:
-    //     "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
-    //   title: "강원 호텔",
-    //   price: 140000,
-    //   popularity: 600,
-    // },
-    // {
-    //   id: 3,
-    //   imageUrl:
-    //     "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
-    //   title: "인천 호텔",
-    //   price: 110000,
-    //   popularity: 600,
-    // },
-    // {
-    //   id: 4,
-    //   imageUrl:
-    //     "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
-    //   title: "창원 호텔",
-    //   price: 130000,
-    //   popularity: 600,
-    // },
-    // {
-    //   id: 5,
-    //   imageUrl:
-    //     "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
-    //   title: "서울 호텔",
-    //   price: 240000,
-    //   popularity: 600,
-    // },
-    // {
-    //   id: 6,
-    //   imageUrl:
-    //     "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
-    //   title: "강원 호텔",
-    //   price: 120000,
-    //   popularity: 600,
-    // },
-    // {
-    //   id: 7,
-    //   imageUrl:
-    //     "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png",
-    //   title: "전주 호텔",
-    //   price: 120000,
-    //   popularity: 600,
-    // },
-    // {
-    //   id: 8,
-    //   imageUrl:
-    //     "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg",
-    //   title: "논산 호텔",
-    //   price: 140000,
-    //   popularity: 600,
-    // },
-  ]);
+  const [imageList, setImageList] = useState<MainImageItem[]>([]);
+
   const params = useParams();
   const [categories, setCategories] = useState<Category[]>([]);
   useEffect(() => {
@@ -112,9 +48,10 @@ export default function Category() {
     }
   };
 
-  let categoryId = params.categoryId.replace(":", "");
+  let categoryId = params.categoryId;
   categoryId = Number(categoryId);
   console.log(categoryId, typeof categoryId);
+
   let categoryName = "";
   categories.map((category) => {
     if (category.id === categoryId) {
@@ -122,30 +59,32 @@ export default function Category() {
     }
   });
 
+  console.log(categoryName);
+
   useEffect(() => {
     const fetchCategoryImages = async () => {
       try {
         const response = await axiosRequest.requestAxios<MainImageItem[]>(
           "get",
-          `/places/categories/호캉스` // Correct URL based on your router setup
+          `/places/categories/${categoryName}` // Correct URL based on your router setup
         );
 
-        setImageList(response);
+        setImageList(response.data);
       } catch (error) {
         console.error("Error fetching category images:", error);
       }
     };
 
     fetchCategoryImages();
-  }, []);
+  }, [categoryName]);
 
   return (
     <>
       <Title size="h2" className={styles.title}>
-        카테고리 (숙소리스트)
+        Category ({categoryName})
       </Title>
       <div className={styles.categoryTitle}>
-        <Title size="h2">호캉스</Title>
+        <Title size="h2">{categoryName}</Title>
         <DropdownOption title="전체" className={styles.dropdown}>
           <div className={styles.dropdownContent}>
             <Link to="/">서울</Link>

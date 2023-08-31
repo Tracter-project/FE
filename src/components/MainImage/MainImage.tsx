@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 
 interface MainImageItem {
   id: number;
-  imageUrl: string;
-  title: string;
-  popularity: number;
+  mainImage: string;
+  placeName: string;
+  placeLikeCount: number;
   price: number; // 가격
 }
 
@@ -22,12 +22,12 @@ export default function MainImage(props: MainImageProps) {
   const [popularityCounts, setPopularityCounts] = useState(
     MainImageList.map((item) => ({
       id: item.id,
-      count: item.popularity > 0 ? 0 : 1,
+      count: item.placeLikeCount > 0 ? 0 : 1,
     }))
   );
 
   const sortedPopularList = MainImageList.sort(
-    (a, b) => b.popularity - a.popularity
+    (a, b) => b.placeLikeCount - a.placeLikeCount
   );
   // const handleLikeBtn = (postId: number) => {
   //   alert(`ID ${postId} 게시글 좋아요`);
@@ -52,13 +52,13 @@ export default function MainImage(props: MainImageProps) {
         {sortedPopularList.map((item) => (
           <div key={item.id} className={styles.mainImage}>
             <Link to="/place/:placeId" className={styles.Image}>
-              <img src={item.imageUrl} alt={item.title} />
+              <img src={item.mainImage} alt={item.placeName} />
             </Link>
             <div className={styles.mainWrap}>
               <div className={styles.mainTitle}>
                 <Link to="/place/:placeId">
                   <Title size="b" className={styles.title}>
-                    {item.title}
+                    {item.placeName}
                   </Title>
                 </Link>
                 <Title size="p" className={styles.popularity}>
