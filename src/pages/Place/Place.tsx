@@ -25,6 +25,7 @@ interface MainImageItem {
   placeName: string;
   placeLikeCount: number;
   price: number; // 가격
+  region: string;
 }
 
 export default function Place() {
@@ -72,7 +73,7 @@ export default function Place() {
       <div className={styles.subBox}>
         <div className={styles.subLeft}>
           <div className={styles.subTitle}>
-            {imageInfo?.placeName}
+            <Title size="h2">{imageInfo?.place.placeName}</Title>
             <button onClick={openMapModal}>
               <MapLink />
             </button>
@@ -90,34 +91,33 @@ export default function Place() {
             등을 이용하실 수 있습니다.
           </Title>
           <div className={styles.subPlaces}>
-            <Title size="h5">서울특별시</Title>
+            <div className={styles.region}>
+              <Title size="h5">{imageInfo?.place.region}</Title>
+            </div>
             <Title size="h5" className={styles.price}>
-              {imageInfo?.price}
+              {imageInfo?.place.price}원
             </Title>
           </div>
           <div className={styles.btnBox}>
             <Button onClick={() => {}}>예약하기</Button>
-            <Button onClick={() => {}}>후기 / 질문남기기</Button>
+            <Link to={`/place/addpost/${imageInfo?.place.id}`}>
+              <Button onClick={() => {}}>후기 / 질문남기기</Button>
+            </Link>
           </div>
         </div>
         <div className={styles.subRight}>
           <div className={styles.subImage}>
-            <img
-              src={
-                "https://yaimg.yanolja.com/v5/2022/08/22/19/1280/6303d23b1e8ef8.15385382.png"
-              }
-              alt="Sub Image"
-            />
+            <img src={imageInfo?.place.mainImage} alt="Place Image" />
           </div>
         </div>
       </div>
       <div className={styles.subImage}>
-        <img
-          src={
-            "https://yaimg.yanolja.com/v5/2022/10/17/15/1280/634d7563600ed4.17945107.jpg"
-          }
-          alt="Sub Image"
-        />
+        <div className={styles.background}>
+          <Title size="h2" className={styles.backgroundTitle}>
+            #{imageInfo?.place.placeName}
+          </Title>
+        </div>
+        <img src={imageInfo?.place.detailImage} alt="Place Image" />
       </div>
       <Modal
         isOpen={isMapModalOpen}
