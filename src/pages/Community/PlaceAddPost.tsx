@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useRecoilValue } from "recoil";
@@ -20,30 +20,60 @@ interface IArticle {
   placeImage: string;
 }
 
+interface IResponse {
+  data: IPlace;
+}
+
+interface IPlace {
+  id: number;
+  placeName: string;
+  price: number;
+  description: string;
+  region: string;
+  placeLikeCount: number;
+  bannerImage: string;
+  mainImage: string;
+  detailImage: string;
+  bookingURL: string;
+  category: string;
+}
+
 const subjects = ["후기", "질문"];
 
 export default function PlaceAddPost() {
+  const [cookies] = useCookies(["token"]);
+  const token = cookies.token;
+  const params = useParams();
+  const placeId = Number(params.placeId);
+
+  const [place, setPlace] = useState<IPlace | null>(null);
   const [selectedSubject, setSelectedSubject] = useState<string>("");
   const newTitleInput = useRecoilValue(titleInput);
   const newContentInput = useRecoilValue(contentInput);
-  const [cookies] = useCookies(["token"]);
-  const token = cookies.token;
-
-  const params = useParams();
-  const placeId = Number(params.placeId);
-  console.log(placeId, typeof placeId);
 
   const handleSubjectChange = (subject: string) => {
     setSelectedSubject(subject);
   };
 
-  // api ->  place = placeId로 Place 이미지, 숙소명 조회하기  (useEffect)
-  const place = {
-    // 예시 데이터
-    title: "00 카라반",
-    mainImage:
-      "https://yaimg.yanolja.com/v5/2023/07/11/16/640/64ad86a29096a7.09459065.jpg",
-  };
+  // api ->  place = placeId로 Place 이미지, 숙소명 조회하기
+  useEffect(() => {
+    const fetchArticleDetails = async () => {
+      try {
+        console.log("parmas: ", placeId);
+        const response = await axiosRequest.requestAxios<IResponse>(
+          "get",
+          `/places/${placeId}`
+        );
+
+        if (response.data) {
+          setPlace(response.data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchArticleDetails();
+  }, [placeId]);
 
   // 게시글 작성 API
   const navigate = useNavigate();
@@ -53,7 +83,7 @@ export default function PlaceAddPost() {
         subject: selectedSubject,
         title: newTitleInput,
         content: newContentInput,
-        placeImage: place.mainImage,
+        placeImage: place?.mainImage,
         token: token,
       };
 
@@ -79,8 +109,8 @@ export default function PlaceAddPost() {
           <Title size="h2">글 작성</Title>
         </div>
         <div className={styles.placeInfo}>
-          <img src={place.mainImage} alt="Place Image" />
-          <Title size="b">{place.title}</Title>
+          <img src={place?.mainImage} alt="Place Image" />
+          <Title size="b">{place?.placeName}</Title>
         </div>
         <div className={styles.checkboxWrap}>
           <Title size="b">글머리</Title>

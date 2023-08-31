@@ -35,10 +35,10 @@ export default function SearchPlace() {
   useEffect(() => {
     const fetchPlaceList = async () => {
       try {
-       const response = await axiosRequest.requestAxios(
+        const response = (await axiosRequest.requestAxios(
           "get",
           `/places/all`
-        ) as AxiosResponse<IPlace[]>;
+        )) as AxiosResponse<IPlace[]>;
 
         console.log("숙소 전체 res ", response);
         setPlaceList(response.data);

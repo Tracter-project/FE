@@ -17,11 +17,11 @@ interface IArticle {
   createdAt: Date;
 }
 
-interface ArticleResponse {
-  status: number;
-  message: string;
-  data: IArticle[];
-}
+// interface ArticleResponse {
+//   status: number;
+//   message: string;
+//   data: IArticle[];
+// }
 
 export default function CommunityList() {
   const [articleList, setArticleList] = useState<IArticle[]>([]);
