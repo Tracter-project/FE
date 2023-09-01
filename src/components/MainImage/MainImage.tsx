@@ -62,14 +62,14 @@ export default function MainImage(props: MainImageProps) {
                     {item.placeName}
                   </Title>
                 </Link>
-                <Title size="p" className={styles.popularity}>
+                {/* <Title size="p" className={styles.popularity}>
                   <LikeButton onClick={() => handleLikeBtn(item.id)} />
                   {
                     popularityCounts.find(
                       (countItem) => countItem.id === item.id
                     )?.count
                   }
-                </Title>
+                </Title> */}
               </div>
               <Title size="b" className={styles.price}>
                 {item.price.toLocaleString()}원

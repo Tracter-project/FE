@@ -3,8 +3,6 @@
   flex-direction: column;
   border-radius: 10px;
 
-
-
   .buttonIcon {
     align-self: flex-end;
   }
@@ -12,21 +10,37 @@
   table {
     border: 5px solid #959595;
     border-collapse: collapse;
-    box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.20);
+    box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.2);
   }
 
   thead {
-    border: 5px solid #959595;
+    border: 1px solid #959595;
 
     th {
-      border: 5px solid #959595;
+      border: 1px solid #959595;
+      padding: 10px 5px;
+      background-color: #959595;
+      color: #fff;
+
+      p {
+        font-weight: bold;
+      }
     }
   }
 
   tbody {
     td {
-      border: 5px solid #959595;
+      border: 1px solid #959595;
       text-align: center;
+      padding: 0 10px;
+    }
+
+    .link {
+      color: #608bd5;
+
+      &:hover {
+        color: #0d5ce5;
+      }
     }
   }
 }
@@ -60,11 +74,9 @@
         position: relative;
       }
 
-      input[type=file]::file-selector-button {
+      input[type="file"]::file-selector-button {
         display: none;
-
       }
-
     }
 
     .check {
@@ -97,10 +109,9 @@
     }
   }
 
-  >button {
+  > button {
     width: 60%;
     margin: 0 auto;
     margin-top: 52px;
-
   }
 }
