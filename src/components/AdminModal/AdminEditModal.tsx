@@ -62,7 +62,6 @@ export default function AdminEditModal({
     };
 
     const handleConfirm = async () => {
-        console.log("ww", formData);
         try {
             const response = await axiosRequest.requestAxios<ApiResponse>(
                 "patch",
@@ -83,10 +82,10 @@ export default function AdminEditModal({
             );
 
             if (response.status === 200) {
-                console.log("숙소 수정 성공");
+                alert("숙소 수정에 성공하였습니다.");
             }
         } catch (error) {
-            console.error("숙소 수정 실패:", error);
+            alert("숙소 수정에 실패하였습니다.");
         }
         onClose();
     };

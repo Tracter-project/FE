@@ -92,7 +92,6 @@ export default function Register() {
         if (name === "confirmPassword") {
             validateConfirmPassword(value);
         }
-        console.log(registerForm);
     };
 
     // 닉네임중복확인 api
@@ -107,24 +106,21 @@ export default function Register() {
         try {
             // API 호출: 닉네임 중복 체크
             const nickname = registerForm.nickName;
-            console.log("dd", nickname);
+
             const nicknameResponse: AxiosResponse =
                 await axiosRequest.requestAxios(
                     "get",
                     `/users/validator/${nickname}`
                 );
             if (nicknameResponse.status === 200) {
-                console.log(nicknameResponse.data.message);
                 alert("사용 가능한 닉네임입니다.");
             } else if (nicknameResponse.status === 400) {
-                console.log(nicknameResponse.data);
                 setValidMessage((prev) => ({
                     ...prev,
                     nickNameMessage: "이미 사용 중인 닉네임입니다.",
                 }));
             }
         } catch (error) {
-            console.error(error);
             alert("닉네임을 입력해주세요.");
         }
     };
@@ -150,17 +146,15 @@ export default function Register() {
                     `/users/validator/${email}`
                 );
             if (emailResponse.status === 200) {
-                console.log(emailResponse.data.message);
                 alert("사용가능한 이메일입니다.");
             } else if (emailResponse.status === 400) {
-                console.log(emailResponse.data.message);
                 setValidMessage((prev) => ({
                     ...prev,
                     emailMessage: "이미 사용중인 이메일입니다.",
                 }));
             }
         } catch (error) {
-            console.error(error);
+            alert("이메일 오류");
         }
     };
 
@@ -212,57 +206,54 @@ export default function Register() {
             !isValid.email ||
             !isValid.password ||
             !isValid.confirmPassword
-        ) {
-            return console.log(isValid);
-        }
+        )
+            try {
+                // API 호출: 회원가입
+                const registerData = {
+                    email: registerForm.email,
+                    password: registerForm.password,
+                    nickname: registerForm.nickName,
+                };
+                const registerResponse: AxiosResponse<ValidationResponse> =
+                    await axiosRequest.requestAxios(
+                        "post",
+                        "/users",
+                        registerData
+                    );
 
-        try {
-            // API 호출: 회원가입
-            const registerData = {
-                email: registerForm.email,
-                password: registerForm.password,
-                nickname: registerForm.nickName,
-            };
-            const registerResponse: AxiosResponse<ValidationResponse> =
-                await axiosRequest.requestAxios("post", "/users", registerData);
-            console.log(registerResponse);
+                if (registerResponse.status === 201) {
+                    // 성공 시 알림 표시 및 로그인 페이지로 이동
+                    alert("회원가입이 완료되었습니다.");
+                    navigate("/login");
+                } else if (registerResponse.status === 400) {
+                    alert("회원가입 에러");
+                } else if (registerResponse.status === 409) {
+                    alert("회원가입 에러");
 
-            if (registerResponse.status === 201) {
-                console.log(registerResponse.data.message); // 가입 완료
-                console.log("회원가입 응답:", registerResponse);
-                // 성공 시 알림 표시 및 로그인 페이지로 이동
-                alert("회원가입이 완료되었습니다.");
-                navigate("/login");
-            } else if (registerResponse.status === 400) {
-                console.log(registerResponse.data.message);
-            } else if (registerResponse.status === 409) {
-                console.log(registerResponse.data.message);
-
-                if (
-                    registerResponse.data.message.includes(
-                        "이미 사용 중인 이메일"
-                    )
-                ) {
-                    setValidMessage((prev) => ({
-                        ...prev,
-                        emailMessage: "이미 사용 중인 이메일입니다.",
-                    }));
+                    if (
+                        registerResponse.data.message.includes(
+                            "이미 사용 중인 이메일"
+                        )
+                    ) {
+                        setValidMessage((prev) => ({
+                            ...prev,
+                            emailMessage: "이미 사용 중인 이메일입니다.",
+                        }));
+                    }
+                    if (
+                        registerResponse.data.message.includes(
+                            "이미 사용 중인 닉네임"
+                        )
+                    ) {
+                        setValidMessage((prev) => ({
+                            ...prev,
+                            nickNameMessage: "이미 사용 중인 닉네임입니다.",
+                        }));
+                    }
                 }
-                if (
-                    registerResponse.data.message.includes(
-                        "이미 사용 중인 닉네임"
-                    )
-                ) {
-                    setValidMessage((prev) => ({
-                        ...prev,
-                        nickNameMessage: "이미 사용 중인 닉네임입니다.",
-                    }));
-                }
+            } catch (error) {
+                alert("회원가입이 실패하였습니다.");
             }
-        } catch (error) {
-            console.error(error);
-            alert("회원가입이 실패하였습니다.");
-        }
     };
 
     return (
@@ -271,7 +262,6 @@ export default function Register() {
             <Title size="h5">회원가입</Title>
             <div className={styles.name}>
                 <Input
-                    type={"text"}
                     icon={<BiSolidUser />}
                     text={"닉네임"}
                     value={registerForm.nickName}
@@ -288,7 +278,6 @@ export default function Register() {
             )}
             <div className={styles.mail}>
                 <Input
-                    type={"text"}
                     icon={<MdEmail />}
                     text={"이메일"}
                     value={registerForm.email}
@@ -313,7 +302,6 @@ export default function Register() {
                 <BorderButton>인증하기</BorderButton>
             </div> */}
             <Input
-                type={"password"}
                 icon={<AiFillLock />}
                 text={"비밀번호"}
                 className={styles.passwordinput}
@@ -326,7 +314,6 @@ export default function Register() {
                 </p>
             )}
             <Input
-                type={"password"}
                 icon={<AiFillLock />}
                 text={"비밀번호 확인"}
                 className={styles.passwordinput}
