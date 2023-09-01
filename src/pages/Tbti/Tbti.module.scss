@@ -1,32 +1,38 @@
 .All {
-    text-align: center;
+  text-align: center;
 }
+
 .WallPaper {
-    height: 100vh;
-    background: url(src/assets/TbtiMainPic.png) no-repeat center;
-    background-size: cover;
-    width: 100%;
-    flex-shrink: 0;
+  height: 100vh;
+  background: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80') no-repeat center;
+  background-size: cover;
+  width: 100%;
+  flex-shrink: 0;
 }
+
 .Text {
-    .score {
-        padding-top: 60px;
-    }
-    h2 {
-        color: white;
-        padding-bottom: 20px;
-    }
-    h4 {
-        color: white;
-        font-size: 20px;
-        padding-bottom: 45px;
-    }
+  .score {
+    padding-top: 60px;
+  }
+
+  h2 {
+    color: white;
+    padding-bottom: 20px;
+  }
+
+  h4 {
+    color: white;
+    font-size: 20px;
+    padding-bottom: 45px;
+  }
 }
+
 .questionList {
-    margin-bottom: 200px;
-    .progress {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+  margin-bottom: 200px;
+
+  .progress {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

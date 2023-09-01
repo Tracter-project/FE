@@ -64,8 +64,6 @@ export default function Home() {
         <section>
             <div className={styles.firstSecend}>
                 <div className={styles.first}>
-                    {" "}
-                    {/* 첫 section */}
                     <div className={styles.firstSecText}>
                         <Title size="h1"> Hotel</Title>
                         <p className={styles.TextP}>
@@ -83,32 +81,10 @@ export default function Home() {
                     </div>
                     <div className={styles.firstSecPic}>
                         <img
-                            src="src/assets/MainPic.PNG"
+                            src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
                             alt="Main Picture"
                         ></img>
                     </div>
-                </div>
-
-                <div className={styles.second}>
-                    {" "}
-                    {/*인기숙소*/}
-                    <div>
-                        <Title size="h3"> 인기 숙소 </Title>
-                    </div>
-                    <div className={styles.secondMainPopularPlaces}>
-                        {/* <MainPopularPlaces popularList={dummyPopularList1} />
-            <MainPopularPlaces popularList={dummyPopularList2} /> */}
-                    </div>
-                </div>
-            </div>
-            <div className={styles.thrid}>
-                <div className={styles.thridSecText}>
-                    <Title size="h3">최신 숙소</Title>
-                </div>
-                <div className={styles.thridNewPlaces}>
-                    {/* <MainNewPlaces newList={dummyNewList1} />
-          <MainNewPlaces newList={dummyNewList2} />
-          <MainNewPlaces newList={dummyNewList3} /> */}
                 </div>
             </div>
 
@@ -124,13 +100,11 @@ export default function Home() {
                         <div className={styles.LargeButton}>
                             <TestlinkButton onClick={() => navigate("/test")}>
                                 테스트 하러가기
-                            </TestlinkButton>{" "}
-                            {/* 바로 /test로 가게 */}
+                            </TestlinkButton>
                         </div>
                     </div>
                 </div>
             </div>
-            {/*여행테스트링크*/}
         </section>
     );
 }
