@@ -21,11 +21,7 @@ interface IArticle {
 }
 
 interface IResponse {
-  data: IData;
-}
-
-interface IData {
-  place: IPlace;
+  data: IPlace;
 }
 
 interface IPlace {
@@ -50,7 +46,7 @@ export default function PlaceAddPost() {
   const params = useParams();
   const placeId = Number(params.placeId);
 
-  const [place, setPlace] = useState<IData | null>(null);
+  const [place, setPlace] = useState<IPlace>();
   const [selectedSubject, setSelectedSubject] = useState<string>("");
   const newTitleInput = useRecoilValue(titleInput);
   const newContentInput = useRecoilValue(contentInput);
@@ -63,7 +59,6 @@ export default function PlaceAddPost() {
   useEffect(() => {
     const fetchArticleDetails = async () => {
       try {
-        console.log("parmas: ", placeId);
         const response = await axiosRequest.requestAxios<IResponse>(
           "get",
           `/places/${placeId}`
@@ -86,7 +81,7 @@ export default function PlaceAddPost() {
           subject: selectedSubject,
           title: newTitleInput,
           contents: newContentInput,
-          placeImage: place?.place.mainImage,
+          placeImage: place?.mainImage,
           token: token,
         };
 
@@ -96,7 +91,6 @@ export default function PlaceAddPost() {
           article
         );
 
-        console.log(response);
         alert("게시글이 등록되었습니다.");
         navigate("/community/list");
       } else {
@@ -114,8 +108,8 @@ export default function PlaceAddPost() {
           <Title size="h2">글 작성</Title>
         </div>
         <div className={styles.placeInfo}>
-          <img src={place?.place.mainImage} alt="Place Image" />
-          <Title size="b">{place?.place.placeName}</Title>
+          <img src={place?.mainImage} alt="Place Image" />
+          <Title size="b">{place?.placeName}</Title>
         </div>
         <div className={styles.checkboxWrap}>
           <Title size="b">글머리</Title>

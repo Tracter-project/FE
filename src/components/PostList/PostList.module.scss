@@ -52,16 +52,11 @@
   .righttop {
     display: flex;
     justify-content: flex-end;
-
-    .likeButton {
-      position: relative;
-      bottom: 11px;
-    }
   }
 
   .thumbnail img {
     width: 200px;
     height: 120px;
-    cursor: pointer;
+    margin-top: 10px;
   }
 }

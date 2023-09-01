@@ -94,10 +94,6 @@ export default function Header() {
               <button onClick={handleLogoutClick}>
                 <Title size="p">로그아웃</Title>
               </button>
-
-              <Title size="p">
-                <Link to="/mypage">마이페이지</Link>
-              </Title>
             </>
           ) : (
             <>
