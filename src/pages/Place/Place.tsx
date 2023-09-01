@@ -23,6 +23,8 @@ interface MainImageItem {
   placeLikeCount: number;
   price: number; // 가격
   region: string;
+  bookingURL: string;
+  description: string;
 }
 
 export default function Place() {
@@ -44,13 +46,11 @@ export default function Place() {
   useEffect(() => {
     const fetchPlaceInfo = async () => {
       try {
-        console.log(placeId);
         const response = await axiosRequest.requestAxios<IResponse>(
           "get",
           `/places/${placeId}`
         );
 
-        console.log(response.data);
         setImageInfo(response.data);
       } catch (error) {
         console.error("Error fetching place info:", error);
@@ -81,16 +81,7 @@ export default function Place() {
                 </button>
               </div>
               <Title size="p" className={styles.subInfo}>
-                인근 골프장, 식료품점/편의점, 테라스 등을 오라카이 송도파크
-                호텔에서 이용해 보세요.
-                <br />
-                휴식 및 재충전을 위해 사우나에서 시간을 보내보세요.
-                <br />
-                시설 내 커피숍인 illy CAFFE에서 브런치, 가벼운 식사도 즐기실 수
-                있습니다.
-                <br />
-                모든 고객은 객실 내 무료 WiFi, 커피숍/카페, 드라이클리닝/세탁
-                서비스 등을 이용하실 수 있습니다.
+                {imageInfo.description}
               </Title>
               <div className={styles.subPlaces}>
                 <div className={styles.region}>
@@ -101,7 +92,13 @@ export default function Place() {
                 </Title>
               </div>
               <div className={styles.btnBox}>
-                <Button onClick={() => {}}>예약하기</Button>
+                <Button
+                  onClick={() => {
+                    window.location.href = imageInfo.bookingURL;
+                  }}
+                >
+                  예약하기
+                </Button>
                 {token ? (
                   <Link to={`/place/addpost/${imageInfo.id}`}>
                     <Button onClick={() => {}}>후기 / 질문남기기</Button>
@@ -123,7 +120,7 @@ export default function Place() {
                 #{imageInfo.placeName}
               </Title>
             </div>
-            <img src={imageInfo.detailImage} alt="Place Image" />
+            <img src={imageInfo.mainImage} alt="Place Image" />
           </div>
           <Modal
             isOpen={isMapModalOpen}
