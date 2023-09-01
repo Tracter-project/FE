@@ -5,7 +5,7 @@ import axios from "axios";
 const allowMethod: string[] = ["get", "post", "put", "patch", "delete"];
 
 // axios.defaults.baseURL = "http://localhost:3000/api";
-axios.defaults.baseURL = "kdt-sw-5-2-team02.elicecoding.com/api";
+axios.defaults.baseURL = "http://kdt-sw-5-2-team02.elicecoding.com/api";
 // axios.defaults.baseURL =
 //   process.env.REACT_APP_API_URL ?? "http://localhost:3000";
 // const API_END_POINT: string =
