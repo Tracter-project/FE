@@ -96,28 +96,31 @@ export default function CommentView(props: CommentViewProps) {
           <div className={styles.title}>
             <Title size="h5">댓글</Title>
           </div>
-
-          <div className={styles.icons}>
-            <ModifyButton
-              onClick={() => setIsEditMode(!isEditMode)}
-            ></ModifyButton>
-            <DeleteButton onClick={handleDeleteBtn}></DeleteButton>
-          </div>
+          {token ? (
+            <div className={styles.icons}>
+              <ModifyButton
+                onClick={() => setIsEditMode(!isEditMode)}
+              ></ModifyButton>
+              <DeleteButton onClick={handleDeleteBtn}></DeleteButton>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
         {commentList.map((comment) => (
           <div className={styles.commentView} key={comment.id}>
-            {/* {comment.writer === "뽀리" ? ( */}
-            <div className={styles.checkbox}>
-              <CheckBox
-                checked={comment.id === selectedCommentId}
-                onChange={() =>
-                  handleCheckboxChange(comment.id, comment.comment)
-                }
-              />
-            </div>
-            {/* ) : (
+            {token ? (
+              <div className={styles.checkbox}>
+                <CheckBox
+                  checked={comment.id === selectedCommentId}
+                  onChange={() =>
+                    handleCheckboxChange(comment.id, comment.comment)
+                  }
+                />
+              </div>
+            ) : (
               ""
-            )} */}
+            )}
             <div className={styles.commentWriter}>
               <Title size="h5">{comment.writer}</Title>
             </div>
