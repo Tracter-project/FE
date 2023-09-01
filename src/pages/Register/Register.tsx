@@ -42,7 +42,7 @@ export default function Register() {
         confirmPassword: false,
     });
 
-    //닉네임, 이메일, 이메일인증,비밀번호, 비밀번호 확인
+    //닉네임, 이메일, 이메일인증,비밀번호, 비밀번호 유효성검사
     const handleChange = (name: string, value: string) => {
         setRegisterForm({ ...registerForm, [name]: value });
 
@@ -95,71 +95,73 @@ export default function Register() {
         console.log(registerForm);
     };
 
-    //닉네임중복확인 api
-    // const handleNicknameCheck = async () => {
-    //     if (registerForm.nickName === "") {
-    //         setValidMessage((prev) => ({
-    //             ...prev,
-    //             nickNameMessage: "*닉네임을 입력해주세요.",
-    //         }));
-    //         return;
-    //     }
-    //     try {
-    //         // API 호출: 닉네임 중복 체크
-    //         const nicknameResponse: AxiosResponse<ValidationResponse> =
-    //             await axiosRequest.requestAxios(
-    //                 "get",
-    //                 `/users/validator/nickname?nickname=${registerForm.nickName}`
-    //             );
+    // 닉네임중복확인 api
+    const handleNicknameCheck = async () => {
+        if (registerForm.nickName === "") {
+            setValidMessage((prev) => ({
+                ...prev,
+                nickNameMessage: "*닉네임을 입력해주세요.",
+            }));
+            return;
+        }
+        try {
+            // API 호출: 닉네임 중복 체크
+            const nickname = registerForm.nickName;
+            console.log("dd", nickname);
+            const nicknameResponse: AxiosResponse =
+                await axiosRequest.requestAxios(
+                    "get",
+                    `/users/validator/${nickname}`
+                );
+            if (nicknameResponse.status === 200) {
+                console.log(nicknameResponse.data.message);
+                alert("사용 가능한 닉네임입니다.");
+            } else if (nicknameResponse.status === 400) {
+                console.log(nicknameResponse.data); // 이미 사용 중인 닉네임입니다.
+                setValidMessage((prev) => ({
+                    ...prev,
+                    nickNameMessage: "이미 사용 중인 닉네임입니다.",
+                }));
+            }
+        } catch (error) {
+            console.error(error);
+            alert("닉네임을 입력해주세요.");
+        }
+    };
 
-    //         if (nicknameResponse.status === 200) {
-    //             console.log(nicknameResponse.data.message); // 사용 가능한 닉네임입니다.
-    //         } else if (nicknameResponse.status === 400) {
-    //             console.log(nicknameResponse.data.message); // 이미 사용 중인 닉네임입니다.
-    //             setValidMessage((prev) => ({
-    //                 ...prev,
-    //                 nickNameMessage: "이미 사용 중인 닉네임입니다.",
-    //             }));
-    //         } else {
-    //             console.log(nicknameResponse.data.message);
-    //         }
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
-
-    //이메일중복확인 api
-    // const handleEmailSend = async () => {
-    //     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    //     const isValidEmail = regex.test(registerForm.email);
-    //     if (!isValidEmail) {
-    //         setValidMessage((prev) => ({
-    //             ...prev,
-    //             emailMessage: "*올바른 이메일 형식이 아닙니다.",
-    //         }));
-    //         return;
-    //     }
-    //     try {
-    //         // API 호출: 이메일 중복 체크
-    //         const emailResponse: AxiosResponse<ValidationResponse> =
-    //             await axiosRequest.requestAxios(
-    //                 "get",
-    //                 `/users/validator/email?email=${registerForm.email}`
-    //             );
-    //         if (emailResponse.status === 200) {
-    //             console.log(emailResponse.data.message); // 사용 가능한 이메일입니다.
-    //             //중복 확인 성공 시 사용 가능한 이메일 처리
-    //         } else if (emailResponse.status === 400) {
-    //             console.log(emailResponse.data.message); // 이미 사용 중인 이메일입니다.
-    //             setValidMessage((prev) => ({
-    //                 ...prev,
-    //                 emailMessage: "이미 사용 중인 이메일입니다.",
-    //             }));
-    //         }
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
+    // 이메일중복확인 api
+    const handleEmailSend = async () => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const isValidEmail = regex.test(registerForm.email);
+        if (!isValidEmail) {
+            setValidMessage((prev) => ({
+                ...prev,
+                emailMessage: "*올바른 이메일 형식이 아닙니다.",
+            }));
+            return;
+        }
+        try {
+            // API 호출: 이메일 중복 체크
+            const emailResponse: AxiosResponse =
+                await axiosRequest.requestAxios(
+                    "get",
+                    "/users/validator/email",
+                    { email: registerForm.email }
+                );
+            if (emailResponse.status === 200) {
+                console.log(emailResponse.data.message); // 사용 가능한 이메일입니다.
+                //중복 확인 성공 시 사용 가능한 이메일 처리
+            } else if (emailResponse.status === 400) {
+                console.log(emailResponse.data.message); // 이미 사용 중인 이메일입니다.
+                setValidMessage((prev) => ({
+                    ...prev,
+                    emailMessage: "이미 사용 중인 이메일입니다.",
+                }));
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     //비밀번호
     const validatePassword = (password: string) => {
@@ -258,6 +260,7 @@ export default function Register() {
             }
         } catch (error) {
             console.error(error);
+            alert("회원가입이 실패하였습니다.");
         }
     };
 
@@ -272,7 +275,9 @@ export default function Register() {
                     value={registerForm.nickName}
                     onChange={(value) => handleChange("nickName", value)}
                 />
-                {/* <BorderButton onClick={() => {}}>중복확인</BorderButton> */}
+                <BorderButton onClick={handleNicknameCheck}>
+                    중복확인
+                </BorderButton>
             </div>
             {isValid.nickName === false && (
                 <p className={styles.errorMessage}>
@@ -286,7 +291,7 @@ export default function Register() {
                     value={registerForm.email}
                     onChange={(value) => handleChange("email", value)}
                 />
-                {/* <BorderButton onClick={() => {}}>중복확인</BorderButton> */}
+                <BorderButton onClick={handleEmailSend}>중복확인</BorderButton>
             </div>
             {isValid.email === false && (
                 <p className={styles.errorMessage}>
