@@ -7,6 +7,7 @@ interface InputProps {
     value: string;
     onChange: (value: string) => void;
     className?: string;
+    type?: string;
 }
 
 export default function Input({
@@ -15,6 +16,7 @@ export default function Input({
     className,
     value,
     onChange,
+    type,
 }: InputProps) {
     const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.value;
@@ -24,7 +26,7 @@ export default function Input({
         <div className={`${className} ${styles.inputContainer}`}>
             <div className={styles.iconContainer}>{icon}</div>
             <input
-                type="text"
+                type={type}
                 placeholder={text}
                 className={styles.input}
                 value={value}
