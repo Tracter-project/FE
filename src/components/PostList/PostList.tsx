@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./PostList.module.scss";
 import Title from "../Title/Title";
-import LikeButton from "../LikeButton/LikeButton";
+import formatDate from "../../utils/formatDate";
 
 interface NewPost {
   id: number;
@@ -16,33 +16,6 @@ interface NewPost {
 
 interface PostListProps {
   postList: NewPost[];
-}
-
-function formatDate(date: Date): string {
-  date = new Date(date);
-  const now = new Date();
-  const diffTime = now.getTime() - date.getTime();
-  const diffMinutes = Math.floor(diffTime / (1000 * 60));
-
-  if (diffMinutes < 1) {
-    return "방금 전";
-  } else if (diffMinutes < 60) {
-    return `${diffMinutes}분 전`;
-  }
-
-  const diffHours = Math.floor(diffMinutes / 60);
-  if (diffHours < 24) {
-    return `${diffHours}시간 전`;
-  }
-
-  const diffDays = Math.floor(diffHours / 24);
-  if (diffDays === 1) {
-    return "1일 전";
-  } else if (diffDays > 1) {
-    return `${diffDays}일 전`;
-  }
-
-  return date.toLocaleDateString();
 }
 
 export default function PostsList(props: PostListProps) {
@@ -76,7 +49,7 @@ export default function PostsList(props: PostListProps) {
                 </div>
 
                 <div className={styles.leftbottom}>
-                  <Title size="p">좋아요 {post.articleLikeCount}개</Title>
+                  {/* <Title size="p">좋아요 {post.articleLikeCount}개</Title> */}
                   {/* {post.comments ? (
                     <Title size="p">댓글 {post.comments.length}개</Title>
                   ) : (
@@ -89,9 +62,9 @@ export default function PostsList(props: PostListProps) {
                   <div>
                     <Title size="h5">{post.subject}</Title>
                   </div>
-                  <div className={styles.likeButton}>
+                  {/* <div className={styles.likeButton}>
                     <LikeButton onClick={() => {}}></LikeButton>
-                  </div>
+                  </div> */}
                 </div>
                 <div className={styles.thumbnail}>
                   {post.subject === "기타" ? (

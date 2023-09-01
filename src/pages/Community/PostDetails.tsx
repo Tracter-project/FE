@@ -7,9 +7,10 @@ import CommentView from "../../components/CommentView/CommentView";
 import Title from "../../components/Title/Title";
 import DeleteButton from "../../components/DeleteButton/DeleteButton";
 import ModifyButton from "../../components/ModifyButton/ModifyButton";
-import LikeButton from "../../components/LikeButton/LikeButton";
 import Button from "../../components/Button/Button";
 import axiosRequest from "../../api";
+import formatDate from "../../utils/formatDate";
+import UserConfirm from "../../utils/userConfirm";
 
 interface IResponse {
   data: IData;
@@ -39,39 +40,14 @@ interface IComment {
   createdAt: Date;
 }
 
-function formatDate(date: Date): string {
-  date = new Date(date);
-  const now = new Date();
-  const diffTime = now.getTime() - date.getTime();
-  const diffMinutes = Math.floor(diffTime / (1000 * 60));
-
-  if (diffMinutes < 1) {
-    return "방금 전";
-  } else if (diffMinutes < 60) {
-    return `${diffMinutes}분 전`;
-  }
-
-  const diffHours = Math.floor(diffMinutes / 60);
-  if (diffHours < 24) {
-    return `${diffHours}시간 전`;
-  }
-
-  const diffDays = Math.floor(diffHours / 24);
-  if (diffDays === 1) {
-    return "1일 전";
-  } else if (diffDays > 1) {
-    return `${diffDays}일 전`;
-  }
-
-  return date.toLocaleDateString();
-}
-
 export default function PostDetails() {
   const [cookies] = useCookies(["token"]);
   const token = cookies.token;
   const params = useParams();
+  const loginUser = UserConfirm();
   const articleId = Number(params.postId);
   const [article, setArticle] = useState<IData | null>(null);
+  // const [comments, setComments]  = useState<IData | null>(null);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [modifiedTitle, setModifiedTitle] = useState<string>(""); // title
   const [modifiedContents, setModifiedContents] = useState<string>(""); // contents
@@ -90,6 +66,7 @@ export default function PostDetails() {
           setModifiedTitle(response.data.article.title);
           setModifiedContents(response.data.article.contents);
         }
+        console.log(response);
       } catch (error) {
         console.error(error);
       }
@@ -213,16 +190,16 @@ export default function PostDetails() {
               )}
 
               <div className={styles.leftbottom}>
-                <Title size="p">
+                {/* <Title size="p">
                   좋아요 {article.article.articleLikeCount}개
-                </Title>
+                </Title> */}
                 <Title size="p">댓글 {article.comment.length}개</Title>
               </div>
             </div>
             <div className={styles.right}>
               <div className={styles.righttop}>
                 <div className={styles.buttons}>
-                  {token ? (
+                  {token && loginUser === article.article.writer ? (
                     <div className={styles.writerButtons}>
                       <ModifyButton
                         onClick={() => setIsEditMode(true)}
@@ -234,10 +211,9 @@ export default function PostDetails() {
                   ) : (
                     ""
                   )}
-                  <LikeButton onClick={() => {}}></LikeButton>
                 </div>
               </div>
-              {article.article.placeImage !== "" ? (
+              {article.article.subject !== "기타" ? (
                 <img src={article.article.placeImage} alt="Place Imgae" />
               ) : (
                 ""
@@ -246,7 +222,7 @@ export default function PostDetails() {
           </div>
           <div className={styles.commentContainer}>
             <CommentView commentList={article.comment}></CommentView>
-            {token ? <Comment articleId={articleId}>댓글 작성</Comment> : ""}
+            <Comment articleId={articleId}>댓글 작성</Comment>
           </div>
         </>
       ) : (

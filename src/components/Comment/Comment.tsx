@@ -51,11 +51,21 @@ export default function Comment({ children, articleId }: CommentProps) {
   return (
     <>
       <div className={styles.commentBox}>
-        <input
-          className={styles.commentInput}
-          value={commentValue}
-          onChange={handleCommentValue}
-        ></input>
+        {token ? (
+          <input
+            className={styles.commentInput}
+            value={commentValue}
+            onChange={handleCommentValue}
+          ></input>
+        ) : (
+          <input
+            className={styles.commentInput}
+            value={commentValue}
+            onChange={handleCommentValue}
+            placeholder="회원만 댓글 작성이 가능합니다."
+            disabled={true}
+          ></input>
+        )}
         <button className={styles.commentButton} onClick={handleCommentSubmit}>
           <Title size="p">{children}</Title>
         </button>
