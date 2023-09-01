@@ -8,10 +8,13 @@
   position: relative;
   z-index: 99;
   margin-bottom: 3%;
+  padding: 20px 0;
+  border-radius: 0 0 20px 0;
+  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.1);
 
   .logo {
     width: 33.3%;
-
+    color: #608bd5;
     &:hover a {
       color: #4477ce;
     }
