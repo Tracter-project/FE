@@ -2,13 +2,13 @@ import styles from "./Place.module.scss";
 import Title from "../../components/Title/Title";
 import MapLink from "../../components/MapLink/MapLink";
 import Button from "../../components/Button/Button";
-import MainImage from "../../components/MainImage/MainImage";
+// import MainImage from "../../components/MainImage/MainImage";
 import Map from "../../components/Map/Map";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Modal from "react-modal";
 import axiosRequest from "../../api";
-import { AxiosResponse } from "axios";
+// import { AxiosResponse } from "axios";
 
 interface IResponse {
   data: IData;
@@ -58,7 +58,7 @@ export default function Place() {
     };
 
     fetchPlaceInfo();
-  }, []);
+  }, [placeId]);
 
   return (
     <>
