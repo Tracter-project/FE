@@ -30,7 +30,7 @@ export default function AdminCategory() {
             const categoryResponse: AxiosResponse =
                 await axiosRequest.requestAxios("get", "/categories");
             console.log("카테고리", categoryResponse.data);
-            setCategories(categoryResponse.data);
+            setCategories(categoryResponse.data.allCategories);
             console.log("카테고리 조회 성공", categoryResponse.data);
         } catch (error) {
             console.error("카테고리 조회 실패:", error);
@@ -135,21 +135,31 @@ export default function AdminCategory() {
             </div>
             <div className={styles.editedInputWrap}>
                 <Title size="b">기존 카테고리</Title>
-                {categories.map((category) => (
-                    <div key={category.id} className={styles.inputBox}>
-                        <EditedInput
-                            value={category.categoryName}
-                            onChange={(newCategoryName) =>
-                                editCategory(category.id, newCategoryName)
-                            }
-                        ></EditedInput>
-                        <div className={styles.buttonWrap}>
-                            <Button onClick={() => deleteCategory(category.id)}>
-                                삭제
-                            </Button>
-                        </div>
-                    </div>
-                ))}
+                {categories.length > 0 &&
+                    categories.map((category) => {
+                        return (
+                            <div key={category.id} className={styles.inputBox}>
+                                <EditedInput
+                                    value={category.categoryName}
+                                    onChange={(newCategoryName) =>
+                                        editCategory(
+                                            category.id,
+                                            newCategoryName
+                                        )
+                                    }
+                                ></EditedInput>
+                                <div className={styles.buttonWrap}>
+                                    <Button
+                                        onClick={() =>
+                                            deleteCategory(category.id)
+                                        }
+                                    >
+                                        삭제
+                                    </Button>
+                                </div>
+                            </div>
+                        );
+                    })}
             </div>
         </>
     );

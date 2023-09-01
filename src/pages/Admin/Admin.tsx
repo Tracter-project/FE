@@ -28,28 +28,6 @@ interface Place {
 //     places: Place[];
 // }
 export default function Admin() {
-    // const [data, setData] = useState([
-    //     {
-    //         id: 1,
-    //         selected: false,
-    //         imageUrl: "URL_1",
-    //         area: "서울",
-    //         category: "호텔",
-    //         name: "숙소 1",
-    //         description: "숙소 설명 1",
-    //         price: 100,
-    //     },
-    //     {
-    //         id: 2,
-    //         selected: false,
-    //         imageUrl: "URL_2",
-    //         area: "제주",
-    //         category: "펜션",
-    //         name: "숙소 2",
-    //         description: "숙소 설명 2",
-    //         price: 150,
-    //     },
-    // ]);
     const [data, setData] = useState<Place[]>([]);
 
     // 전체 숙소 데이터 조회하는 API 호출
@@ -58,7 +36,7 @@ export default function Admin() {
             const placesResponse: AxiosResponse =
                 await axiosRequest.requestAxios("get", "/places/all");
             console.log("전체조회", placesResponse.data);
-            setData(placesResponse.data);
+            setData(placesResponse.data.allPlaces);
         } catch (error) {
             console.error(error);
         }

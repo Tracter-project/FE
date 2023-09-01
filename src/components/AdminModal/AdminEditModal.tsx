@@ -29,6 +29,7 @@ interface Place {
 interface AdminEditModalProps {
     isOpen: boolean;
     onClose: () => void;
+
     modalData: Place;
 }
 
