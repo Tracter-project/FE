@@ -50,11 +50,7 @@ export default function PostsList(props: PostListProps) {
 
                 <div className={styles.leftbottom}>
                   {/* <Title size="p">좋아요 {post.articleLikeCount}개</Title> */}
-                  {/* {post.comments ? (
-                    <Title size="p">댓글 {post.comments.length}개</Title>
-                  ) : (
-                    <></>
-                  )} */}
+                  {/* <Title size="p">댓글 {post.comment.length}개</Title> */}
                 </div>
               </div>
               <div className={styles.right}>

@@ -1,10 +1,12 @@
 .addPostContainer {
+  margin-top: 5%;
   display: flex;
   align-items: center;
   flex-direction: column;
 
   .addPostHead {
     align-self: flex-start;
+    margin-bottom: 5%;
   }
 
   .placeInfo {
@@ -19,7 +21,7 @@
       height: 140px;
     }
   }
-  
+
   .checkboxWrap {
     display: flex;
     justify-content: flex-start;

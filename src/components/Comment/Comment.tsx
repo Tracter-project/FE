@@ -28,7 +28,6 @@ export default function Comment({ children, articleId }: CommentProps) {
 
   const handleCommentSubmit = async () => {
     try {
-      console.log("등록 게시글 id", articleId);
       const comment = {
         articleId: articleId,
         comment: commentValue,
@@ -41,8 +40,8 @@ export default function Comment({ children, articleId }: CommentProps) {
         comment
       );
 
-      console.log(response);
       alert("댓글이 등록되었습니다.");
+      setCommentValue("");
     } catch (error) {
       console.error(error);
     }
