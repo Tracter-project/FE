@@ -7,6 +7,8 @@ import ModifyButton from "../ModifyButton/ModifyButton";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import Button from "../Button/Button";
 import axiosRequest from "../../api";
+import formatDate from "../../utils/formatDate";
+import UserConfirm from "../../utils/userConfirm";
 
 interface IComment {
   id: number;
@@ -20,12 +22,6 @@ interface CommentViewProps {
   commentList: IComment[];
 }
 
-function formatDate(date: Date): string {
-  date = new Date(date);
-
-  return date.toLocaleDateString();
-}
-
 export default function CommentView(props: CommentViewProps) {
   const { commentList } = props;
   const [selectedCommentId, setSelectedCommentId] = useState<number | null>(
@@ -35,6 +31,7 @@ export default function CommentView(props: CommentViewProps) {
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [cookies] = useCookies(["token"]);
   const token = cookies.token;
+  const loginUser = UserConfirm();
 
   const handleCheckboxChange = (commentId: number, comment: string) => {
     setSelectedCommentId(commentId === selectedCommentId ? null : commentId);
@@ -93,10 +90,7 @@ export default function CommentView(props: CommentViewProps) {
     <>
       <div className={styles.commentViewWrap}>
         <div className={styles.commentViewHead}>
-          <div className={styles.title}>
-            <Title size="h5">댓글</Title>
-          </div>
-          {token ? (
+          {selectedCommentId ? (
             <div className={styles.icons}>
               <ModifyButton
                 onClick={() => setIsEditMode(!isEditMode)}
@@ -107,47 +101,59 @@ export default function CommentView(props: CommentViewProps) {
             ""
           )}
         </div>
-        {commentList.map((comment) => (
-          <div className={styles.commentView} key={comment.id}>
-            {token ? (
-              <div className={styles.checkbox}>
-                <CheckBox
-                  checked={comment.id === selectedCommentId}
-                  onChange={() =>
-                    handleCheckboxChange(comment.id, comment.comment)
-                  }
-                />
-              </div>
-            ) : (
-              ""
-            )}
-            <div className={styles.commentWriter}>
-              <Title size="h5">{comment.writer}</Title>
-            </div>
 
-            {isEditMode && selectedCommentId === comment.id ? (
-              <div className={styles.editMode}>
-                <div className={styles.editComment}>
-                  <input value={selectedComment} onChange={handleModifyBtn} />
+        {commentList.length !== 0 ? (
+          <div>
+            {commentList.map((comment) => (
+              <div className={styles.commentView} key={comment.id}>
+                {token && comment.writer === loginUser ? (
+                  <div className={styles.checkbox}>
+                    <CheckBox
+                      checked={comment.id === selectedCommentId}
+                      onChange={() =>
+                        handleCheckboxChange(comment.id, comment.comment)
+                      }
+                    />
+                  </div>
+                ) : (
+                  ""
+                )}
+                <div className={styles.commentWriter}>
+                  <Title size="h5">{comment.writer}</Title>
                 </div>
-                <div className={styles.submitButton}>
-                  <Button onClick={handleSubmitBtn}>수정</Button>
-                  <Button onClick={() => setIsEditMode(false)}>취소</Button>
+
+                {isEditMode && selectedCommentId === comment.id ? (
+                  <div className={styles.editMode}>
+                    <div className={styles.editComment}>
+                      <input
+                        value={selectedComment}
+                        onChange={handleModifyBtn}
+                      />
+                    </div>
+                    <div className={styles.submitButton}>
+                      <Button onClick={handleSubmitBtn}>수정</Button>
+                      <Button onClick={() => setIsEditMode(false)}>취소</Button>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div className={styles.commentContent}>
+                      <Title size="p">{comment.comment}</Title>
+                    </div>
+                  </>
+                )}
+
+                <div className={styles.commentDate}>
+                  <Title size="sub">{formatDate(comment.createdAt)}</Title>
                 </div>
               </div>
-            ) : (
-              <>
-                <div className={styles.commentContent}>
-                  <Title size="p">{comment.comment}</Title>
-                </div>
-              </>
-            )}
-
-            <div className={styles.commentDate}>
-              <Title size="sub">{formatDate(comment.createdAt)}</Title>
-            </div>
+            ))}
           </div>
-        ))}
+        ) : (
+          <div className={styles.emptyComment}>
+            <Title size="h5">댓글이 없습니다.</Title>
+          </div>
+        )}
       </div>
     </>
   );
