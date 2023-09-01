@@ -1,24 +1,16 @@
 .commentViewWrap {
   .commentViewHead {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     border-bottom: #a4a4a4 solid 1px;
     padding: 16px;
-    margin: 10px 0;
-
-    .title {
-      position: relative;
-      top: 20px;
-    }
+    margin: 5px 0;
 
     .icons {
-      display: flex;
-      justify-content: flex-end;
-      gap: 14px;
-      position: relative;
-      top: 5px;
+      gap: 20px;
     }
   }
+
   .commentView {
     width: 100%;
     display: flex;
@@ -64,4 +56,10 @@
       margin-left: 10px;
     }
   }
+}
+
+.emptyComment {
+  display: flex;
+  justify-content: center;
+  margin: 40px;
 }
