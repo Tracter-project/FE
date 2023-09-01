@@ -37,7 +37,6 @@ export default function CommunityAddPost() {
 
   // searchInput에 검색된 place 불러오기
   const searchedPlace = useRecoilValue(searchedData);
-  console.log("searchedPlace : ", searchedPlace);
 
   // 게시글 작성 API
   const handleSubmit = async () => {
@@ -63,7 +62,6 @@ export default function CommunityAddPost() {
           article
         );
 
-        console.log(response);
         alert("게시글이 등록되었습니다.");
         navigate("/community/list");
       } else {

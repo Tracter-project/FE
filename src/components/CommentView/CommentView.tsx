@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import styles from "./CommentView.module.scss";
 import Title from "../Title/Title";
@@ -59,6 +59,7 @@ export default function CommentView(props: CommentViewProps) {
         );
 
         alert("댓글이 수정되었습니다.");
+        setIsEditMode(false);
       } catch (error) {
         alert("작성자만 수정이 가능합니다.");
         console.error(error);
@@ -78,7 +79,7 @@ export default function CommentView(props: CommentViewProps) {
           { id: selectedCommentId, token: token }
         );
 
-        alert(`ID ${selectedCommentId} 댓글 삭제`);
+        alert(`댓글이 삭제되었습니다.`);
       } catch (error) {
         alert("작성자만 삭제가 가능합니다.");
         console.error(error);

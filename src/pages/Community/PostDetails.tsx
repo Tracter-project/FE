@@ -1,5 +1,5 @@
 import { useState, useEffect, ChangeEvent } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import styles from "./PostDetails.module.scss";
 import Comment from "../../components/Comment/Comment";
@@ -41,6 +41,7 @@ interface IComment {
 }
 
 export default function PostDetails() {
+  const navigate = useNavigate();
   const [cookies] = useCookies(["token"]);
   const token = cookies.token;
   const params = useParams();
@@ -66,27 +67,26 @@ export default function PostDetails() {
           setModifiedTitle(response.data.article.title);
           setModifiedContents(response.data.article.contents);
         }
-        console.log(response);
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchArticleDetails();
-  }, [articleId, isEditMode]);
+  }, [articleId, isEditMode, article?.comment]);
 
   // 게시글 삭제 API
   const handleDeleteBtn = async () => {
     try {
       const response = await axiosRequest.requestAxios<number>(
         "delete",
-        `/articles/${articleId}`,
+        `/articles`,
         { id: articleId, token: token }
       );
 
-      alert(`ID ${articleId} 게시글 삭제`);
+      alert(`게시글이 삭제되었습니다.`);
+      navigate("/community/list");
     } catch (error) {
-      alert("작성자만 삭제가 가능합니다.");
       console.error(error);
     }
   };
@@ -111,7 +111,7 @@ export default function PostDetails() {
 
         const response = await axiosRequest.requestAxios<IData>(
           "patch",
-          `/articles/${articleId}`,
+          `/articles`,
           newArticle
         );
 
@@ -120,7 +120,6 @@ export default function PostDetails() {
         alert("수정할 내용을 입력해주세요.");
       }
     } catch (error) {
-      alert("작성자만 수정이 가능합니다.");
       console.error(error);
     }
 

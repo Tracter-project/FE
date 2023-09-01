@@ -31,6 +31,8 @@ export default function SearchPlace() {
   const [searchInput, setSearchInput] = useRecoilState(searchPlace);
   const [searchData, setSearchData] = useRecoilState(searchedData);
   const [placeList, setPlaceList] = useState<IPlace[]>([]);
+  const [isSearchResultVisible, setIsSearchResultVisible] =
+    useState<boolean>(false);
 
   useEffect(() => {
     const fetchPlaceList = async () => {
@@ -40,7 +42,6 @@ export default function SearchPlace() {
           `/places/all`
         )) as AxiosResponse<IPlace[]>;
 
-        console.log("숙소 전체 res ", response);
         setPlaceList(response.data);
       } catch (error) {
         console.error(error);
@@ -52,6 +53,7 @@ export default function SearchPlace() {
 
   const handleSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(event.target.value);
+    setIsSearchResultVisible(event.target.value.length > 0);
   };
 
   const searched = placeList.filter((item) =>
@@ -60,6 +62,8 @@ export default function SearchPlace() {
 
   const handleResultClick = (clickedData: ISearchedPlace) => {
     setSearchData(clickedData);
+    setSearchInput("");
+    setIsSearchResultVisible(false);
   };
 
   return (
@@ -70,11 +74,11 @@ export default function SearchPlace() {
           <input
             type="text"
             className="searchInput"
-            placeholder="숙소 찾기"
+            placeholder="후기 또는 질문을 남길 숙소 검색"
             value={searchInput}
             onChange={handleSearchInput}
           />
-          {searchInput.length > 0 && (
+          {isSearchResultVisible && (
             <ul className={styles.searchResult}>
               {searched.map((item, index) => (
                 <li
