@@ -144,8 +144,8 @@ export default function MyPage() {
           <MypageButton onClick={handleDelete}>회원 탈퇴</MypageButton>
         </div>
       </div>
-      {/* <Title size="h2">좋아요</Title>
-            <div className={styles.myPageList}>
+      <Title size="h2">좋아요</Title>
+            {/* <div className={styles.myPageList}>
                 <MyPagePlaces myList={dummyMyPageList}></MyPagePlaces>
             </div> */}
     </section>
