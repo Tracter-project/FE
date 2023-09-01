@@ -7,11 +7,15 @@ import { useState, useEffect } from "react";
 import axiosRequest from "../../api"; // axios 라이브러리를 import
 import { AxiosResponse } from "axios";
 
+interface IResponse {
+  data: MainImageItem[];
+}
+
 interface MainImageItem {
   id: number;
-  imageUrl: string;
-  title: string;
-  popularity: number;
+  mainImage: string;
+  placeName: string;
+  placeLikeCount: number;
   price: number; // 가격
 }
 
@@ -63,7 +67,7 @@ export default function Category() {
     const fetchCategoryImages = async () => {
       try {
         if (selectedCategoryName) {
-          const response = await axiosRequest.requestAxios<MainImageItem[]>(
+          const response = await axiosRequest.requestAxios<IResponse>(
             "get",
             `/places/categories/${selectedCategoryName}`
           );
