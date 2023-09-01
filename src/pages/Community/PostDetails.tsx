@@ -96,7 +96,7 @@ export default function PostDetails() {
     };
 
     fetchArticleDetails();
-  }, [articleId, article, isEditMode]);
+  }, [articleId, isEditMode]);
 
   // 게시글 삭제 API
   const handleDeleteBtn = async () => {
@@ -222,18 +222,18 @@ export default function PostDetails() {
             <div className={styles.right}>
               <div className={styles.righttop}>
                 <div className={styles.buttons}>
-                  {/* {article.writer === "" ? ( */}
-                  <div className={styles.writerButtons}>
-                    <ModifyButton
-                      onClick={() => setIsEditMode(true)}
-                    ></ModifyButton>
-                    <DeleteButton
-                      onClick={() => handleDeleteBtn()}
-                    ></DeleteButton>
-                  </div>
-                  {/* ) : (
+                  {token ? (
+                    <div className={styles.writerButtons}>
+                      <ModifyButton
+                        onClick={() => setIsEditMode(true)}
+                      ></ModifyButton>
+                      <DeleteButton
+                        onClick={() => handleDeleteBtn()}
+                      ></DeleteButton>
+                    </div>
+                  ) : (
                     ""
-                  )} */}
+                  )}
                   <LikeButton onClick={() => {}}></LikeButton>
                 </div>
               </div>
@@ -246,7 +246,7 @@ export default function PostDetails() {
           </div>
           <div className={styles.commentContainer}>
             <CommentView commentList={article.comment}></CommentView>
-            <Comment articleId={articleId}>댓글 작성</Comment>
+            {token ? <Comment articleId={articleId}>댓글 작성</Comment> : ""}
           </div>
         </>
       ) : (

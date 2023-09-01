@@ -5,6 +5,7 @@ import styles from "./CommunityList.module.scss";
 import PostList from "../../components/PostList/PostList";
 import AddButton from "../../components/AddButton/AddButton";
 import axiosRequest from "../../api";
+import { useCookies } from "react-cookie";
 
 interface IArticle {
   id: number;
@@ -18,6 +19,8 @@ interface IArticle {
 }
 
 export default function CommunityList() {
+  const [cookies] = useCookies(["token"]);
+  const token = cookies.token;
   const [articleList, setArticleList] = useState<IArticle[]>([]);
   const navigate = useNavigate();
   const handleAddButton = () => {
@@ -53,7 +56,7 @@ export default function CommunityList() {
   return (
     <div className={styles.communityListContainer}>
       <div className={styles.addButton}>
-        <AddButton onClick={handleAddButton}></AddButton>
+        {token ? <AddButton onClick={handleAddButton}></AddButton> : ""}
       </div>
       <PostList postList={articleList}></PostList>
     </div>
