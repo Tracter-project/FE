@@ -15,17 +15,6 @@ interface ApiResponse {
 interface AdminModalProps {
     isOpen: boolean;
     onClose: () => void;
-    // onSelect: (
-    //     placeName: string,
-    //     price: number | null,
-    //     description: string,
-    //     category: string,
-    //     region: string,
-    //     bannerImage: string,
-    //     mainImage: string,
-    //     detailImage: string,
-    //     bookingURL: string
-    // ) => void;
 }
 
 const regions = ["서울", "강원", "전라", "경상", "제주"];
@@ -56,7 +45,6 @@ AdminModalProps) {
     };
 
     const handleConfirm = async () => {
-        console.log(formData);
         try {
             // API 호출: 숙소 추가
             const response = await axiosRequest.requestAxios<ApiResponse>(
@@ -76,25 +64,10 @@ AdminModalProps) {
                 }
             );
             if (response.status === 201) {
-                console.log("숙소 등록 성공");
-                // onSelect(
-                //     formData.placeName,
-                //     formData.price,
-                //     formData.description,
-                //     formData.category,
-                //     formData.region,
-                //     formData.bannerImage,
-                //     formData.mainImage,
-                //     formData.detailImage,
-                //     formData.bookingURL
-                // );
-                console.log("숙소 추가", formData);
-            } else {
-                console.log("숙소 등록 실패");
+                alert("숙소가 추가되었습니다.");
             }
         } catch (error) {
-            console.log("에러", formData);
-            console.error("API 호출 오류:", error);
+            alert("숙소 등록에 실패하였습니다.");
         }
         onClose();
     };

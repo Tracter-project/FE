@@ -28,11 +28,9 @@ export default function Login() {
 
     const handleEmailChange = (email: string) => {
         setEmail(email);
-        console.log("이메일", email);
     };
     const handlePasswordChange = (password: string) => {
         setPassword(password);
-        console.log("비밀번호", password);
     };
 
     const handleLogin = async () => {
@@ -48,13 +46,10 @@ export default function Login() {
                     email,
                     password,
                 });
-            console.log(loginResponse);
             if (loginResponse.status === 201) {
                 const token = loginResponse.data.token;
                 setCookie("token", token, { maxAge: 7 * 24 * 60 * 60 });
-                console.log(loginResponse.data.token);
                 alert("로그인 성공");
-                console.log("로그인 성공");
                 navigate("/"); // 메인페이지로 이동
             } else if (loginResponse.status === 400) {
                 setErrorMessage(
@@ -64,7 +59,7 @@ export default function Login() {
                 setErrorMessage("비밀번호가 일치하지 않습니다.");
             }
         } catch (error) {
-            console.error(error);
+            alert("로그인에 실패하였습니다.");
         }
     };
 
