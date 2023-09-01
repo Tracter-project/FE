@@ -74,12 +74,14 @@ export default function Login() {
                 <Title size="h2">Tracter</Title>
                 <Title size="h5">로그인</Title>
                 <Input
+                    type="password"
                     icon={<MdEmail />}
                     text={"이메일"}
                     value={email}
                     onChange={handleEmailChange}
                 />
                 <Input
+                    type="password"
                     icon={<AiFillLock />}
                     text={"비밀번호"}
                     value={password}

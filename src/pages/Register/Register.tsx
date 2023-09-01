@@ -302,6 +302,7 @@ export default function Register() {
                 <BorderButton>인증하기</BorderButton>
             </div> */}
             <Input
+                type="password"
                 icon={<AiFillLock />}
                 text={"비밀번호"}
                 className={styles.passwordinput}
@@ -314,6 +315,7 @@ export default function Register() {
                 </p>
             )}
             <Input
+                type="password"
                 icon={<AiFillLock />}
                 text={"비밀번호 확인"}
                 className={styles.passwordinput}
