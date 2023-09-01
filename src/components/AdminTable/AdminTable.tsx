@@ -63,7 +63,7 @@ export default function AdminTable({ data, setData }: AdminTableProps) {
             : [...selectedIds, id];
         setSelectedIds(updatedSelectedIds);
     };
-    //추가모달 열기
+
     const handleOpenAddModal = () => {
         setIsAddModalOpen(true);
     };
@@ -79,19 +79,21 @@ export default function AdminTable({ data, setData }: AdminTableProps) {
 
     //숙소 수정 선택
     const handleEditSelect = (id: number) => {
-        if (selectedIds.length === 1) {
-            const selectedItem = data.find(
-                (item) => item.id === selectedIds[0]
-            );
-            if (selectedItem) {
-                setModalData(selectedItem);
-                const updatedSelectedIds = selectedIds.includes(id)
-                    ? selectedIds.filter((selectedId) => selectedId !== id)
-                    : [...selectedIds, id];
-                setSelectedIds(updatedSelectedIds);
-                setIsEditModalOpen(true);
+        if (data.length > 0) {
+            if (selectedIds.length === 1) {
+                const selectedItem = data.find(
+                    (item) => item.id === selectedIds[0]
+                );
+                if (selectedItem) {
+                    setModalData(selectedItem);
+                    const updatedSelectedIds = selectedIds.includes(id)
+                        ? selectedIds.filter((selectedId) => selectedId !== id)
+                        : [...selectedIds, id];
+                    setSelectedIds(updatedSelectedIds);
+                    setIsEditModalOpen(true);
+                }
+                console.log("궁금", modalData);
             }
-            console.log("선택한 데이터", modalData);
         }
     };
 
@@ -112,6 +114,8 @@ export default function AdminTable({ data, setData }: AdminTableProps) {
             console.error("숙소 삭제 실패:", error);
         }
     };
+    console.log(data);
+
     return (
         <>
             <div className={styles.tableWrap}>
@@ -160,47 +164,54 @@ export default function AdminTable({ data, setData }: AdminTableProps) {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((item) => (
-                            <tr key={item.id}>
-                                <td>
-                                    <CheckBox
-                                        checked={selectedIds.includes(item.id)}
-                                        onChange={() =>
-                                            handleCheckboxChange(item.id)
-                                        }
-                                    ></CheckBox>
-                                </td>
-                                <td>{item.placeName}</td>
-                                <td>{item.price}</td>
-                                <td>{item.description}</td>
-                                <td>{item.category}</td>
-                                <td>{item.region}</td>
+                        {data.length > 0 &&
+                            data.map((item) => {
+                                return (
+                                    <tr key={item.id}>
+                                        <td>
+                                            <CheckBox
+                                                checked={selectedIds.includes(
+                                                    item.id
+                                                )}
+                                                onChange={() =>
+                                                    handleCheckboxChange(
+                                                        item.id
+                                                    )
+                                                }
+                                            ></CheckBox>
+                                        </td>
+                                        <td>{item.placeName}</td>
+                                        <td>{item.price}</td>
+                                        <td>{item.description}</td>
+                                        <td>{item.category}</td>
+                                        <td>{item.region}</td>
 
-                                <td>
-                                    <img
-                                        src={item.bannerImage}
-                                        alt={item.placeName}
-                                    />
-                                </td>
-                                <td>
-                                    <img
-                                        src={item.mainImage}
-                                        alt={item.placeName}
-                                    />
-                                </td>
-                                <td>
-                                    <img
-                                        src={item.detailImage}
-                                        alt={item.placeName}
-                                    />
-                                </td>
-                                <td>
-                                    <Link to={item.bookingURL}>
-                                        {`${item.placeName} 링크`}
-                                    </Link>
-                                </td>
-                            </tr>
-                        ))}
+                                        <td>
+                                            <img
+                                                src={item.bannerImage}
+                                                alt={item.placeName}
+                                            />
+                                        </td>
+                                        <td>
+                                            <img
+                                                src={item.mainImage}
+                                                alt={item.placeName}
+                                            />
+                                        </td>
+                                        <td>
+                                            <img
+                                                src={item.detailImage}
+                                                alt={item.placeName}
+                                            />
+                                        </td>
+                                        <td>
+                                            <Link to={item.bookingURL}>
+                                                {`${item.placeName} 링크`}
+                                            </Link>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
                     </tbody>
                 </table>
             </div>
