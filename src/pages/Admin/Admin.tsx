@@ -36,7 +36,7 @@ export default function Admin() {
             const placesResponse: AxiosResponse =
                 await axiosRequest.requestAxios("get", "/places/all");
             console.log("전체조회", placesResponse.data);
-            setData(placesResponse.data.allPlaces);
+            setData(placesResponse.data);
         } catch (error) {
             console.error(error);
         }

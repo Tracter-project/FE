@@ -30,7 +30,7 @@ export default function AdminCategory() {
             const categoryResponse: AxiosResponse =
                 await axiosRequest.requestAxios("get", "/categories");
             console.log("카테고리", categoryResponse.data);
-            setCategories(categoryResponse.data.allCategories);
+            setCategories(categoryResponse.data);
             console.log("카테고리 조회 성공", categoryResponse.data);
         } catch (error) {
             console.error("카테고리 조회 실패:", error);
