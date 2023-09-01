@@ -81,9 +81,9 @@ export default function Category() {
   return (
     <>
       <Title size="h2" className={styles.title}>
-        Category ({selectedCategoryName})
+        {selectedCategoryName}
       </Title>
-      <div className={styles.categoryTitle}>
+      {/* <div className={styles.categoryTitle}>
         <Title size="h2">{selectedCategoryName}</Title>
         <DropdownOption title="전체" className={styles.dropdown}>
           <div className={styles.dropdownContent}>
@@ -94,7 +94,7 @@ export default function Category() {
             <Link to={`/category/${categoryId}/제주`}>제주</Link>
           </div>
         </DropdownOption>
-      </div>
+      </div> */}
       <MainImage MainImageList={imageList} />
     </>
   );

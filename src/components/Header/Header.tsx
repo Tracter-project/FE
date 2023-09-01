@@ -56,7 +56,7 @@ export default function Header() {
       <header className={styles.header}>
         <div className={styles.logo}>
           <Title size="h2">
-            <Link to="/">Tracter</Link>
+            <Link to="/">TRACTER</Link>
           </Title>
         </div>
         <div className={styles.center}>
