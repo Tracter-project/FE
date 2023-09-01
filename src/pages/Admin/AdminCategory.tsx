@@ -25,15 +25,14 @@ export default function AdminCategory() {
     const [cookies] = useCookies(["token"]);
     const token = cookies.token;
 
+    //카테고리 조회
     const fetchCategories = async () => {
         try {
             const categoryResponse: AxiosResponse =
                 await axiosRequest.requestAxios("get", "/categories");
-            console.log("카테고리", categoryResponse.data);
             setCategories(categoryResponse.data);
-            console.log("카테고리 조회 성공", categoryResponse.data);
         } catch (error) {
-            console.error("카테고리 조회 실패:", error);
+            alert("카테고리 조회에 실패하였습니다.");
         }
     };
 
@@ -41,20 +40,19 @@ export default function AdminCategory() {
         fetchCategories();
     }, []);
 
+    //카테고리 수정
     const editCategory = async (
         categoryId: number,
         newCategoryName: string
     ) => {
         try {
-            console.log("아이디", categories);
             const categoryToUpdate = categories.find(
                 (categories) => categories.id === categoryId
             );
             if (!categoryToUpdate) {
-                console.error("수정할 카테고리를 찾을 수 없음");
+                alert("수정할 카테고리를 찾을 수 없습니다.");
                 return;
             }
-            console.log("찾은 카테고리의 id", categoryToUpdate.id);
             await axiosRequest.requestAxios("patch", `/admin/categories`, {
                 id: categoryToUpdate.id,
                 updateCategoryName: newCategoryName,
@@ -62,9 +60,8 @@ export default function AdminCategory() {
             });
 
             fetchCategories();
-            console.log("수정");
         } catch (error) {
-            console.error("카테고리 수정 실패:", error);
+            alert("수정을 실패하였습니다.");
         }
     };
 
@@ -73,7 +70,7 @@ export default function AdminCategory() {
             (categories) => categories.id === categoryId
         );
         if (!categoryToUpdate) {
-            console.error("수정할 카테고리를 찾을 수 없음");
+            alert("수정할 카테고리를 찾을 수 없습니다.");
             return;
         }
         try {
@@ -81,16 +78,15 @@ export default function AdminCategory() {
                 id: categoryToUpdate.id,
                 token: token,
             });
-            console.log("삭제");
+            alert("수정이 삭제되었습니다.");
             fetchCategories();
         } catch (error) {
-            console.error("카테고리 삭제 실패:", error);
+            alert("카테고리 삭제에 실패하였습니다.");
         }
     };
 
     const addCategory = async () => {
         if (newCategory) {
-            console.log("추가합시다", newCategory);
             try {
                 const categoryResponse: AxiosResponse =
                     await axiosRequest.requestAxios(
@@ -101,12 +97,11 @@ export default function AdminCategory() {
                             token: token,
                         }
                     );
-                console.log("추가", categoryResponse);
                 setNewCategory("");
                 fetchCategories();
                 alert("카테고리가 추가되었습니다.");
             } catch (error) {
-                console.error("카테고리 추가 실패:", error);
+                alert("카테고리 추가에 실패하였습니다.");
             }
         }
     };

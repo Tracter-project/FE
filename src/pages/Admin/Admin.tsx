@@ -35,10 +35,9 @@ export default function Admin() {
         try {
             const placesResponse: AxiosResponse =
                 await axiosRequest.requestAxios("get", "/places/all");
-            console.log("전체조회", placesResponse.data);
             setData(placesResponse.data);
         } catch (error) {
-            console.error(error);
+            alert("숙소 조회에 실패하였습니다.");
         }
     };
     useEffect(() => {
