@@ -30,7 +30,9 @@ export default function Category() {
   console.log(categoryId, typeof categoryId);
   const [imageList, setImageList] = useState<MainImageItem[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [selectedCategoryName, setSelectedCategoryName] = useState<string>("");
+  const [selectedCategoryName, setSelectedCategoryName] = useState<
+    string | null
+  >(null);
 
   useEffect(() => {
     console.log("전체조회다", categories);
@@ -49,17 +51,15 @@ export default function Category() {
     };
 
     fetchCategories();
-  }, [categoryId, categories]);
+  }, []);
 
   useEffect(() => {
-    console.log("이름찾기");
     const selectedCategory = categories.find(
       (category) => category.id === categoryId
     );
 
     if (selectedCategory) {
       setSelectedCategoryName(selectedCategory.categoryName);
-      console.log(selectedCategory.categoryName);
     }
   }, [categoryId, categories]);
 
@@ -79,27 +79,21 @@ export default function Category() {
       }
     };
 
-    fetchCategoryImages();
+    if (selectedCategoryName !== null) {
+      fetchCategoryImages();
+    }
   }, [selectedCategoryName]);
 
   return (
     <>
-      <Title size="h2" className={styles.title}>
-        {selectedCategoryName}
-      </Title>
-      {/* <div className={styles.categoryTitle}>
-        <Title size="h2">{selectedCategoryName}</Title>
-        <DropdownOption title="전체" className={styles.dropdown}>
-          <div className={styles.dropdownContent}>
-            <Link to={`/category/${categoryId}/서울`}>서울</Link>
-            <Link to={`/category/${categoryId}/강원`}>강원</Link>
-            <Link to={`/category/${categoryId}/전라`}>전라</Link>
-            <Link to={`/category/${categoryId}/경상`}>경상</Link>
-            <Link to={`/category/${categoryId}/제주`}>제주</Link>
-          </div>
-        </DropdownOption>
-      </div> */}
-      <MainImage MainImageList={imageList} />
+      {selectedCategoryName && (
+        <>
+          <Title size="h2" className={styles.title}>
+            {selectedCategoryName}
+          </Title>
+          <MainImage MainImageList={imageList} />
+        </>
+      )}
     </>
   );
 }
