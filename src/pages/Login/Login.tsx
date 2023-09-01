@@ -94,9 +94,10 @@ export default function Login() {
                 {errorMessage && (
                     <p className={styles.errorMessage}>{errorMessage}</p>
                 )}
-                <Title size="p">
-                    <Link to="/register">회원가입</Link>
-                </Title>
+
+                <Link to="/register">
+                    <Title size="p">회원가입</Title>
+                </Link>
             </div>
         </div>
     );
