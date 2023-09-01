@@ -13,7 +13,7 @@
     width: 33.3%;
 
     &:hover a {
-      color: #4477CE;
+      color: #4477ce;
     }
   }
 
@@ -29,11 +29,8 @@
       cursor: pointer;
     }
 
-
-
-    p:hover>a {
-      color: #4477CE;
-
+    p:hover > a {
+      color: #4477ce;
     }
   }
 
@@ -45,16 +42,13 @@
     gap: 30px;
 
     p:hover a {
-      color: #4477CE;
-
+      color: #4477ce;
     }
 
-
-    >button {
+    > button {
       background-color: inherit;
       font-size: 16px;
     }
-
 
     .search {
       display: flex;
