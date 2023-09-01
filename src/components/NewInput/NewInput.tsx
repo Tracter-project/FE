@@ -6,6 +6,7 @@ import styles from "./NewInput.module.scss";
 interface NewInputProps {
     type: "file" | "text" | "number";
     onChange: (value: string | number | null) => void;
+    value?: string | number | null;
 }
 
 export default function NewInput({ type, onChange }: NewInputProps) {

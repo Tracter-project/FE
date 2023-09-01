@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { AxiosResponse } from "axios";
 import axiosRequest from "../../api";
 import styles from "./Admin.module.scss";
 import Title from "../../components/Title/Title";
@@ -10,21 +11,22 @@ import EditModal from "../../components/EditModal/EditModal";
 
 interface Place {
     id: number;
-    selected: boolean;
-    imageUrl: string;
-    area: string;
-    category: string;
-    name: string;
+    placeName: string;
+    price: number | null;
     description: string;
-    price: number;
+    category: string;
+    region: string;
+    bannerImage: string;
+    mainImage: string;
+    detailImage: string;
+    bookingURL: string;
+    placeLikeCount: number | null;
 }
-interface PlaceResponse {
-    status: number;
-    message: string;
-    data: {
-        places: Place[];
-    };
-}
+// interface PlaceResponse {
+//     status: number;
+//     message: string;
+//     places: Place[];
+// }
 export default function Admin() {
     // const [data, setData] = useState([
     //     {
@@ -50,20 +52,18 @@ export default function Admin() {
     // ]);
     const [data, setData] = useState<Place[]>([]);
 
-    useEffect(() => {
-        // 전체 숙소 데이터 조회하는 API 호출
-        async function fetchPlaces() {
-            console.log("tt");
-            try {
-                const placesResponse: PlaceResponse =
-                    await axiosRequest.requestAxios("get", "/places/all");
-                setData(placesResponse.data.places);
-                console.log("전체조회", placesResponse.data.places);
-            } catch (error) {
-                console.error(error);
-            }
+    // 전체 숙소 데이터 조회하는 API 호출
+    const fetchPlaces = async () => {
+        try {
+            const placesResponse: AxiosResponse =
+                await axiosRequest.requestAxios("get", "/places/all");
+            console.log("전체조회", placesResponse.data);
+            setData(placesResponse.data);
+        } catch (error) {
+            console.error(error);
         }
-
+    };
+    useEffect(() => {
         fetchPlaces();
     }, []);
 

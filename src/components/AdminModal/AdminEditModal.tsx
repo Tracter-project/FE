@@ -12,40 +12,45 @@ interface ApiResponse {
     message: string;
 }
 
-interface AdminModalProps {
+interface Place {
+    id: number;
+    placeName: string;
+    price: number | null;
+    description: string;
+    category: string;
+    region: string;
+    placeLikeCount: number | null;
+    bannerImage: string;
+    mainImage: string;
+    detailImage: string;
+    bookingURL: string;
+}
+
+interface AdminEditModalProps {
     isOpen: boolean;
     onClose: () => void;
-    // onSelect: (
-    //     placeName: string,
-    //     price: number | null,
-    //     description: string,
-    //     category: string,
-    //     region: string,
-    //     bannerImage: string,
-    //     mainImage: string,
-    //     detailImage: string,
-    //     bookingURL: string
-    // ) => void;
+    modalData: Place;
 }
 
 const regions = ["서울", "강원", "전라", "경상", "제주"];
 const categories = ["호캉스", "글램핑", "풀빌라", "게스트하우스", "카라반"];
 
-export default function AdminModal({
+export default function AdminEditModal({
     isOpen,
     onClose,
-}: // onSelect,
-AdminModalProps) {
+    modalData,
+}: AdminEditModalProps) {
     const [formData, setFormData] = useState({
-        placeName: "",
-        price: null,
-        description: "",
-        category: "",
-        region: "",
-        bannerImage: "",
-        mainImage: "",
-        detailImage: "",
-        bookingURL: "",
+        id: modalData.id || 0,
+        placeName: modalData.placeName || "",
+        price: modalData.price || null,
+        description: modalData.description || "",
+        category: modalData.category || "",
+        region: modalData.region || "",
+        bannerImage: modalData.bannerImage || "",
+        mainImage: modalData.mainImage || "",
+        detailImage: modalData.detailImage || "",
+        bookingURL: modalData.bookingURL || "",
     });
     //토큰
     const [cookies] = useCookies(["token"]);
@@ -56,13 +61,13 @@ AdminModalProps) {
     };
 
     const handleConfirm = async () => {
-        console.log(formData);
+        console.log("ww", formData);
         try {
-            // API 호출: 숙소 추가
             const response = await axiosRequest.requestAxios<ApiResponse>(
-                "post",
+                "patch",
                 "/admin/places",
                 {
+                    id: formData.id,
                     placeName: formData.placeName,
                     price: formData.price,
                     description: formData.description,
@@ -75,26 +80,12 @@ AdminModalProps) {
                     token: token,
                 }
             );
-            if (response.status === 201) {
-                console.log("숙소 등록 성공");
-                // onSelect(
-                //     formData.placeName,
-                //     formData.price,
-                //     formData.description,
-                //     formData.category,
-                //     formData.region,
-                //     formData.bannerImage,
-                //     formData.mainImage,
-                //     formData.detailImage,
-                //     formData.bookingURL
-                // );
-                console.log("숙소 추가", formData);
-            } else {
-                console.log("숙소 등록 실패");
+
+            if (response.status === 200) {
+                console.log("숙소 수정 성공");
             }
         } catch (error) {
-            console.log("에러", formData);
-            console.error("API 호출 오류:", error);
+            console.error("숙소 수정 실패:", error);
         }
         onClose();
     };
@@ -107,11 +98,12 @@ AdminModalProps) {
                     <button className={styles.closeBtn} onClick={onClose}>
                         <FaTimes className={styles.closeBtn} />
                     </button>
-                    <Title size="h2">숙소 리스트 추가</Title>
+                    <Title size="h2">숙소 리스트 수정</Title>
                     <div className={styles.textInput}>
                         <Title size="b">숙소명</Title>
                         <NewInput
                             type="text"
+                            value={formData.placeName}
                             onChange={(placeName) =>
                                 handleChange("placeName", placeName)
                             }
@@ -121,6 +113,7 @@ AdminModalProps) {
                         <Title size="b">가격</Title>
                         <NewInput
                             type="number"
+                            value={formData.price || ""}
                             onChange={(price) => handleChange("price", price)}
                         />
                     </div>
@@ -128,6 +121,7 @@ AdminModalProps) {
                         <Title size="b">상세설명</Title>
                         <NewInput
                             type="text"
+                            value={formData.description}
                             onChange={(description) =>
                                 handleChange("description", description)
                             }
@@ -167,6 +161,7 @@ AdminModalProps) {
                         <Title size="b">배너이미지</Title>
                         <NewInput
                             type="text"
+                            value={formData.bannerImage}
                             onChange={(bannerImage) =>
                                 handleChange("bannerImage", bannerImage)
                             }
@@ -176,6 +171,7 @@ AdminModalProps) {
                         <Title size="b">메인이미지</Title>
                         <NewInput
                             type="text"
+                            value={formData.mainImage}
                             onChange={(mainImage) =>
                                 handleChange("mainImage", mainImage)
                             }
@@ -185,6 +181,7 @@ AdminModalProps) {
                         <Title size="b">상세이미지</Title>
                         <NewInput
                             type="text"
+                            value={formData.detailImage}
                             onChange={(detailImage) =>
                                 handleChange("detailImage", detailImage)
                             }
@@ -194,6 +191,7 @@ AdminModalProps) {
                         <Title size="b">예매링크</Title>
                         <NewInput
                             type="text"
+                            value={formData.bookingURL}
                             onChange={(bookingURL) =>
                                 handleChange("bookingURL", bookingURL)
                             }

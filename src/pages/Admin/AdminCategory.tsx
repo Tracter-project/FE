@@ -1,59 +1,66 @@
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import axiosRequest from "../../api";
+import { AxiosResponse } from "axios";
 import Title from "../../components/Title/Title";
 import NewInput from "../../components/NewInput/NewInput";
 import EditedInput from "../../components/EditedInput/EditedInput";
 import Button from "../../components/Button/Button";
 import TabButton from "../../components/TabButton/TabButton";
 import styles from "./Admin.module.scss";
-import { AxiosResponse } from "axios";
 
 interface Category {
-    _id: number;
+    id: number;
     categoryName: string;
 }
-interface CategoryResponse {
-    status: number;
-    message: string;
-    category: Category[];
-}
+// interface CategoryResponse {
+//     status: number;
+//     message: string;
+//     data: Category[];
+// }
 
 export default function AdminCategory() {
     const [categories, setCategories] = useState<Category[]>([]);
     const [newCategory, setNewCategory] = useState("");
     const [cookies] = useCookies(["token"]);
     const token = cookies.token;
-    useEffect(() => {
-        console.log("전체조회다", categories);
-        fetchCategories();
-    }, []);
 
     const fetchCategories = async () => {
         try {
-            const categoryResponse: AxiosResponse<CategoryResponse> =
+            const categoryResponse: AxiosResponse =
                 await axiosRequest.requestAxios("get", "/categories");
             console.log("카테고리", categoryResponse.data);
-            setCategories(categoryResponse.data.category);
-            console.log("카테고리 조회 성공");
+            setCategories(categoryResponse.data);
+            console.log("카테고리 조회 성공", categoryResponse.data);
         } catch (error) {
             console.error("카테고리 조회 실패:", error);
         }
     };
+
+    useEffect(() => {
+        fetchCategories();
+    }, []);
 
     const editCategory = async (
         categoryId: number,
         newCategoryName: string
     ) => {
         try {
-            await axiosRequest.requestAxios(
-                "patch",
-                `/admin/categories/${categoryId}`,
-                {
-                    categoryName: newCategoryName,
-                    token: token,
-                }
+            console.log("아이디", categories);
+            const categoryToUpdate = categories.find(
+                (categories) => categories.id === categoryId
             );
+            if (!categoryToUpdate) {
+                console.error("수정할 카테고리를 찾을 수 없음");
+                return;
+            }
+            console.log("찾은 카테고리의 id", categoryToUpdate.id);
+            await axiosRequest.requestAxios("patch", `/admin/categories`, {
+                id: categoryToUpdate.id,
+                updateCategoryName: newCategoryName,
+                token: token,
+            });
+
             fetchCategories();
             console.log("수정");
         } catch (error) {
@@ -62,12 +69,18 @@ export default function AdminCategory() {
     };
 
     const deleteCategory = async (categoryId: number) => {
+        const categoryToUpdate = categories.find(
+            (categories) => categories.id === categoryId
+        );
+        if (!categoryToUpdate) {
+            console.error("수정할 카테고리를 찾을 수 없음");
+            return;
+        }
         try {
-            await axiosRequest.requestAxios(
-                "delete",
-                `/admin/categories/${categoryId}`,
-                { token: token }
-            );
+            await axiosRequest.requestAxios("delete", `/admin/categories`, {
+                id: categoryToUpdate.id,
+                token: token,
+            });
             console.log("삭제");
             fetchCategories();
         } catch (error) {
@@ -79,7 +92,7 @@ export default function AdminCategory() {
         if (newCategory) {
             console.log("추가합시다", newCategory);
             try {
-                const categoryResponse: AxiosResponse<CategoryResponse> =
+                const categoryResponse: AxiosResponse =
                     await axiosRequest.requestAxios(
                         "post",
                         "/admin/categories",
@@ -123,17 +136,15 @@ export default function AdminCategory() {
             <div className={styles.editedInputWrap}>
                 <Title size="b">기존 카테고리</Title>
                 {categories.map((category) => (
-                    <div key={category._id} className={styles.inputBox}>
+                    <div key={category.id} className={styles.inputBox}>
                         <EditedInput
                             value={category.categoryName}
                             onChange={(newCategoryName) =>
-                                editCategory(category._id, newCategoryName)
+                                editCategory(category.id, newCategoryName)
                             }
                         ></EditedInput>
                         <div className={styles.buttonWrap}>
-                            <Button
-                                onClick={() => deleteCategory(category._id)}
-                            >
+                            <Button onClick={() => deleteCategory(category.id)}>
                                 삭제
                             </Button>
                         </div>
