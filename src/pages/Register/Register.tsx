@@ -117,7 +117,7 @@ export default function Register() {
                 console.log(nicknameResponse.data.message);
                 alert("사용 가능한 닉네임입니다.");
             } else if (nicknameResponse.status === 400) {
-                console.log(nicknameResponse.data); // 이미 사용 중인 닉네임입니다.
+                console.log(nicknameResponse.data);
                 setValidMessage((prev) => ({
                     ...prev,
                     nickNameMessage: "이미 사용 중인 닉네임입니다.",
@@ -142,20 +142,21 @@ export default function Register() {
         }
         try {
             // API 호출: 이메일 중복 체크
+            const email = registerForm.email;
+
             const emailResponse: AxiosResponse =
                 await axiosRequest.requestAxios(
                     "get",
-                    "/users/validator/email",
-                    { email: registerForm.email }
+                    `/users/validator/${email}`
                 );
             if (emailResponse.status === 200) {
-                console.log(emailResponse.data.message); // 사용 가능한 이메일입니다.
-                //중복 확인 성공 시 사용 가능한 이메일 처리
+                console.log(emailResponse.data.message);
+                alert("사용가능한 이메일입니다.");
             } else if (emailResponse.status === 400) {
-                console.log(emailResponse.data.message); // 이미 사용 중인 이메일입니다.
+                console.log(emailResponse.data.message);
                 setValidMessage((prev) => ({
                     ...prev,
-                    emailMessage: "이미 사용 중인 이메일입니다.",
+                    emailMessage: "이미 사용중인 이메일입니다.",
                 }));
             }
         } catch (error) {
