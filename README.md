@@ -81,3 +81,42 @@
 |  Scss                     | React.js   | VM        |
 | React.js                  | TypeScript |           |
 | TypeScript                | mysql      |           |
+
+## 나의 역할
+FE
+- 팀장을 맡아 전체적인 회의록, 일정, 기획, 컨벤션 등 팀원간의 커뮤니케이션에 필요한 내용 노션에 정리하였습니다.
+- 피그마로 전체적인 디자인 작업을 하고 컴포넌트 분리를 하여 팀원에게 역할분담을 담당했습니다.
+- 원활한 작업을 위해 초기 프로젝트 세팅 작업을 진행했습니다.
+- 로그인, 회원가입, 관리자 페이지를 담당하였습니다.
+- 해당 API 호출 작업을 진행했습니다.
+- 공통 모달 창을 개발하여 중복되는 모달창 작업을 줄였습니다.
+
+## Collaboration Tools
+
+- Notion : 스터디 기간, 사용 기술 스택, 참고 문서, 업무 진행 사항, 회의록
+- Discord : 음성 채팅방 활용 의견 제시및 문제 해결
+- GitHub : Code Repository
+- Postman Teams : API 테스트 진행
+
+## 코드 컨벤션
+
+- 변수 : 카멜 케이스(camelCase)
+- 변수(스키마) : 파스칼 케이스(PascalCase)
+- 함수 : 카멜 케이스(camelCase)
+- 상수 : 대문자
+- 파일 : 파스칼 케이스(PascalCase)
+- 스타일 : 케밥 케이스(kebab-case)
+
+## 커밋 컨벤션
+
+- feat : 새로운 기능 추가
+- fix : 오류 수정
+- style : 코드 포맷팅, 세미콜론 누락, 코드 변경이 없는 경우, css 작업
+- refactor : 코드 로직 수정 (리팩토링)
+- docs : 문서 수정
+- test : 테스트 코드 추가
+- chore : 빌드 업무 수정, 패키지 매니저 수정 (module 추가 시)
+
+## 브랜치 전략
+
+### main - develop - feature/A
